@@ -1,0 +1,17 @@
+.site-header-link {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: inherit;
+}
+
+.site-header-logo {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.site-header-title {
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
