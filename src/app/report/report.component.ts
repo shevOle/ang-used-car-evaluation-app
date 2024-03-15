@@ -11,6 +11,4 @@ import { Report } from './interfaces/report';
 })
 export class ReportComponent {
   @Input() report!: Report;
-
-  map = 'map';
 }
