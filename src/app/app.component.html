@@ -1,11 +1,20 @@
 <header>
-  <a class="site-header-link" href="/" tabindex="1">
-    <img class="site-header-logo" src="../assets/car.png" alt="site-logo-car"/>
-    <p class="site-header-title">UCEA</p>
+  <a routerLink="/" class="site-header-logo"tabindex="1">
+    <img class="site-header-logo-img" src="../assets/car.png" alt="site-logo-car"/>
+    <p class="site-header-logo-title">UCEA</p>
   </a>
+  <nav class="site-header-nav">
+    <a routerLink="/reports" class="site-header-link" tabindex="1">
+      <p class="site-header-logo-title">Reports</p>
+    </a>
+    <a routerLink="/estimate" class="site-header-link" tabindex="1">
+      <p class="site-header-logo-title">Estimate</p>
+    </a>
+    <a routerLink="/add-report" class="site-header-link" tabindex="1">
+      <p class="site-header-logo-title">Add report</p>
+    </a>
+  </nav>
 </header>
 <main>
-  <ucea-home></ucea-home>
+  <router-outlet />
 </main>
-
-<router-outlet />
