@@ -12,6 +12,7 @@ export class ReportsListService {
     this.reportsList = Array(5)
       .fill(null)
       .map(() => ({
+        id: faker.string.uuid(),
         make: faker.vehicle.manufacturer(),
         model: faker.vehicle.model(),
         mileage: faker.number.int({ min: 0, max: 1000000 }),
@@ -24,5 +25,9 @@ export class ReportsListService {
 
   getReports(): Report[] {
     return this.reportsList;
+  }
+
+  getReportById(id: string): Report | undefined {
+    return this.reportsList.find((report) => report.id === id);
   }
 }
