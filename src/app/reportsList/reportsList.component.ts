@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { faker } from '@faker-js/faker';
+import { ReportsListService } from './reportsList.service';
 import { Report } from '../report/interfaces/report';
 import { ReportComponent } from '../report/report.component';
 
@@ -12,15 +12,10 @@ import { ReportComponent } from '../report/report.component';
   styleUrl: './reportsList.component.scss',
 })
 export class ReportsListComponent {
-  reportsList: Report[] = Array(5)
-    .fill(null)
-    .map(() => ({
-      make: faker.vehicle.manufacturer(),
-      model: faker.vehicle.model(),
-      mileage: faker.number.int({ min: 0, max: 1000000 }),
-      year: faker.number.int({ max: new Date().getFullYear(), min: 1990 }),
-      price: faker.number.int({ min: 0, max: 1000000 }),
-      lat: faker.location.latitude(),
-      lng: faker.location.longitude(),
-    }));
+  protected reportsList: Report[] = [];
+  protected reportsListService: ReportsListService = inject(ReportsListService);
+
+  constructor() {
+    this.reportsList = this.reportsListService.getReports();
+  }
 }
