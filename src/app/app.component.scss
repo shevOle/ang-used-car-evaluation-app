@@ -1,20 +1,37 @@
-.site-header-link {
+header {
+    display: flex;
+    align-items: center;
+}
+
+.site-header-logo {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: inherit;
     width: fit-content;
-    padding: 10px;
+    margin-right: 100px;
 }
 
-.site-header-logo {
+.site-header-logo-img {
     padding: 5px;
 }
 
-.site-header-title {
+.site-header-logo-title {
     font-size: 16px;
     font-weight: 800;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
+}
+
+.site-header-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.site-header-link {
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
 }
