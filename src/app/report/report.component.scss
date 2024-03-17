@@ -9,7 +9,7 @@
 
 .report-list-item:hover,
 .report-list-item:focus {
-    border: 2px solid blue;
+    border: 2px solid black;
     cursor: pointer;
     outline: none;
 }
@@ -20,6 +20,8 @@
 
 .report-card-map {
     height: 200px;
-    background-color: gray;
+    background-image: url('../../assets/google-map-dull.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-bottom: 10px;
 }
