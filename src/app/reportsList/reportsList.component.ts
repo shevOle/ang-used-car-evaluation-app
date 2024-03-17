@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReportsListService } from './reportsList.service';
+import { ReportService } from '../services/reportsList.service';
 import { Report } from '../report/interfaces/report';
 import { ReportComponent } from '../report/report.component';
 
@@ -13,7 +13,7 @@ import { ReportComponent } from '../report/report.component';
 })
 export class ReportsListComponent {
   protected reportsList: Report[] = [];
-  protected reportsListService: ReportsListService = inject(ReportsListService);
+  protected reportsListService: ReportService = inject(ReportService);
 
   constructor() {
     this.reportsList = this.reportsListService.getReports();

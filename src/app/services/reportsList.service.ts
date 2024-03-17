@@ -5,7 +5,7 @@ import { Report } from '../report/interfaces/report';
 @Injectable({
   providedIn: 'root',
 })
-export class ReportsListService {
+export class ReportService {
   protected reportsList: Report[] = [];
 
   constructor() {
@@ -20,6 +20,7 @@ export class ReportsListService {
         price: faker.number.int({ min: 0, max: 1000000 }),
         lat: faker.location.latitude(),
         lng: faker.location.longitude(),
+        description: faker.commerce.productDescription(),
       }));
   }
 
