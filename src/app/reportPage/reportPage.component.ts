@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Report } from '../report/interfaces/report';
-import { ReportService } from '../services/reportsList.service';
+import { ReportService } from '../services/reports.service';
 
 const moneyFormat = new Intl.NumberFormat('en-US', {
   style: 'currency',

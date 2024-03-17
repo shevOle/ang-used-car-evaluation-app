@@ -9,7 +9,7 @@ export class ReportService {
   protected reportsList: Report[] = [];
 
   constructor() {
-    this.reportsList = Array(5)
+    this.reportsList = Array(20)
       .fill(null)
       .map(() => ({
         id: faker.string.uuid(),

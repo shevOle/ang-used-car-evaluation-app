@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReportService } from '../services/reportsList.service';
+import { ReportService } from '../services/reports.service';
 import { Report } from '../report/interfaces/report';
 import { ReportComponent } from '../report/report.component';
 
