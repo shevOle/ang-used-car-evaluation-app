@@ -18,10 +18,17 @@ header {
 }
 
 .site-header-logo-title {
-    font-size: 16px;
-    font-weight: 800;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
+}
+
+.site-header-nav .site-header-logo-title {
+    font-size: 20px;
+}
+
+.site-header-nav .site-header-logo-title:hover,
+.site-header-nav .site-header-logo-title:focus {
+    text-decoration: underline;
 }
 
 .site-header-nav {
