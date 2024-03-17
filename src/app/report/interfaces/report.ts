@@ -7,4 +7,5 @@ export interface Report {
   price: number;
   lat: number;
   lng: number;
+  description: string;
 }
