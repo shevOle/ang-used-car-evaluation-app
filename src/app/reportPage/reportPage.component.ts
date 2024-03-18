@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Report } from '../interfaces/report';
 import { ReportService } from '../services/reports.service';
-
-const moneyFormat = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
+import { formatMoney } from '../helpers/formatMoney';
 
 @Component({
   selector: 'ucea-reportPage',
@@ -26,7 +22,7 @@ export class ReportPageComponent {
     this.report = this.reportsService.getReportById(reportId);
 
     if (this.report?.price) {
-      this.report.price = moneyFormat.format(this.report.price) as any;
+      this.report.price = formatMoney.format(this.report.price) as any;
     }
   }
 }
