@@ -1,0 +1,57 @@
+<section class="estimate-page">
+  <form
+    class="estimate-page-form"
+    [formGroup]="estimateForm"
+    (submit)="submitEstimateForm()"
+  >
+    <div class="estimate-page-form-input-box text">
+      <div class="estimate-page-form-input">
+        <label for="estimate-page-input-make">Manufacturer</label>
+        <input
+          id="estimate-page-input-make"
+          type="text"
+          formControlName="make"
+        />
+      </div>
+
+      <div class="estimate-page-form-input">
+        <label for="estimate-page-input-model">Model</label>
+        <input
+          id="estimate-page-input-model"
+          type="text"
+          formControlName="model"
+        />
+      </div>
+    </div>
+
+    <div class="estimate-page-form-input-box number">
+      <div class="estimate-page-form-input">
+        <label for="estimate-page-input-year">Production year</label>
+        <input
+          id="estimate-page-input-year"
+          type="text"
+          formControlName="year"
+        />
+      </div>
+
+      <div class="estimate-page-form-input">
+        <label for="estimate-page-input-lat">Latitude</label>
+        <input id="estimate-page-input-lat" type="text" formControlName="lat" />
+      </div>
+
+      <div class="estimate-page-form-input">
+        <label for="estimate-page-input-lng">Longitude</label>
+        <input id="estimate-page-input-lng" type="text" formControlName="lng" />
+      </div>
+    </div>
+
+    <button type="submit" class="submit-button">Get estimate!</button>
+  </form>
+
+  <section *ngIf="similarReports.length">
+    <ucea-report
+      *ngFor="let report of similarReports"
+      [report]="report"
+    ></ucea-report>
+  </section>
+</section>
