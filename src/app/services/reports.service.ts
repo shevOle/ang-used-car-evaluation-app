@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { Report } from '../interfaces/report';
+import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,19 @@ export class ReportService {
 
   getReportById(id: string): Report | undefined {
     return this.reportsList.find((report) => report.id === id);
+  }
+
+  getEstimate(params: IReportEstimateInput) {
+    return this.reportsList
+      .filter((report) => {
+        if (report.make !== params.make) return false;
+        if (report.model !== params.model) return false;
+        if (Math.abs(report.year - params.year) > 3) return false;
+        if (Math.abs(report.lat - params.lat) > 5) return false;
+        if (Math.abs(report.lng - params.lng) > 5) return false;
+
+        return true;
+      })
+      .sort((a, b) => a.mileage - b.mileage);
   }
 }
