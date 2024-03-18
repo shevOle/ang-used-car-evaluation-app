@@ -36,8 +36,8 @@ export class ReportService {
   getEstimate(params: IReportEstimateInput) {
     return this.reportsList
       .filter((report) => {
-        if (report.make !== params.make) return false;
-        if (report.model !== params.model) return false;
+        if (report.make.toLowerCase() !== params.make) return false;
+        if (report.model.toLowerCase() !== params.model) return false;
         if (Math.abs(report.year - params.year) > 3) return false;
         if (Math.abs(report.lat - params.lat) > 5) return false;
         if (Math.abs(report.lng - params.lng) > 5) return false;
