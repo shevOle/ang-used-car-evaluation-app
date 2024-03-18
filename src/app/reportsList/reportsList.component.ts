@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportService } from '../services/reports.service';
-import { Report } from '../report/interfaces/report';
+import { Report } from '../interfaces/report';
 import { ReportComponent } from '../report/report.component';
 
 @Component({

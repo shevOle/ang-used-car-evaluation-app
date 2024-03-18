@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Report } from './interfaces/report';
+import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-report',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { Report } from '../report/interfaces/report';
+import { Report } from '../interfaces/report';
 
 @Injectable({
   providedIn: 'root',
