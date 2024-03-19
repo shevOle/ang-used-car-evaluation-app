@@ -21,8 +21,8 @@ import { formatMoney } from '../helpers/formatMoney';
 export class ReportEstimateComponent {
   reportsService: ReportService = inject(ReportService);
   estimateForm = new FormGroup({
-    make: new FormControl('', { validators: [Validators.requiredTrue] }),
-    model: new FormControl('', { validators: [Validators.requiredTrue] }),
+    make: new FormControl('', { validators: [Validators.required] }),
+    model: new FormControl('', { validators: [Validators.required] }),
     year: new FormControl(1990, {
       validators: [
         Validators.required,
@@ -47,6 +47,30 @@ export class ReportEstimateComponent {
   });
   similarReports: Report[] = [];
   estimatePrice: string = '0';
+
+  get make() {
+    return this.estimateForm.get('make')!;
+  }
+
+  get model() {
+    return this.estimateForm.get('model')!;
+  }
+
+  get year() {
+    return this.estimateForm.get('year')!;
+  }
+
+  get lat() {
+    return this.estimateForm.get('lat')!;
+  }
+
+  get lng() {
+    return this.estimateForm.get('lng')!;
+  }
+
+  get currentYear() {
+    return new Date().getFullYear();
+  }
 
   submitEstimateForm() {
     const reports = this.reportsService.getEstimate({
