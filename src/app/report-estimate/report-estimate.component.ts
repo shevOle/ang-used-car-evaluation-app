@@ -56,7 +56,6 @@ export class ReportEstimateComponent {
       lat: this.estimateForm.value.lat!,
       lng: this.estimateForm.value.lng!,
     });
-    console.log('reports', reports);
 
     if (reports.length) {
       this.similarReports = reports;
