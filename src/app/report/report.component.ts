@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-report',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss',
 })

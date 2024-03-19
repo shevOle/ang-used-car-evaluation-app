@@ -1,3 +1,9 @@
 <section class="report-list">
-    <ucea-report *ngFor="let report of reportsList" [report]="report"></ucea-report>
+  <div
+    *ngFor="let report of reportsList"
+    [routerLink]="['/reports', report.id]"
+    class="card-clickable"
+  >
+    <ucea-report [report]="report"></ucea-report>
+  </div>
 </section>

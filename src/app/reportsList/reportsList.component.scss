@@ -5,3 +5,15 @@
     flex-wrap: wrap;
     padding: 40px;
 }
+
+.card-clickable {
+    width: fit-content;
+    margin: 10px;
+}
+
+.card-clickable:hover,
+.card-clickable:focus {
+    cursor: pointer;
+    outline: none;
+    box-shadow: 10px 5px 5px grey;
+}

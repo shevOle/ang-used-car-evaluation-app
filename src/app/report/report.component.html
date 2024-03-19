@@ -1,8 +1,19 @@
-<div [routerLink]="report.id" class="report-list-item" tabindex="1">
-    <div class="report-card-map"></div>
-    <div class="report-card-field"><span class="report-list-item-title">Manufacturer:</span> {{report.make}}</div>
-    <div class="report-card-field"><span class="report-list-item-title">Model:</span> {{report.model}}</div>
-    <div class="report-card-field"><span class="report-list-item-title">Mileage:</span> {{report.mileage}}</div>
-    <div class="report-card-field"><span class="report-list-item-title">Production year:</span> {{report.year}}</div>
-    <div class="report-card-field"><span class="report-list-item-title">Price:</span> ${{report.price}}</div>
+<div class="report-list-item" tabindex="1">
+  <div class="report-card-map"></div>
+  <div class="report-card-field">
+    <span class="report-list-item-title">Manufacturer:</span> {{ report.make }}
+  </div>
+  <div class="report-card-field">
+    <span class="report-list-item-title">Model:</span> {{ report.model }}
+  </div>
+  <div class="report-card-field">
+    <span class="report-list-item-title">Mileage:</span> {{ report.mileage }}
+  </div>
+  <div class="report-card-field">
+    <span class="report-list-item-title">Production year:</span>
+    {{ report.year }}
+  </div>
+  <div class="report-card-field">
+    <span class="report-list-item-title">Price:</span> ${{ report.price }}
+  </div>
 </div>

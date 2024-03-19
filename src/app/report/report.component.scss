@@ -1,17 +1,8 @@
 .report-list-item {
     width: 250px;
-    border: 2px solid transparent;
-    box-shadow: 10px 5px 5px grey;
-    margin: 10px;
     padding: 10px;
     border-radius: 5px;
-}
-
-.report-list-item:hover,
-.report-list-item:focus {
     border: 2px solid black;
-    cursor: pointer;
-    outline: none;
 }
 
 .report-list-item-title {
