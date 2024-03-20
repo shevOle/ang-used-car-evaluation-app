@@ -114,16 +114,17 @@
     </button>
   </form>
 
-  <div
-    *ngIf="similarReports.length; else elseBlock"
-    class="estimate-page-price"
-  >
-    Estimate price for {{ estimateForm.value.make }}
-    {{ estimateForm.value.model }} manufactured in
-    {{ estimateForm.value.year }} is
-    <span>{{ estimatePrice }}</span>
+  <div *ngIf="similarReports.length" class="estimate-page-price">
+    <p>
+      Estimate price for {{ estimateForm.value.make }}
+      {{ estimateForm.value.model }} manufactured in
+      {{ estimateForm.value.year }} is:
+    </p>
+    <p class="price-tag">{{ estimatePrice }}</p>
   </div>
-  <ng-template #elseBlock>No reports found for your search</ng-template>
+  <div *ngIf="!similarReports.length" class="estimate-page-price">
+    No reports found for your search
+  </div>
 
   <!-- <section *ngIf="similarReports.length">
     <ucea-report
