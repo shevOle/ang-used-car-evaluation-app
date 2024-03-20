@@ -1,73 +1,24 @@
 .estimate-page {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   padding: 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 20vh 80vh;
+  gap: 15px;
 }
 
 .estimate-page-form {
-  width: 40vw;
-  min-width: 200px;
-  text-align: center;
+  grid-area: 1/1;
 }
 
 .estimate-page-price {
-  display: flex;
-  flex-direction: column;
+  grid-area: 1/2;
+}
+
+.estimate-page-reports {
+  display: grid;
+  grid-area: 2/1 / span 1 / span 2;
+  grid-template-columns: 30% 30% 30%;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  width: 40vw;
-  min-width: 200px;
-
-  p {
-    margin: 0;
-  }
-
-  .price-tag {
-    font-size: 24px;
-    color: green;
-    margin-top: 10px;
-  }
-}
-
-.estimate-page-form-input {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  padding: 5px;
-}
-
-.estimate-page-form-input-errors {
-  display: flex;
-  font-size: 14px;
-  color: red;
-
-  p {
-    margin: 10px 10px 0 0;
-  }
-}
-
-.estimate-page-form-input-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .number + input {
-    width: 50px;
-  }
-}
-
-#estimate-page-input-year {
-  width: 100px;
-}
-
-#estimate-page-input-lat,
-#estimate-page-input-lng {
-  width: 60px;
-}
-
-.submit-button {
-  margin: 10px 0;
-  padding: 5px;
+  gap: 15px;
 }
