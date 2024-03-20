@@ -1,1 +1,73 @@
-    
+.estimate-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+.estimate-page-form {
+  width: 40vw;
+  min-width: 200px;
+  text-align: center;
+}
+
+.estimate-page-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  width: 40vw;
+  min-width: 200px;
+
+  p {
+    margin: 0;
+  }
+
+  .price-tag {
+    font-size: 24px;
+    color: green;
+    margin-top: 10px;
+  }
+}
+
+.estimate-page-form-input {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.estimate-page-form-input-errors {
+  display: flex;
+  font-size: 14px;
+  color: red;
+
+  p {
+    margin: 10px 10px 0 0;
+  }
+}
+
+.estimate-page-form-input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .number + input {
+    width: 50px;
+  }
+}
+
+#estimate-page-input-year {
+  width: 100px;
+}
+
+#estimate-page-input-lat,
+#estimate-page-input-lng {
+  width: 60px;
+}
+
+.submit-button {
+  margin: 10px 0;
+  padding: 5px;
+}
