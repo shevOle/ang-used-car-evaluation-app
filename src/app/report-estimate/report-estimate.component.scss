@@ -1,24 +1,74 @@
 .estimate-page {
   padding: 40px;
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 20vh 80vh;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 30vh 5vh 65vh;
+  align-items: center;
+  justify-content: center;
   gap: 15px;
 }
 
 .estimate-page-form {
   grid-area: 1/1;
+  min-width: 300px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .estimate-page-price {
-  grid-area: 1/2;
+  grid-area: 2 / 1 / span 1 / span 2;
+  text-align: center;
+  font-size: 28px;
+
+  p {
+    margin: 0;
+  }
 }
 
 .estimate-page-reports {
-  display: grid;
-  grid-area: 2/1 / span 1 / span 2;
-  grid-template-columns: 30% 30% 30%;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 15px;
+  height: 100%;
+  grid-area: 3 / 1 / span 1 / span 2;
+}
+
+.estimate-page-reports-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, 280px);
+  justify-content: center;
+  row-gap: 10px;
+  column-gap: 20px;
+  overflow-y: auto;
+}
+
+.estimate-page-form-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
+
+.submit-button {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 7px;
+}
+
+#estimate-page-map {
+  height: 100%;
+  grid-area: 1/2;
+  background-image: url("../../assets/google-map-dull.png");
+}
+
+.estimate-page-form-input-errors {
+  color: red;
+  font-size: 14px;
+
+  p {
+    margin: 0;
+  }
 }
