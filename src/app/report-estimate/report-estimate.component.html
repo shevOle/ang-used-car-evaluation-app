@@ -4,105 +4,34 @@
     [formGroup]="estimateForm"
     (submit)="submitEstimateForm()"
   >
-    <div class="estimate-page-form-input-box text">
-      <div class="estimate-page-form-input">
-        <label for="estimate-page-input-make">Manufacturer</label>
-        <input
-          id="estimate-page-input-make"
-          type="text"
-          formControlName="make"
-          required
-        />
-        <div
-          class="estimate-page-form-input-errors"
-          *ngIf="make.invalid && make.touched && make.dirty"
-        >
-          <p *ngIf="make.errors?.['required']">Field is required.</p>
-          <p *ngIf="make.errors?.['invalid']">Field should be a string.</p>
-        </div>
-      </div>
-
-      <div class="estimate-page-form-input">
-        <label for="estimate-page-input-model">Model</label>
-        <input
-          id="estimate-page-input-model"
-          type="text"
-          formControlName="model"
-          required
-        />
-      </div>
-      <div
-        class="estimate-page-form-input-errors"
-        *ngIf="model.invalid && model.touched && model.dirty"
-      >
-        <p *ngIf="model.errors?.['required']">Field is required.</p>
-        <p *ngIf="model.errors?.['invalid']">Field should be a string.</p>
-      </div>
+    <div class="estimate-page-form-input">
+      <label for="estimate-page-input-make">Manufacturer:</label>
+      <input
+        id="estimate-page-input-make"
+        type="text"
+        formControlName="make"
+        required
+      />
     </div>
 
-    <div class="estimate-page-form-input-box number">
-      <div class="estimate-page-form-input">
-        <label for="estimate-page-input-year">Production year</label>
-        <input
-          id="estimate-page-input-year"
-          type="number"
-          formControlName="year"
-          required
-        />
-        <div
-          class="estimate-page-form-input-errors"
-          *ngIf="year.invalid && year.touched && year.dirty"
-        >
-          <p *ngIf="year.errors?.['required']">Field is required.</p>
-          <p *ngIf="year.errors?.['invalid']">Specify a year number.</p>
-          <p *ngIf="year.errors?.['max']">
-            Year number can't be greater than {{ currentYear }}.
-          </p>
-          <p *ngIf="year.errors?.['min']">
-            Year number can't be less than 1990.
-          </p>
-        </div>
-      </div>
+    <div class="estimate-page-form-input">
+      <label for="estimate-page-input-model">Model:</label>
+      <input
+        id="estimate-page-input-model"
+        type="text"
+        formControlName="model"
+        required
+      />
+    </div>
 
-      <div class="estimate-page-form-input">
-        <label for="estimate-page-input-lat">Latitude</label>
-        <input
-          id="estimate-page-input-lat"
-          type="number"
-          formControlName="lat"
-          required
-        />
-        <div
-          class="estimate-page-form-input-errors"
-          *ngIf="lat.invalid && lat.touched && lat.dirty"
-        >
-          <p *ngIf="lat.errors?.['required']">Field is required.</p>
-          <p *ngIf="lat.errors?.['invalid']">Specify a valid latitude value.</p>
-          <p *ngIf="lat.errors?.['min']">Minimum value is -90.</p>
-          <p *ngIf="lat.errors?.['max']">Maximum value is 90.</p>
-        </div>
-      </div>
-
-      <div class="estimate-page-form-input">
-        <label for="estimate-page-input-lng">Longitude</label>
-        <input
-          id="estimate-page-input-lng"
-          type="number"
-          formControlName="lng"
-          required
-        />
-        <div
-          class="estimate-page-form-input-errors"
-          *ngIf="lng.invalid && lng.touched && lng.dirty"
-        >
-          <p *ngIf="lng.errors?.['required']">Field is required.</p>
-          <p *ngIf="lng.errors?.['invalid']">
-            Specify a valid longitude value.
-          </p>
-          <p *ngIf="lng.errors?.['min']">Minimum value is -180.</p>
-          <p *ngIf="lng.errors?.['max']">Maximum value is 180.</p>
-        </div>
-      </div>
+    <div class="estimate-page-form-input">
+      <label for="estimate-page-input-year">Production year:</label>
+      <input
+        id="estimate-page-input-year"
+        type="number"
+        formControlName="year"
+        required
+      />
     </div>
 
     <button
@@ -112,24 +41,71 @@
     >
       Get estimate!
     </button>
+
+    <div class="estimate-page-form-input-errors">
+      <p
+        *ngIf="make.invalid && make.touched && make.dirty && make.errors?.['required']"
+      >
+        Manufacturer is required.
+      </p>
+      <p
+        *ngIf="make.invalid && make.touched && make.dirty && make.errors?.['invalid']"
+      >
+        Manufacturer should be a string.
+      </p>
+      <p
+        *ngIf="model.invalid && model.touched && model.dirty && model.errors?.['required']"
+      >
+        Model is required.
+      </p>
+      <p
+        *ngIf="model.invalid && model.touched && model.dirty && model.errors?.['invalid']"
+      >
+        Model should be a string.
+      </p>
+      <p
+        *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['required']"
+      >
+        Production year is required.
+      </p>
+      <p
+        *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['invalid']"
+      >
+        Production year should be a number.
+      </p>
+      <p
+        *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['max']"
+      >
+        Production year can't be greater than {{ currentYear }}.
+      </p>
+      <p
+        *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['min']"
+      >
+        Production year can't be less than 1990.
+      </p>
+    </div>
   </form>
+
+  <div id="estimate-page-map"></div>
 
   <div *ngIf="similarReports.length" class="estimate-page-price">
     <p>
       Estimate price for {{ estimateForm.value.make }}
       {{ estimateForm.value.model }} manufactured in
-      {{ estimateForm.value.year }} is:
+      {{ estimateForm.value.year }} is {{ estimatePrice }}
     </p>
-    <p class="price-tag">{{ estimatePrice }}</p>
   </div>
   <div *ngIf="!similarReports.length" class="estimate-page-price">
     No reports found for your search
   </div>
 
-  <!-- <section *ngIf="similarReports.length">
-    <ucea-report
-      *ngFor="let report of similarReports"
-      [report]="report"
-    ></ucea-report>
-  </section> -->
+  <div *ngIf="similarReports.length" class="estimate-page-reports">
+    <h4>Reports that does satisfy your requirements:</h4>
+    <div class="estimate-page-reports-grid">
+      <ucea-report
+        *ngFor="let report of similarReports"
+        [report]="report"
+      ></ucea-report>
+    </div>
+  </div>
 </section>
