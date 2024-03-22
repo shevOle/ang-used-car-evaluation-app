@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
+import { IAddReport } from '../interfaces/addReport-input';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +46,13 @@ export class ReportService {
         return true;
       })
       .sort((a, b) => a.mileage - b.mileage);
+  }
+
+  addReport(params: IAddReport) {
+    const id = faker.string.uuid();
+    this.reportsList.push({
+      id,
+      ...params,
+    });
   }
 }
