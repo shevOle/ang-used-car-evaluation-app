@@ -27,7 +27,7 @@ export class ReportEstimateComponent {
       validators: [
         Validators.required,
         Validators.min(1990),
-        Validators.max(new Date().getFullYear()),
+        Validators.max(this.currentYear),
       ],
     }),
     lat: new FormControl(0, {
