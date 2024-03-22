@@ -1,0 +1,95 @@
+<form
+  class="estimate-page-form"
+  [formGroup]="addRepotForm"
+  (submit)="submitForm()"
+>
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-make">Manufacturer:</label>
+    <input
+      id="estimate-page-input-make"
+      type="text"
+      formControlName="make"
+      required
+    />
+  </div>
+
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-model">Model:</label>
+    <input
+      id="estimate-page-input-model"
+      type="text"
+      formControlName="model"
+      required
+    />
+  </div>
+
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-year">Production year:</label>
+    <input
+      id="estimate-page-input-year"
+      type="number"
+      formControlName="year"
+      required
+    />
+  </div>
+
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-price">Sold price:</label>
+    <input
+      id="estimate-page-input-price"
+      type="number"
+      formControlName="price"
+      required
+    />
+  </div>
+
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-description">Description:</label>
+    <textarea
+      id="estimate-page-input-description"
+      type="text"
+      maxlength="150"
+      rows="10"
+      formControlName="description"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="submit-button" [disabled]="!addRepotForm.valid">
+    Add report
+  </button>
+
+  <div class="estimate-page-form-input-errors">
+    <p *ngIf="checkFormField('make', 'required')">Manufacturer is required.</p>
+    <p *ngIf="checkFormField('make', 'invalid')">
+      Manufacturer should be a string.
+    </p>
+    <p *ngIf="checkFormField('model', 'required')">Model is required.</p>
+    <p *ngIf="checkFormField('model', 'invalid')">Model should be a string.</p>
+    <p *ngIf="checkFormField('year', 'required')">
+      Production year is required.
+    </p>
+    <p *ngIf="checkFormField('year', 'invalid')">
+      Production year should be a number.
+    </p>
+    <p *ngIf="checkFormField('year', 'max')">
+      Production year can't be greater than {{ currentYear }}.
+    </p>
+    <p *ngIf="checkFormField('year', 'min')">
+      Production year can't be less than 1990.
+    </p>
+    <p *ngIf="checkFormField('price', 'required')">Price is required.</p>
+    <p *ngIf="checkFormField('price', 'invalid')">Price should be a number.</p>
+    <p *ngIf="checkFormField('price', 'max')">
+      Price can't be greater than $1000000.
+    </p>
+    <p *ngIf="checkFormField('price', 'min')">Price can't be less than $0.</p>
+    <p *ngIf="checkFormField('mileage', 'required')">Price is required.</p>
+    <p *ngIf="checkFormField('mileage', 'invalid')">
+      Price should be a number.
+    </p>
+    <p *ngIf="checkFormField('mileage', 'max')">
+      Price can't be greater than $1000000.
+    </p>
+    <p *ngIf="checkFormField('mileage', 'min')">Price can't be less than $0.</p>
+  </div>
+</form>
