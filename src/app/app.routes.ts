@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { ReportsListComponent } from './reportsList/reportsList.component';
 import { ReportPageComponent } from './reportPage/reportPage.component';
 import { ReportEstimateComponent } from './report-estimate/report-estimate.component';
+import { AddReportComponent } from './add-report/add-report.component';
 
 export const routes: Routes = [
   {
@@ -24,5 +25,10 @@ export const routes: Routes = [
     path: 'estimate',
     component: ReportEstimateComponent,
     title: 'Get estimate price',
+  },
+  {
+    path: 'add-report',
+    component: AddReportComponent,
+    title: 'Add report',
   },
 ];
