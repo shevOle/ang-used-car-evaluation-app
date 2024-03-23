@@ -124,5 +124,7 @@ export class AddReportComponent {
       lat: 0,
       lng: 0,
     });
+
+    this.addRepotForm.reset();
   }
 }
