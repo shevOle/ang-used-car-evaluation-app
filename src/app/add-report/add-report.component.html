@@ -24,7 +24,7 @@
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-year">Production year:</label>
+    <label for="estimate-page-input-year">Year:</label>
     <input
       id="estimate-page-input-year"
       type="number"
@@ -34,7 +34,17 @@
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-price">Sold price:</label>
+    <label for="estimate-page-input-mileage">Mileage:</label>
+    <input
+      id="estimate-page-input-mileage"
+      type="number"
+      formControlName="mileage"
+      required
+    />
+  </div>
+
+  <div class="estimate-page-form-input">
+    <label for="estimate-page-input-price">Price:</label>
     <input
       id="estimate-page-input-price"
       type="number"
@@ -83,13 +93,15 @@
       Price can't be greater than $1000000.
     </p>
     <p *ngIf="checkFormField('price', 'min')">Price can't be less than $0.</p>
-    <p *ngIf="checkFormField('mileage', 'required')">Price is required.</p>
+    <p *ngIf="checkFormField('mileage', 'required')">Mileage is required.</p>
     <p *ngIf="checkFormField('mileage', 'invalid')">
-      Price should be a number.
+      Mileage should be a number.
     </p>
     <p *ngIf="checkFormField('mileage', 'max')">
-      Price can't be greater than $1000000.
+      Mileage can't be greater than 1000000 miles.
     </p>
-    <p *ngIf="checkFormField('mileage', 'min')">Price can't be less than $0.</p>
+    <p *ngIf="checkFormField('mileage', 'min')">
+      Mileage can't be less than 0 miles.
+    </p>
   </div>
 </form>
