@@ -28,14 +28,21 @@ type FormControlFieldName =
 export class AddReportComponent {
   reportsService: ReportService = inject(ReportService);
   addRepotForm = new FormGroup({
-    make: new FormControl('', { validators: [Validators.required] }),
-    model: new FormControl('', { validators: [Validators.required] }),
+    make: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    model: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     year: new FormControl(1990, {
       validators: [
         Validators.required,
         Validators.min(1990),
         Validators.max(this.currentYear),
       ],
+      nonNullable: true,
     }),
     price: new FormControl(0, {
       validators: [
@@ -43,6 +50,7 @@ export class AddReportComponent {
         Validators.min(0),
         Validators.max(1000000),
       ],
+      nonNullable: true,
     }),
     mileage: new FormControl(0, {
       validators: [
@@ -50,6 +58,7 @@ export class AddReportComponent {
         Validators.min(0),
         Validators.max(1000000),
       ],
+      nonNullable: true,
     }),
     description: new FormControl(''),
     lat: new FormControl(0, {
@@ -58,6 +67,7 @@ export class AddReportComponent {
         Validators.min(-90),
         Validators.max(90),
       ],
+      nonNullable: true,
     }),
     lng: new FormControl(0, {
       validators: [
@@ -65,6 +75,7 @@ export class AddReportComponent {
         Validators.min(-180),
         Validators.max(180),
       ],
+      nonNullable: true,
     }),
   });
 
