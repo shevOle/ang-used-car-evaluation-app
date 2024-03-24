@@ -26,8 +26,20 @@ export class ReportService {
       }));
   }
 
-  getReports(): Report[] {
-    return this.reportsList;
+  getReports(filter?: Partial<{ [key in keyof Report]: string }>): Report[] {
+    if (!filter) return this.reportsList;
+
+    const filterFields = Object.keys(filter).filter(
+      (key) => !!filter[key as keyof Report]
+    );
+    return this.reportsList.filter(
+      (report) =>
+        !filterFields.some(
+          (field) =>
+            report[field as keyof Report]?.toString()?.toLowerCase() !==
+            filter[field as keyof Report]?.toString()?.toLowerCase()
+        )
+    );
   }
 
   getReportById(id: string): Report | undefined {
