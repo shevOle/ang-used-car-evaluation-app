@@ -1,9 +1,37 @@
-<section class="report-list">
-  <div
-    *ngFor="let report of reportsList"
-    [routerLink]="['/reports', report.id]"
-    class="card-clickable"
+<section>
+  <form
+    class="report-list-filter"
+    [formGroup]="filterForm"
+    (submit)="applyFilter()"
+    (reset)="resetFilter()"
   >
-    <ucea-report [report]="report"></ucea-report>
+    <div class="form-input">
+      <label for="filter-input-make">Manufacturer:</label>
+      <input type="text" id="filter-input-make" formControlName="make" />
+    </div>
+    <div class="form-input">
+      <label for="filter-input-model">Model:</label>
+      <input type="text" id="filter-input-model" formControlName="model" />
+    </div>
+    <div class="form-input">
+      <label for="filter-input-year">Year: </label>
+      <select formControlName="year" name="year" id="filter-input-year">
+        <option *ngFor="let year of availableYears">{{ year }}</option>
+      </select>
+    </div>
+
+    <div class="form-buttons">
+      <button class="submit-button" type="submit">Apply</button>
+      <button class="reset-button" type="reset">Reset</button>
+    </div>
+  </form>
+  <div class="report-list">
+    <div
+      *ngFor="let report of reportsList"
+      [routerLink]="['/reports', report.id]"
+      class="card-clickable"
+    >
+      <ucea-report [report]="report"></ucea-report>
+    </div>
   </div>
 </section>
