@@ -1,9 +1,15 @@
+$break-point-m: 840px;
+$break-point-s: 600px;
+
+section {
+  padding: 40px;
+}
+
 .report-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 280px);
   justify-content: center;
   gap: 15px;
-  padding: 40px;
 }
 
 .card-clickable {
@@ -16,4 +22,47 @@
   cursor: pointer;
   outline: none;
   box-shadow: 10px 5px 5px grey;
+}
+
+.report-list-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto 10px;
+  gap: 10px;
+}
+
+.form-input {
+  display: flex;
+  gap: 5px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: $break-point-m) {
+  .report-list-filter {
+    max-width: 600px;
+    flex-wrap: wrap;
+  }
+
+  .form-buttons {
+    width: 100%;
+  }
+
+  .form-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: $break-point-s) {
+  .report-list-filter {
+    width: 100%;
+    flex-direction: column;
+  }
 }
