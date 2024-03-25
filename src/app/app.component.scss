@@ -1,9 +1,12 @@
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: sticky;
   top: 8px;
   background-color: rgba($color: #fff, $alpha: 0.7);
+  width: 80vw;
+  margin: 0 auto;
 }
 
 .site-header-logo {
@@ -13,7 +16,6 @@ header {
   justify-content: center;
   color: inherit;
   width: fit-content;
-  margin-right: 100px;
 }
 
 .site-header-logo-img {
@@ -36,7 +38,6 @@ header {
 
 .site-header-nav {
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
@@ -44,4 +45,19 @@ header {
   padding: 10px;
   text-decoration: none;
   color: inherit;
+}
+
+.button-logout {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  background-image: url("../assets/logout.png");
+}
+
+.site-header-profile {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px;
 }
