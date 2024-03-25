@@ -1,6 +1,10 @@
 <header>
-  <a routerLink="/" class="site-header-logo"tabindex="1">
-    <img class="site-header-logo-img" src="../assets/car.png" alt="site-logo-car"/>
+  <a routerLink="/" class="site-header-logo" tabindex="1">
+    <img
+      class="site-header-logo-img"
+      src="../assets/car.png"
+      alt="site-logo-car"
+    />
     <p class="site-header-logo-title">UCEA</p>
   </a>
   <nav class="site-header-nav">
@@ -13,6 +17,14 @@
     <a routerLink="/add-report" class="site-header-link" tabindex="1">
       <p class="site-header-logo-title">Add report</p>
     </a>
+    <a routerLink="/profile" class="site-header-profile">
+      <img
+        class="site-header-profile-img"
+        src="../assets/user.png"
+        alt="profile-page-button"
+      />
+    </a>
+    <button type="button" class="button-logout" (click)="logOut()"></button>
   </nav>
 </header>
 <main>
