@@ -17,15 +17,25 @@
     <a routerLink="/add-report" class="site-header-link" tabindex="1">
       <p class="site-header-logo-title">Add report</p>
     </a>
-    <a routerLink="/profile" class="site-header-profile">
-      <img
-        class="site-header-profile-img"
-        src="../assets/user.png"
-        alt="profile-page-button"
-      />
+    <a routerLink="/profile" class="site-header-link" tabindex="1">
+      <p class="site-header-logo-title">Profile</p>
     </a>
-    <button type="button" class="button-logout" (click)="logOut()"></button>
+    <button
+      type="button"
+      class="button-default button-logout"
+      (click)="logOut()"
+    ></button>
+    <button
+      type="button"
+      class="button-default button-close-menu"
+      (click)="toggleMenu()"
+    ></button>
   </nav>
+  <button
+    class="button-default burger-menu"
+    type="button"
+    (click)="toggleMenu()"
+  ></button>
 </header>
 <main>
   <router-outlet />
