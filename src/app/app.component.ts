@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 @Component({
@@ -11,9 +11,10 @@ import { HomeComponent } from './home/home.component';
 })
 export class AppComponent {
   title = 'UCEA';
+  router: Router = inject(Router);
 
   logOut() {
-    console.log('clicked');
+    this.router.navigate(['login']);
   }
 
   toggleMenu() {
