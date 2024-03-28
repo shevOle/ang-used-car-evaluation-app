@@ -1,6 +1,6 @@
 <form class="estimate-page-form" [formGroup]="loginForm" (submit)="login()">
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-email">Model:</label>
+    <label for="estimate-page-input-email">Email:</label>
     <input
       id="estimate-page-input-email"
       type="text"
@@ -10,7 +10,7 @@
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-password">Model:</label>
+    <label for="estimate-page-input-password">Password:</label>
     <input
       id="estimate-page-input-password"
       type="text"
@@ -23,5 +23,5 @@
     Login
   </button>
 
-  <p routerLink="/sign-up">Don't have an account yet? Sign up!</p>
+  <p>Don't have an account yet? <a routerLink="/sign-up">Sign up!</a></p>
 </form>
