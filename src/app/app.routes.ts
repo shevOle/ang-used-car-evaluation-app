@@ -5,6 +5,7 @@ import { ReportPageComponent } from './reportPage/reportPage.component';
 import { ReportEstimateComponent } from './report-estimate/report-estimate.component';
 import { AddReportComponent } from './add-report/add-report.component';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,10 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     title: 'Log in',
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    title: 'Sign up',
   },
 ];
