@@ -20,3 +20,12 @@ p {
   margin: 0;
   text-align: center;
 }
+
+.login-page-form-input-errors {
+  grid-area: 5 / 1 / 5 / span 6;
+  color: red;
+
+  p {
+    margin: 5px 0;
+  }
+}
