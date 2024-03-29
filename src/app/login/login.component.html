@@ -1,18 +1,19 @@
-<form class="estimate-page-form" [formGroup]="loginForm" (submit)="login()">
-  <div class="estimate-page-form-input">
-    <label for="estimate-page-input-email">Email:</label>
+<form class="login-page-form" [formGroup]="loginForm" (submit)="login()">
+  <h3 class="signup-title">Welcome back!</h3>
+  <div class="login-page-form-input">
+    <label for="login-page-input-email">Email:</label>
     <input
-      id="estimate-page-input-email"
+      id="login-page-input-email"
       type="text"
       formControlName="email"
       required
     />
   </div>
 
-  <div class="estimate-page-form-input">
-    <label for="estimate-page-input-password">Password:</label>
+  <div class="login-page-form-input">
+    <label for="login-page-input-password">Password:</label>
     <input
-      id="estimate-page-input-password"
+      id="login-page-input-password"
       type="text"
       formControlName="password"
       required
@@ -23,5 +24,8 @@
     Login
   </button>
 
-  <p>Don't have an account yet? <a routerLink="/sign-up">Sign up!</a></p>
+  <p>
+    Don't have an account yet? <br />
+    <a routerLink="/sign-up">Sign up!</a>
+  </p>
 </form>
