@@ -20,6 +20,18 @@
     />
   </div>
 
+  <div class="signup-page-form-input-errors">
+    <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
+    <p *ngIf="checkFormField('email', 'email')">
+      Provide a valid email address.
+    </p>
+
+    <p *ngIf="checkFormField('password', 'required')">Password is required.</p>
+    <p *ngIf="checkFormField('password', 'minlength')">
+      Password should be at least 3 characters long.
+    </p>
+  </div>
+
   <button type="submit" class="submit-button" [disabled]="!signUpForm.valid">
     Login
   </button>

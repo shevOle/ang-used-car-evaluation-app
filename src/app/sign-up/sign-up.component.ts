@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 
+type FormControlFieldName = 'email' | 'password';
+
 @Component({
   selector: 'ucea-sign-up',
   standalone: true,
@@ -29,6 +31,14 @@ export class SignUpComponent {
     }),
   });
 
+  get email() {
+    return this.signUpForm.get('email')!;
+  }
+
+  get password() {
+    return this.signUpForm.get('password')!;
+  }
+
   signUp() {
     this.usersService.signUp({
       email: this.signUpForm.value.email!,
@@ -36,5 +46,14 @@ export class SignUpComponent {
     });
 
     this.signUpForm.reset();
+  }
+
+  checkFormField(fieldName: FormControlFieldName, error: string): boolean {
+    return (
+      this[fieldName].invalid &&
+      this[fieldName].touched &&
+      this[fieldName].dirty &&
+      this[fieldName].errors?.[error]
+    );
   }
 }
