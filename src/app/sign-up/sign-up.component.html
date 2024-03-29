@@ -1,18 +1,19 @@
-<form class="estimate-page-form" [formGroup]="signUpForm" (submit)="signUp()">
-  <div class="estimate-page-form-input">
-    <label for="estimate-page-input-email">Email:</label>
+<form class="signup-page-form" [formGroup]="signUpForm" (submit)="signUp()">
+  <h3 class="signup-title">Welcome to UCEA!</h3>
+  <div class="signup-page-form-input">
+    <label for="signup-page-input-email">Email:</label>
     <input
-      id="estimate-page-input-email"
+      id="signup-page-input-email"
       type="text"
       formControlName="email"
       required
     />
   </div>
 
-  <div class="estimate-page-form-input">
-    <label for="estimate-page-input-password">Password:</label>
+  <div class="signup-page-form-input">
+    <label for="signup-page-input-password">Password:</label>
     <input
-      id="estimate-page-input-password"
+      id="signup-page-input-password"
       type="text"
       formControlName="password"
       required
@@ -23,5 +24,8 @@
     Login
   </button>
 
-  <p>Already have an account? <a routerLink="/login">Log in!</a></p>
+  <p>
+    Already have an account?<br />
+    <a routerLink="/login">Log in!</a>
+  </p>
 </form>
