@@ -1,17 +1,19 @@
-<section class="report-page">
-    <div class="report-page-map"></div>
-    <div class="report-page-price">Price: <span class="report-page-price-number">{{report?.price}}</span></div>
-    <div class="report-page-info">
-        <span class="report-page-info-title">Car information:</span>
-        <ul>
-            <li>Manufacturer: {{report?.make}}</li>
-            <li>Model: {{report?.model}}</li>
-            <li>Production year: {{report?.year}}</li>
-            <li>Mileage: {{report?.mileage}}</li>
-        </ul>
-    </div>
-    <div class="report-page-description">
-        <span class="report-page-description-title" >Description:</span>
-        <p class="report-page-description-text">{{report?.description}}</p>
-    </div>
+<section class="report-page" *ngIf="$report | async as report">
+  <div class="report-page-map"></div>
+  <div class="report-page-price">
+    Price: <span class="report-page-price-number">{{ report.price }}</span>
+  </div>
+  <div class="report-page-info">
+    <span class="report-page-info-title">Car information:</span>
+    <ul>
+      <li>Manufacturer: {{ report.make }}</li>
+      <li>Model: {{ report.model }}</li>
+      <li>Production year: {{ report.year }}</li>
+      <li>Mileage: {{ report.mileage }}</li>
+    </ul>
+  </div>
+  <div class="report-page-description">
+    <span class="report-page-description-title">Description:</span>
+    <p class="report-page-description-text">{{ report.description }}</p>
+  </div>
 </section>
