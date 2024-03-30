@@ -1,49 +1,44 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, firstValueFrom } from 'rxjs';
 import { faker } from '@faker-js/faker';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
+
+const formatReport = (report: Report): Report => ({
+  ...report,
+  year: new Date(report.year).getFullYear(),
+});
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
   protected reportsList: Report[] = [];
+  protected rootUrl: string =
+    'https://660801fea2a5dd477b13dc71.mockapi.io/api/v1';
 
-  constructor() {
-    this.reportsList = Array(20)
-      .fill(null)
-      .map(() => ({
-        id: faker.string.uuid(),
-        make: faker.vehicle.manufacturer(),
-        model: faker.vehicle.model(),
-        mileage: faker.number.int({ min: 0, max: 1000000 }),
-        year: faker.number.int({ max: new Date().getFullYear(), min: 1990 }),
-        price: faker.number.int({ min: 0, max: 1000000 }),
-        lat: faker.location.latitude(),
-        lng: faker.location.longitude(),
-        description: faker.commerce.productDescription(),
-      }));
-  }
+  constructor(protected httpClient: HttpClient) {}
 
-  getReports(filter?: Partial<{ [key in keyof Report]: string }>): Report[] {
-    if (!filter) return this.reportsList;
+  getReports(): Promise<Report[]> {
+    const reportsObservable = this.httpClient.request(
+      'GET',
+      `${this.rootUrl}/reports`
+    ) as Observable<Report[]>;
 
-    const filterFields = Object.keys(filter).filter(
-      (key) => !!filter[key as keyof Report]
-    );
-    return this.reportsList.filter(
-      (report) =>
-        !filterFields.some(
-          (field) =>
-            report[field as keyof Report]?.toString()?.toLowerCase() !==
-            filter[field as keyof Report]?.toString()?.toLowerCase()
-        )
+    return firstValueFrom(reportsObservable).then((arr) =>
+      arr.map(formatReport)
     );
   }
 
-  getReportById(id: string): Report | undefined {
-    return this.reportsList.find((report) => report.id === id);
+  getReportById(id: string): Promise<Report> {
+    const reportObservable = this.httpClient.request(
+      'GET',
+      `${this.rootUrl}/reports/${id}`
+    ) as Observable<Report>;
+
+    return firstValueFrom(reportObservable).then(formatReport);
   }
 
   getEstimate(params: IReportEstimateInput) {
