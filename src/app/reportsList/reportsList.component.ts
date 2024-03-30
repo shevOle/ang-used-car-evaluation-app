@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 import { ReportComponent } from '../report/report.component';
@@ -10,18 +9,13 @@ import { minProductionYear } from '../helpers/constants';
 @Component({
   selector: 'ucea-reportsList',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, ReportComponent],
+  imports: [CommonModule, RouterModule, ReportComponent],
   templateUrl: './reportsList.component.html',
   styleUrl: './reportsList.component.scss',
 })
 export class ReportsListComponent {
   protected reportsList: Report[] = [];
   protected reportsListService: ReportService = inject(ReportService);
-  filterForm = new FormGroup({
-    make: new FormControl('', { nonNullable: true }),
-    model: new FormControl('', { nonNullable: true }),
-    year: new FormControl<number | null>(null),
-  });
 
   constructor() {
     this.reportsList = this.reportsListService.getReports();
@@ -35,16 +29,18 @@ export class ReportsListComponent {
     return yearLabels;
   }
 
-  applyFilter() {
+  applyFilter(make: string, model: string, year: string) {
     this.reportsList = this.reportsListService.getReports({
-      make: this.filterForm.value.make,
-      model: this.filterForm.value.model,
-      year: this.filterForm.value.year?.toString(),
+      make,
+      model,
+      year,
     });
   }
 
-  resetFilter() {
-    this.filterForm.reset();
-    this.applyFilter();
+  resetFilter(filtersList: (HTMLInputElement | HTMLSelectElement)[]) {
+    filtersList.forEach((filter) => {
+      filter.value = '';
+    });
+    this.applyFilter('', '', '');
   }
 }
