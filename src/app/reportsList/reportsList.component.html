@@ -1,42 +1,42 @@
 <section>
-  <form class="report-list-filter">
-    <div class="form-input">
-      <label for="filter-input-make">Manufacturer:</label>
-      <input type="text" id="filter-input-make" #filterMake />
-    </div>
-    <div class="form-input">
-      <label for="filter-input-model">Model:</label>
-      <input type="text" id="filter-input-model" #filterModel />
-    </div>
-    <div class="form-input">
-      <label for="filter-input-year">Year: </label>
-      <select name="year" id="filter-input-year" #filterYear>
-        <option *ngFor="let year of availableYears">{{ year }}</option>
-      </select>
-    </div>
+  <!-- <form class="report-list-filter">
+  <div class="form-input">
+    <label for="filter-input-make">Manufacturer:</label>
+    <input type="text" id="filter-input-make" #filterMake />
+  </div>
+  <div class="form-input">
+    <label for="filter-input-model">Model:</label>
+    <input type="text" id="filter-input-model" #filterModel />
+  </div>
+  <div class="form-input">
+    <label for="filter-input-year">Year: </label>
+    <select name="year" id="filter-input-year" #filterYear>
+      <option *ngFor="let year of availableYears">{{ year }}</option>
+    </select>
+  </div>
 
-    <div class="form-buttons">
-      <button
-        class="submit-button"
-        type="button"
-        (click)="
-          applyFilter(filterMake.value, filterModel.value, filterYear.value)
-        "
-      >
-        Apply
-      </button>
-      <button
-        class="reset-button"
-        type="button"
-        (click)="resetFilter([filterMake, filterModel, filterYear])"
-      >
-        Reset
-      </button>
-    </div>
-  </form>
+  <div class="form-buttons">
+    <button
+      class="submit-button"
+      type="button"
+      (click)="
+        applyFilter(filterMake.value, filterModel.value, filterYear.value)
+      "
+    >
+      Apply
+    </button>
+    <button
+      class="reset-button"
+      type="button"
+      (click)="resetFilter([filterMake, filterModel, filterYear])"
+    >
+      Reset
+    </button>
+  </div> -->
+  <!-- </form> -->
   <div class="report-list">
     <div
-      *ngFor="let report of reportsList"
+      *ngFor="let report of $reports | async as reports"
       [routerLink]="['/reports', report.id]"
       class="card-clickable"
     >

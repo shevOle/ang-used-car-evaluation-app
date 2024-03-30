@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 import { ReportComponent } from '../report/report.component';
@@ -14,12 +15,9 @@ import { minProductionYear } from '../helpers/constants';
   styleUrl: './reportsList.component.scss',
 })
 export class ReportsListComponent {
-  protected reportsList: Report[] = [];
-  protected reportsListService: ReportService = inject(ReportService);
+  protected $reports!: Promise<Report[]>;
 
-  constructor() {
-    this.reportsList = this.reportsListService.getReports();
-  }
+  constructor(protected reportsService: ReportService) {}
 
   get availableYears() {
     const yearLabels = [''];
@@ -29,18 +27,22 @@ export class ReportsListComponent {
     return yearLabels;
   }
 
-  applyFilter(make: string, model: string, year: string) {
-    this.reportsList = this.reportsListService.getReports({
-      make,
-      model,
-      year,
-    });
+  ngOnInit(): void {
+    this.$reports = this.reportsService.getReports();
   }
 
-  resetFilter(filtersList: (HTMLInputElement | HTMLSelectElement)[]) {
-    filtersList.forEach((filter) => {
-      filter.value = '';
-    });
-    this.applyFilter('', '', '');
-  }
+  // applyFilter(make: string, model: string, year: string) {
+  //   this.reportsList = this.reportsListService.getReports({
+  //     make,
+  //     model,
+  //     year,
+  //   });
+  // }
+
+  // resetFilter(filtersList: (HTMLInputElement | HTMLSelectElement)[]) {
+  //   filtersList.forEach((filter) => {
+  //     filter.value = '';
+  //   });
+  //   this.applyFilter('', '', '');
+  // }
 }
