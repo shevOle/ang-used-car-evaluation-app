@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
 import { faker } from '@faker-js/faker';
 import { Report } from '../interfaces/report';
@@ -21,11 +21,32 @@ export class ReportService {
 
   constructor(protected httpClient: HttpClient) {}
 
-  getReports(): Promise<Report[]> {
+  getAllReports(): Promise<Report[]> {
     const reportsObservable = this.httpClient.request(
       'GET',
       `${this.rootUrl}/reports`
     ) as Observable<Report[]>;
+
+    return firstValueFrom(reportsObservable).then((arr) =>
+      arr.map(formatReport)
+    );
+  }
+
+  getFilteredReports(
+    make: string,
+    model: string,
+    year: string
+  ): Promise<Report[]> {
+    const params = new HttpParams({
+      fromObject: {
+        make,
+        model,
+      },
+    });
+
+    const reportsObservable = this.httpClient.get(`${this.rootUrl}/reports`, {
+      params,
+    }) as Observable<Report[]>;
 
     return firstValueFrom(reportsObservable).then((arr) =>
       arr.map(formatReport)
