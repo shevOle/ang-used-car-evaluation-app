@@ -28,21 +28,17 @@ export class ReportsListComponent {
   }
 
   ngOnInit(): void {
-    this.$reports = this.reportsService.getReports();
+    this.$reports = this.reportsService.getAllReports();
   }
 
-  // applyFilter(make: string, model: string, year: string) {
-  //   this.reportsList = this.reportsListService.getReports({
-  //     make,
-  //     model,
-  //     year,
-  //   });
-  // }
+  applyFilter(make: string, model: string, year: string) {
+    this.$reports = this.reportsService.getFilteredReports(make, model, year);
+  }
 
-  // resetFilter(filtersList: (HTMLInputElement | HTMLSelectElement)[]) {
-  //   filtersList.forEach((filter) => {
-  //     filter.value = '';
-  //   });
-  //   this.applyFilter('', '', '');
-  // }
+  resetFilter(fieldsList: (HTMLInputElement | HTMLSelectElement)[]) {
+    fieldsList.forEach((field) => {
+      field.value = '';
+    });
+    this.$reports = this.reportsService.getAllReports();
+  }
 }
