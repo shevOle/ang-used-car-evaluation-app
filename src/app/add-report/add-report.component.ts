@@ -125,17 +125,17 @@ export class AddReportComponent {
   }
 
   submitForm() {
-    this.reportsService.addReport({
-      make: this.addRepotForm.value.make!.toLowerCase(),
-      model: this.addRepotForm.value.model!.toLowerCase(),
-      year: this.addRepotForm.value.year!,
-      price: this.addRepotForm.value.price!,
-      mileage: this.addRepotForm.value.mileage!,
-      description: this.addRepotForm.value.description!,
-      lat: 0,
-      lng: 0,
-    });
-
-    this.addRepotForm.reset();
+    this.reportsService
+      .addReport({
+        make: this.addRepotForm.value.make!.toLowerCase(),
+        model: this.addRepotForm.value.model!.toLowerCase(),
+        year: this.addRepotForm.value.year!,
+        price: this.addRepotForm.value.price!,
+        mileage: this.addRepotForm.value.mileage!,
+        description: this.addRepotForm.value.description!,
+        lat: 0,
+        lng: 0,
+      })
+      .then(() => this.addRepotForm.reset());
   }
 }

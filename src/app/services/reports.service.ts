@@ -77,10 +77,7 @@ export class ReportService {
   }
 
   addReport(params: IAddReport) {
-    const id = faker.string.uuid();
-    this.reportsList.push({
-      id,
-      ...params,
-    });
+    const observable = this.httpClient.post(`${this.rootUrl}/reports`, params);
+    return firstValueFrom(observable);
   }
 }
