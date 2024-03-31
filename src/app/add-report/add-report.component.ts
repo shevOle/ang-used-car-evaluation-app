@@ -27,7 +27,7 @@ type FormControlFieldName =
 })
 export class AddReportComponent {
   reportsService: ReportService = inject(ReportService);
-  addRepotForm = new FormGroup({
+  addReportForm = new FormGroup({
     make: new FormControl('', {
       validators: [Validators.required],
       nonNullable: true,
@@ -80,35 +80,35 @@ export class AddReportComponent {
   });
 
   get make() {
-    return this.addRepotForm.get('make')!;
+    return this.addReportForm.get('make')!;
   }
 
   get model() {
-    return this.addRepotForm.get('model')!;
+    return this.addReportForm.get('model')!;
   }
 
   get year() {
-    return this.addRepotForm.get('year')!;
+    return this.addReportForm.get('year')!;
   }
 
   get price() {
-    return this.addRepotForm.get('price')!;
+    return this.addReportForm.get('price')!;
   }
 
   get mileage() {
-    return this.addRepotForm.get('mileage')!;
+    return this.addReportForm.get('mileage')!;
   }
 
   get description() {
-    return this.addRepotForm.get('description')!;
+    return this.addReportForm.get('description')!;
   }
 
   get lat() {
-    return this.addRepotForm.get('lat')!;
+    return this.addReportForm.get('lat')!;
   }
 
   get lng() {
-    return this.addRepotForm.get('lng')!;
+    return this.addReportForm.get('lng')!;
   }
 
   get currentYear() {
@@ -127,15 +127,15 @@ export class AddReportComponent {
   submitForm() {
     this.reportsService
       .addReport({
-        make: this.addRepotForm.value.make!.toLowerCase(),
-        model: this.addRepotForm.value.model!.toLowerCase(),
-        year: this.addRepotForm.value.year!,
-        price: this.addRepotForm.value.price!,
-        mileage: this.addRepotForm.value.mileage!,
-        description: this.addRepotForm.value.description!,
+        make: this.addReportForm.value.make!.toLowerCase(),
+        model: this.addReportForm.value.model!.toLowerCase(),
+        year: this.addReportForm.value.year!,
+        price: this.addReportForm.value.price!,
+        mileage: this.addReportForm.value.mileage!,
+        description: this.addReportForm.value.description!,
         lat: 0,
         lng: 0,
       })
-      .then(() => this.addRepotForm.reset());
+      .then(() => this.addReportForm.reset());
   }
 }

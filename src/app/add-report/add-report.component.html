@@ -1,6 +1,6 @@
 <form
   class="estimate-page-form"
-  [formGroup]="addRepotForm"
+  [formGroup]="addReportForm"
   (submit)="submitForm()"
 >
   <div class="estimate-page-form-input">
@@ -64,7 +64,7 @@
     ></textarea>
   </div>
 
-  <button type="submit" class="submit-button" [disabled]="!addRepotForm.valid">
+  <button type="submit" class="submit-button" [disabled]="!addReportForm.valid">
     Add report
   </button>
 
