@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-report',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, CurrencyPipe],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss',
 })

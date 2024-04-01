@@ -14,6 +14,7 @@
     {{ report.year | date : "yyyy" }}
   </div>
   <div class="report-card-field">
-    <span class="report-list-item-title">Price:</span> ${{ report.price }}
+    <span class="report-list-item-title">Price:</span>
+    {{ report.price | currency }}
   </div>
 </div>

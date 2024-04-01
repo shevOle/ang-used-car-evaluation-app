@@ -1,7 +1,8 @@
 <section class="report-page" *ngIf="$report | async as report">
   <div class="report-page-map"></div>
   <div class="report-page-price">
-    Price: <span class="report-page-price-number">{{ report.price }}</span>
+    Price:
+    <span class="report-page-price-number">{{ report.price | currency }}</span>
   </div>
   <div class="report-page-info">
     <span class="report-page-info-title">Car information:</span>

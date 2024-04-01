@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -9,12 +9,11 @@ import {
 import { ReportService } from '../services/reports.service';
 import { ReportComponent } from '../report/report.component';
 import { Report } from '../interfaces/report';
-import { formatMoney } from '../helpers/formatMoney';
 
 @Component({
   selector: 'ucea-report-estimate',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ReportComponent],
+  imports: [CommonModule, ReactiveFormsModule, ReportComponent, CurrencyPipe],
   templateUrl: './report-estimate.component.html',
   styleUrl: './report-estimate.component.scss',
 })
@@ -46,7 +45,7 @@ export class ReportEstimateComponent {
     }),
   });
   $similarReports!: Promise<Report[]>;
-  estimatePrice: string = '0';
+  estimatePrice: number = 0;
 
   get make() {
     return this.estimateForm.get('make')!;
@@ -82,9 +81,8 @@ export class ReportEstimateComponent {
         lng: this.estimateForm.value.lng!,
       })
       .then((reports) => {
-        this.estimatePrice = formatMoney.format(
-          reports.reduce((sum, { price }) => price + sum, 0) / reports.length
-        );
+        this.estimatePrice =
+          reports.reduce((sum, { price }) => price + sum, 0) / reports.length;
 
         return reports;
       });

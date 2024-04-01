@@ -92,7 +92,7 @@
     <p>
       Estimate price for {{ estimateForm.value.make }}
       {{ estimateForm.value.model }} manufactured in
-      {{ estimateForm.value.year }} is {{ estimatePrice }}
+      {{ estimateForm.value.year }} is {{ estimatePrice | currency }}
     </p>
   </div>
   <div *ngIf="!($similarReports | async)?.length" class="estimate-page-price">
