@@ -45,7 +45,7 @@ export class ReportEstimateComponent {
       ],
     }),
   });
-  similarReports: Report[] = [];
+  $similarReports!: Promise<Report[]>;
   estimatePrice: string = '0';
 
   get make() {
@@ -73,19 +73,20 @@ export class ReportEstimateComponent {
   }
 
   submitEstimateForm() {
-    const reports = this.reportsService.getEstimate({
-      make: this.estimateForm.value.make!.toLowerCase(),
-      model: this.estimateForm.value.model!.toLowerCase(),
-      year: this.estimateForm.value.year!,
-      lat: this.estimateForm.value.lat!,
-      lng: this.estimateForm.value.lng!,
-    });
+    this.$similarReports = this.reportsService
+      .getEstimate({
+        make: this.estimateForm.value.make!.toLowerCase(),
+        model: this.estimateForm.value.model!.toLowerCase(),
+        year: this.estimateForm.value.year!,
+        lat: this.estimateForm.value.lat!,
+        lng: this.estimateForm.value.lng!,
+      })
+      .then((reports) => {
+        this.estimatePrice = formatMoney.format(
+          reports.reduce((sum, { price }) => price + sum, 0) / reports.length
+        );
 
-    if (reports.length) {
-      this.similarReports = reports;
-      this.estimatePrice = formatMoney.format(
-        reports.reduce((sum, { price }) => price + sum, 0) / reports.length
-      );
-    }
+        return reports;
+      });
   }
 }

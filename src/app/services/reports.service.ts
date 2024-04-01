@@ -52,18 +52,28 @@ export class ReportService {
     return firstValueFrom(reportObservable);
   }
 
-  getEstimate(params: IReportEstimateInput) {
-    return this.reportsList
-      .filter((report) => {
-        if (report.make.toLowerCase() !== params.make) return false;
-        if (report.model.toLowerCase() !== params.model) return false;
-        if (Math.abs(report.year - params.year) > 3) return false;
-        if (Math.abs(report.lat - params.lat) > 5) return false;
-        if (Math.abs(report.lng - params.lng) > 5) return false;
+  getEstimate(input: IReportEstimateInput) {
+    const params = new HttpParams({
+      fromObject: {
+        make: input.make,
+        model: input.model,
+      },
+    });
+    const reportObservable = this.httpClient.get(`${this.rootUrl}/reports`, {
+      params,
+    }) as Observable<Report[]>;
+    return firstValueFrom(reportObservable);
+    // return this.reportsList
+    //   .filter((report) => {
+    //     if (report.make.toLowerCase() !== params.make) return false;
+    //     if (report.model.toLowerCase() !== params.model) return false;
+    //     if (Math.abs(report.year - params.year) > 3) return false;
+    //     if (Math.abs(report.lat - params.lat) > 5) return false;
+    //     if (Math.abs(report.lng - params.lng) > 5) return false;
 
-        return true;
-      })
-      .sort((a, b) => a.mileage - b.mileage);
+    //     return true;
+    //   })
+    //   .sort((a, b) => a.mileage - b.mileage);
   }
 
   addReport(params: IAddReport) {
