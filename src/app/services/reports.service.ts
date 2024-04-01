@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
-import { faker } from '@faker-js/faker';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
-
-const formatReport = (report: Report): Report => ({
-  ...report,
-  year: new Date(report.year).getFullYear(),
-});
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +21,7 @@ export class ReportService {
       `${this.rootUrl}/reports`
     ) as Observable<Report[]>;
 
-    return firstValueFrom(reportsObservable).then((arr) =>
-      arr.map(formatReport)
-    );
+    return firstValueFrom(reportsObservable);
   }
 
   getFilteredReports(
@@ -48,9 +40,7 @@ export class ReportService {
       params,
     }) as Observable<Report[]>;
 
-    return firstValueFrom(reportsObservable).then((arr) =>
-      arr.map(formatReport)
-    );
+    return firstValueFrom(reportsObservable);
   }
 
   getReportById(id: string): Promise<Report> {
@@ -59,7 +49,7 @@ export class ReportService {
       `${this.rootUrl}/reports/${id}`
     ) as Observable<Report>;
 
-    return firstValueFrom(reportObservable).then(formatReport);
+    return firstValueFrom(reportObservable);
   }
 
   getEstimate(params: IReportEstimateInput) {

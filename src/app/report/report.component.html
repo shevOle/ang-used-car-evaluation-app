@@ -11,7 +11,7 @@
   </div>
   <div class="report-card-field">
     <span class="report-list-item-title">Production year:</span>
-    {{ report.year }}
+    {{ report.year | date : "yyyy" }}
   </div>
   <div class="report-card-field">
     <span class="report-list-item-title">Price:</span> ${{ report.price }}
