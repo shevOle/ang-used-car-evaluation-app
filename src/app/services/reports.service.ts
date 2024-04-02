@@ -4,22 +4,20 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
+import { apiUrl } from '../helpers/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
   protected reportsList: Report[] = [];
-  protected rootUrl: string =
-    'https://660801fea2a5dd477b13dc71.mockapi.io/api/v1';
-
+  protected url: string = `${apiUrl}/reports`;
   constructor(protected httpClient: HttpClient) {}
 
   getAllReports(): Promise<Report[]> {
-    const reportsObservable = this.httpClient.request(
-      'GET',
-      `${this.rootUrl}/reports`
-    ) as Observable<Report[]>;
+    const reportsObservable = this.httpClient.get(this.url) as Observable<
+      Report[]
+    >;
 
     return firstValueFrom(reportsObservable);
   }
@@ -36,7 +34,7 @@ export class ReportService {
       },
     });
 
-    const reportsObservable = this.httpClient.get(`${this.rootUrl}/reports`, {
+    const reportsObservable = this.httpClient.get(this.url, {
       params,
     }) as Observable<Report[]>;
 
@@ -44,9 +42,8 @@ export class ReportService {
   }
 
   getReportById(id: string): Promise<Report> {
-    const reportObservable = this.httpClient.request(
-      'GET',
-      `${this.rootUrl}/reports/${id}`
+    const reportObservable = this.httpClient.get(
+      `${this.url}/${id}`
     ) as Observable<Report>;
 
     return firstValueFrom(reportObservable);
@@ -59,7 +56,7 @@ export class ReportService {
         model: input.model,
       },
     });
-    const reportObservable = this.httpClient.get(`${this.rootUrl}/reports`, {
+    const reportObservable = this.httpClient.get(this.url, {
       params,
     }) as Observable<Report[]>;
     return firstValueFrom(reportObservable);
@@ -77,7 +74,7 @@ export class ReportService {
   }
 
   addReport(params: IAddReport) {
-    const observable = this.httpClient.post(`${this.rootUrl}/reports`, params);
+    const observable = this.httpClient.post(this.url, params);
     return firstValueFrom(observable);
   }
 }
