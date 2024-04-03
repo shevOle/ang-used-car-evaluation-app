@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UsersService } from '../services/users.service';
+import { AuthService } from '../services/auth.service';
 
 type FormControlFieldName = 'email' | 'password';
 
@@ -19,7 +19,7 @@ type FormControlFieldName = 'email' | 'password';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  usersService: UsersService = inject(UsersService);
+  authService: AuthService = inject(AuthService);
   loginForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
@@ -40,7 +40,7 @@ export class LoginComponent {
   }
 
   login() {
-    this.usersService.loginUser({
+    this.authService.loginUser({
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,
     });

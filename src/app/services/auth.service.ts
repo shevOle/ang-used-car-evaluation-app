@@ -9,7 +9,7 @@ import { apiUrl } from '../helpers/constants';
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class AuthService {
   protected url: string = `${apiUrl}/users`;
 
   constructor(protected httpClient: HttpClient) {}
