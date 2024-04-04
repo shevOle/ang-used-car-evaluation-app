@@ -40,10 +40,11 @@ export class AuthService {
       localStorage.setItem('currentUser', JSON.stringify(userObject));
       this.currentUserSubject.next(user);
 
-      const {
-        queryParams: { returnUrl },
-      } = this.router.parseUrl(this.router.routerState.snapshot.url);
-      this.router.navigate([returnUrl]);
+      const { queryParams } = this.router.parseUrl(
+        this.router.routerState.snapshot.url
+      );
+
+      this.router.navigate([queryParams['returnUrl'] || '/']);
     } catch (err) {
       console.error(err);
     }
