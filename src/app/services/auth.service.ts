@@ -39,7 +39,11 @@ export class AuthService {
 
       localStorage.setItem('currentUser', JSON.stringify(userObject));
       this.currentUserSubject.next(user);
-      this.router.navigate(['/']);
+
+      const {
+        queryParams: { returnUrl },
+      } = this.router.parseUrl(this.router.routerState.snapshot.url);
+      this.router.navigate([returnUrl]);
     } catch (err) {
       console.error(err);
     }
