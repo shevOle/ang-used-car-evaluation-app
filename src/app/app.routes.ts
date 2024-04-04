@@ -6,32 +6,38 @@ import { ReportEstimateComponent } from './report-estimate/report-estimate.compo
 import { AddReportComponent } from './add-report/add-report.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     title: 'Home page',
+    canActivate: [AuthGuard],
   },
   {
     path: 'reports',
     component: ReportsListComponent,
     title: 'Reports',
+    canActivate: [AuthGuard],
   },
   {
     path: 'reports/:id',
     component: ReportPageComponent,
     title: 'Report details',
+    canActivate: [AuthGuard],
   },
   {
     path: 'estimate',
     component: ReportEstimateComponent,
     title: 'Get estimate price',
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-report',
     component: AddReportComponent,
     title: 'Add report',
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
