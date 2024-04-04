@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -19,17 +19,26 @@ type FormControlFieldName = 'email' | 'password';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  authService: AuthService = inject(AuthService);
-  loginForm = new FormGroup({
-    email: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email],
-    }),
-    password: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3)],
-    }),
-  });
+  loginForm: FormGroup;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+    });
+  }
+
+  ngOnInit() {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+  }
 
   get email() {
     return this.loginForm.get('email')!;
