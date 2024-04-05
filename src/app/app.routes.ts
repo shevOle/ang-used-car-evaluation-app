@@ -6,6 +6,7 @@ import { ReportEstimateComponent } from './report-estimate/report-estimate.compo
 import { AddReportComponent } from './add-report/add-report.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -37,6 +38,12 @@ export const routes: Routes = [
     path: 'add-report',
     component: AddReportComponent,
     title: 'Add report',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    title: 'Profile',
     canActivate: [AuthGuard],
   },
   {
