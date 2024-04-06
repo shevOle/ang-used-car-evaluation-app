@@ -35,7 +35,8 @@ export class AuthService {
 
       const user = ((await firstValueFrom(observable)) as IUser[])[0];
       if (!user) throw new Error('Incorrect login or password');
-      const userObject = { id: user.id, email: user.email };
+      const userObject: Partial<IUser> = { ...user };
+      delete userObject.password;
 
       localStorage.setItem('currentUser', JSON.stringify(userObject));
       this.currentUserSubject.next(user);
