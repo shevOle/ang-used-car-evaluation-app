@@ -56,4 +56,9 @@ export const routes: Routes = [
     component: SignUpComponent,
     title: 'Sign up',
   },
+  {
+    path: '*',
+    component: HomeComponent,
+    title: 'Home page',
+  },
 ];
