@@ -8,16 +8,36 @@
     <p class="site-header-logo-title">UCEA</p>
   </a>
   <nav class="site-header-nav">
-    <a routerLink="/reports" class="site-header-link" tabindex="1">
+    <a
+      routerLink="/reports"
+      class="site-header-link"
+      tabindex="1"
+      (click)="closeBurgerMenu()"
+    >
       <p class="site-header-logo-title">Reports</p>
     </a>
-    <a routerLink="/estimate" class="site-header-link" tabindex="1">
+    <a
+      routerLink="/estimate"
+      class="site-header-link"
+      tabindex="1"
+      (click)="closeBurgerMenu()"
+    >
       <p class="site-header-logo-title">Estimate</p>
     </a>
-    <a routerLink="/add-report" class="site-header-link" tabindex="1">
+    <a
+      routerLink="/add-report"
+      class="site-header-link"
+      tabindex="1"
+      (click)="closeBurgerMenu()"
+    >
       <p class="site-header-logo-title">Add report</p>
     </a>
-    <a routerLink="/profile" class="site-header-link" tabindex="1">
+    <a
+      routerLink="/profile"
+      class="site-header-link"
+      tabindex="1"
+      (click)="closeBurgerMenu()"
+    >
       <p class="site-header-logo-title">Profile</p>
     </a>
     <button
@@ -28,13 +48,13 @@
     <button
       type="button"
       class="button-default button-close-menu"
-      (click)="toggleMenu()"
+      (click)="closeBurgerMenu()"
     ></button>
   </nav>
   <button
     class="button-default burger-menu"
     type="button"
-    (click)="toggleMenu()"
+    (click)="openBurgerMenu()"
   ></button>
 </header>
 <main>

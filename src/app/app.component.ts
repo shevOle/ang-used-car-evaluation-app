@@ -13,11 +13,15 @@ import { IUser } from './interfaces/user';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'UCEA';
+  navElement: Element | null = null;
   currentUser: Partial<IUser> | null = null;
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+  }
+
+  ngAfterViewInit() {
+    this.navElement = document.querySelector('.site-header-nav');
   }
 
   logOut() {
@@ -25,8 +29,11 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  toggleMenu() {
-    const navElement = document.querySelector('.site-header-nav');
-    navElement?.classList.toggle('visible');
+  openBurgerMenu() {
+    this.navElement?.classList.add('visible');
+  }
+
+  closeBurgerMenu() {
+    this.navElement?.classList.remove('visible');
   }
 }
