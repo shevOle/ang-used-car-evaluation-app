@@ -1,1 +1,13 @@
-<p>profile works!</p>
+<section class="profile-page" *ngIf="!!currentUser">
+  <div class="profile-photo">
+    <img
+      [src]="profilePictureUrl"
+      alt="user-photo"
+      (click)="changePictuureUrl()"
+    />
+  </div>
+  <div>
+    <p>Email: {{ currentUser.email }}</p>
+    <p>Are you an admin: {{ currentUser.isAdmin ? "yeap :)" : "nope :(" }}</p>
+  </div>
+</section>
