@@ -20,6 +20,27 @@
     />
   </div>
 
+  <h4 class="picture-chooser-title">Choose your avatar:</h4>
+  <div class="picture-chooser">
+    <button
+      type="button"
+      class="picture-chooser-button"
+      (click)="scrollImagesBackwards()"
+    >
+      <
+    </button>
+    <div class="picture-chooser-window">
+      <img [src]="picture.url" [alt]="picture.name" />
+    </div>
+    <button
+      type="button"
+      class="picture-chooser-button"
+      (click)="scrollImagesForward()"
+    >
+      >
+    </button>
+  </div>
+
   <div class="signup-page-form-input-errors">
     <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
     <p *ngIf="checkFormField('email', 'email')">
