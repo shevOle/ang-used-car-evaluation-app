@@ -57,6 +57,10 @@ export class AuthService {
   }
 
   signUp(input: IUserSignUpInput) {
-    console.log('signed up');
+    const userData = {
+      ...input,
+      isAdmin: false,
+    };
+    return this.httpClient.post(this.url, userData);
   }
 }
