@@ -12,7 +12,6 @@ import { IUser } from '../interfaces/user';
 })
 export class ProfileComponent {
   user: IUser | null = null;
-  profilePictureUrl: string = this.pictureUrl;
 
   constructor(private authService: AuthService) {
     this.user = this.authService.currentUserValue;
@@ -23,12 +22,6 @@ export class ProfileComponent {
   }
 
   get pictureUrl() {
-    const pics = ['yoda', 'luke', 'chewie', 'leya', 'solo', 'mando'];
-    const picIndex = Math.round(Math.random() * 5);
-    return `../../assets/profile/${pics[picIndex]}.png`;
-  }
-
-  changePictuureUrl() {
-    this.profilePictureUrl = this.pictureUrl;
+    return this.user?.profilePicture;
   }
 }

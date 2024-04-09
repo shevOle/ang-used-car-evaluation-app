@@ -1,10 +1,6 @@
 <section class="profile-page" *ngIf="!!currentUser">
   <div class="profile-photo">
-    <img
-      [src]="profilePictureUrl"
-      alt="user-photo"
-      (click)="changePictuureUrl()"
-    />
+    <img [src]="pictureUrl" alt="user-photo" />
   </div>
   <div>
     <p>Email: {{ currentUser.email }}</p>
