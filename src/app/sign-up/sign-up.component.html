@@ -53,8 +53,13 @@
     </p>
   </div>
 
-  <button type="submit" class="submit-button" [disabled]="!signUpForm.valid">
-    Login
+  <button
+    type="submit"
+    class="submit-button"
+    [disabled]="!signUpForm.valid"
+    (click)="signUp()"
+  >
+    Sign Up
   </button>
 
   <p>

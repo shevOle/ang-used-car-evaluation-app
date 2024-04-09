@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 type FormControlFieldName = 'email' | 'password';
@@ -68,13 +69,21 @@ export class SignUpComponent {
     return ++this.chosenPictureIndex;
   }
 
-  signUp() {
-    this.authService.signUp({
-      email: this.signUpForm.value.email!,
-      password: this.signUpForm.value.password!,
-    });
+  async signUp() {
+    const email = this.signUpForm.value.email!;
+    const password = this.signUpForm.value.password!;
+
+    await firstValueFrom(
+      this.authService.signUp({
+        email,
+        password,
+        profilePicture: this.profilePictures[this.chosenPictureIndex].url,
+      })
+    );
 
     this.signUpForm.reset();
+
+    this.authService.loginUser({ email, password });
   }
 
   checkFormField(fieldName: FormControlFieldName, error: string): boolean {
