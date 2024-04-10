@@ -7,7 +7,9 @@ import { AddReportComponent } from './add-report/add-report.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReportsApprovalQueueComponent } from './reports-approval-queue/reports-approval-queue.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -56,6 +58,12 @@ export const routes: Routes = [
     component: SignUpComponent,
     title: 'Sign up',
   },
+  {
+    path: 'report-approval-queue',
+    component: ReportsApprovalQueueComponent,
+    title: 'Reports Approvals',
+    canActivate: [AdminGuard],
+  }
   {
     path: '*',
     component: HomeComponent,
