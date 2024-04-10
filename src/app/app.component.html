@@ -33,6 +33,15 @@
       <p class="site-header-logo-title">Add report</p>
     </a>
     <a
+      *ngIf="currentUser.isAdmin"
+      routerLink="/report-approval-queue"
+      class="site-header-link"
+      tabindex="1"
+      (click)="closeBurgerMenu()"
+    >
+      <p class="site-header-logo-title">Reports Approvals</p>
+    </a>
+    <a
       routerLink="/profile"
       class="site-header-link"
       tabindex="1"
