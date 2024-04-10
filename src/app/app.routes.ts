@@ -63,10 +63,11 @@ export const routes: Routes = [
     component: ReportsApprovalQueueComponent,
     title: 'Reports Approvals',
     canActivate: [AdminGuard],
-  }
+  },
   {
     path: '*',
     component: HomeComponent,
     title: 'Home page',
+    canActivate: [AuthGuard],
   },
 ];
