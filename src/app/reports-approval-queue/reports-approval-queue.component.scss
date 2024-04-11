@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.report-approval-page {
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+table {
+  width: 100%;
+
+  & thead > td {
+    border-bottom: 2px solid black;
+  }
+
+  & td {
+    padding: 10px;
+  }
+}
