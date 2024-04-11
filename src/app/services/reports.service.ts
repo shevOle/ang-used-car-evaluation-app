@@ -22,6 +22,14 @@ export class ReportService {
     return firstValueFrom(reportsObservable);
   }
 
+  getNewReports(): Promise<Report[]> {
+    const params = new HttpParams({ fromObject: { status: 'new' } });
+    const obsservable = this.httpClient.get(this.url, { params }) as Observable<
+      Report[]
+    >;
+    return firstValueFrom(obsservable);
+  }
+
   getFilteredReports(
     make: string,
     model: string,
