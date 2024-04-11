@@ -1,1 +1,20 @@
-<p>reports-approval-queue works!</p>
+<section class="report-approval-page">
+  <table>
+    <thead>
+      <td>Maker</td>
+      <td>Model</td>
+      <td>Price</td>
+      <td>Mileage</td>
+      <td>Status</td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reports">
+        <td>{{ report.make }}</td>
+        <td>{{ report.model }}</td>
+        <td>{{ report.price }}</td>
+        <td>{{ report.mileage }}</td>
+        <td>{{ report.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
