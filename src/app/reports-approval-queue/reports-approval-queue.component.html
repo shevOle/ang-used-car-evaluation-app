@@ -11,7 +11,7 @@
       <tr *ngFor="let report of reports">
         <td>{{ report.make }}</td>
         <td>{{ report.model }}</td>
-        <td>{{ report.price }}</td>
+        <td>{{ report.price | currency }}</td>
         <td>{{ report.mileage }}</td>
         <td>{{ report.status }}</td>
       </tr>

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-reports-approval-queue',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CurrencyPipe],
   templateUrl: './reports-approval-queue.component.html',
   styleUrl: './reports-approval-queue.component.scss',
 })
