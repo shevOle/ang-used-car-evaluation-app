@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
+import { AuthService } from './auth.service';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
@@ -12,7 +13,10 @@ import { apiUrl } from '../helpers/constants';
 export class ReportService {
   protected reportsList: Report[] = [];
   protected url: string = `${apiUrl}/reports`;
-  constructor(protected httpClient: HttpClient) {}
+  constructor(
+    protected httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   getAllReports(): Promise<Report[]> {
     const reportsObservable = this.httpClient.get(this.url) as Observable<
@@ -82,7 +86,13 @@ export class ReportService {
   }
 
   addReport(params: IAddReport) {
-    const observable = this.httpClient.post(this.url, params);
+    const userId = this.authService.currentUserValue?.id;
+    const body = {
+      ...params,
+      status: 'new',
+      submittedByUserId: userId,
+    };
+    const observable = this.httpClient.post(this.url, body);
     return firstValueFrom(observable);
   }
 }
