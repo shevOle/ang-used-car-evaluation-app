@@ -6,6 +6,7 @@
       <td>Price</td>
       <td>Mileage</td>
       <td>Status</td>
+      <td></td>
     </thead>
     <tbody>
       <tr *ngFor="let report of reports">
@@ -14,6 +15,17 @@
         <td>{{ report.price | currency }}</td>
         <td>{{ report.mileage }}</td>
         <td>{{ report.status }}</td>
+        <td class="report-table-action">
+          <div [id]="report.id" class="report-table-action-menu">
+            <p class="report-table-action-option">Approve</p>
+            <p class="report-table-action-option">Reject</p>
+          </div>
+          <button
+            type="button"
+            class="report-table-action-button"
+            (click)="showActionMenu(report.id)"
+          ></button>
+        </td>
       </tr>
     </tbody>
   </table>
