@@ -19,7 +19,7 @@ table {
   & td {
     padding: 10px;
 
-    &:last-child() {
+    &:last-child {
       position: absolute;
     }
 
@@ -40,7 +40,8 @@ table {
 .report-table-action-menu {
   display: none;
 
-  & .visible {
+  &.visible {
+    display: inline-block;
     position: relative;
   }
 }
