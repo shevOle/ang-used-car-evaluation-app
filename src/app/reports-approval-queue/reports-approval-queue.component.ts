@@ -31,4 +31,12 @@ export class ReportsApprovalQueueComponent {
     // const elements = document.querySelectorAll('.report-table-action-menu');
     // elements?.forEach((i) => i.classList.remove('visible'));
   }
+
+  approveReport(id: string) {
+    console.log('approve', id);
+  }
+
+  rejectReport(id: string) {
+    console.log('reject', id);
+  }
 }
