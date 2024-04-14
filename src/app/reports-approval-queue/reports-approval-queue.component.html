@@ -16,15 +16,28 @@
         <td>{{ report.mileage }}</td>
         <td>{{ report.status }}</td>
         <td class="report-table-action">
-          <div [id]="report.id" class="report-table-action-menu">
-            <p class="report-table-action-option">Approve</p>
-            <p class="report-table-action-option">Reject</p>
-          </div>
           <button
             type="button"
             class="report-table-action-button"
             (click)="showActionMenu(report.id)"
-          ></button>
+          >
+            <div [id]="report.id" class="report-table-action-menu">
+              <button
+                type="button"
+                class="report-table-action-option"
+                (click)="approveReport(report.id)"
+              >
+                Approve
+              </button>
+              <button
+                type="button"
+                class="report-table-action-option"
+                (click)="rejectReport(report.id)"
+              >
+                Reject
+              </button>
+            </div>
+          </button>
         </td>
       </tr>
     </tbody>
