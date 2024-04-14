@@ -10,11 +10,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let report of reports">
-        <td>{{ report.make }}</td>
-        <td>{{ report.model }}</td>
+        <td>{{ report.make | titlecase }}</td>
+        <td>{{ report.model | titlecase }}</td>
         <td>{{ report.price | currency }}</td>
-        <td>{{ report.mileage }}</td>
-        <td>{{ report.status }}</td>
+        <td>{{ report.mileage | number }}</td>
+        <td>{{ report.status | titlecase }}</td>
         <td class="report-table-action">
           <button
             type="button"
