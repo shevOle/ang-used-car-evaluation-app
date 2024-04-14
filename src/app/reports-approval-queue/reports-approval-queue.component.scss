@@ -3,6 +3,13 @@
   box-sizing: border-box;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 .report-approval-page {
   width: 80%;
   margin: 0 auto;
@@ -16,20 +23,20 @@ table {
     border-bottom: 2px solid black;
   }
 
+  & tbody > tr > td {
+    border-bottom: 1px solid black;
+  }
+
   & td {
     padding: 10px;
 
-    &:last-child {
-      position: absolute;
-    }
-
-    & button {
+    & > button {
+      position: relative;
       display: inline-block;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
+
       width: 100%;
-      height: 20px;
+      height: 30px;
+      padding: 10px 0;
 
       background-image: radial-gradient(circle, black 2px, transparent 1px);
       background-size: auto 33.33%;
@@ -39,9 +46,25 @@ table {
 
 .report-table-action-menu {
   display: none;
+  text-align: right;
+  z-index: 2;
+  background-color: white;
 
   &.visible {
     display: inline-block;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-100%, -10px);
+  }
+
+  .report-table-action-option {
+    cursor: pointer;
+    padding: 5px;
+
+    &:hover,
+    &:focus {
+      background-color: lightgray;
+    }
   }
 }
