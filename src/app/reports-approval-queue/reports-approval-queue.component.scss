@@ -44,27 +44,10 @@ table {
   }
 }
 
-.report-table-action-menu {
-  display: none;
-  text-align: right;
-  z-index: 2;
-  background-color: white;
-
-  &.visible {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(-100%, -10px);
-  }
-
-  .report-table-action-option {
-    cursor: pointer;
-    padding: 5px;
-
-    &:hover,
-    &:focus {
-      background-color: lightgray;
-    }
-  }
+.menu-block {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%, -10px);
 }

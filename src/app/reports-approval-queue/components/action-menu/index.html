@@ -1,0 +1,17 @@
+<div *ngIf="isShown" class="report-table-action-menu">
+  {{isShown}}
+  <button
+    type="button"
+    class="report-table-action-option"
+    (click)="approveReport()"
+  >
+    Approve
+  </button>
+  <button
+    type="button"
+    class="report-table-action-option"
+    (click)="rejectReport()"
+  >
+    Reject
+  </button>
+</div>

@@ -17,26 +17,13 @@
         <td>{{ report.status | titlecase }}</td>
         <td class="report-table-action">
           <button
+            id="btn"
             type="button"
             class="report-table-action-button"
-            (click)="showActionMenu(report.id)"
+            (click)="toggleActionMenu($event, report.id)"
           >
-            <div [id]="report.id" class="report-table-action-menu">
-              <button
-                type="button"
-                class="report-table-action-option"
-                (click)="approveReport(report.id)"
-              >
-                Approve
-              </button>
-              <button
-                type="button"
-                class="report-table-action-option"
-                (click)="rejectReport(report.id)"
-              >
-                Reject
-              </button>
-            </div>
+            <action-menu [reportId]="report.id" class="menu-block">
+            </action-menu>
           </button>
         </td>
       </tr>
