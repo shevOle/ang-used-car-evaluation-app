@@ -1,52 +1,45 @@
-import {
-  AfterViewInit,
-  Component,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   CommonModule,
   CurrencyPipe,
   TitleCasePipe,
   DecimalPipe,
 } from '@angular/common';
-import { ActionMenu } from './components/action-menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-reports-approval-queue',
   standalone: true,
-  imports: [CommonModule, ActionMenu, CurrencyPipe, TitleCasePipe, DecimalPipe],
+  imports: [
+    CommonModule,
+    CurrencyPipe,
+    TitleCasePipe,
+    DecimalPipe,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
   templateUrl: './reports-approval-queue.component.html',
   styleUrl: './reports-approval-queue.component.scss',
 })
 export class ReportsApprovalQueueComponent {
-  @ViewChildren(ActionMenu) actionMenuElements!: QueryList<ActionMenu>;
   reports: Report[] = [];
 
   constructor(private reportsService: ReportService) {}
 
   async ngOnInit() {
     this.reports = await this.reportsService.getNewReports();
-    document.querySelector('body')?.addEventListener('click', () => {
-      this.activeMenu?.hide();
-    });
   }
 
-  get activeMenu() {
-    return this.actionMenuElements.find((i) => i.isShown);
+  approveReport(id: string) {
+    console.log('approve', id);
   }
 
-  toggleActionMenu(evt: MouseEvent, id: string) {
-    evt.stopPropagation();
-    const activeEl = this.activeMenu;
-    const clickedEl = this.actionMenuElements.find((i) => i.reportId === id)!;
-
-    if (!activeEl) return clickedEl.show();
-    if (activeEl.reportId === clickedEl.reportId) return activeEl.hide();
-
-    activeEl.hide();
-    clickedEl.show();
+  rejectReport(id: string) {
+    console.log('reject', id);
   }
 }

@@ -15,16 +15,24 @@
         <td>{{ report.price | currency }}</td>
         <td>{{ report.mileage | number }}</td>
         <td>{{ report.status | titlecase }}</td>
-        <td class="report-table-action">
+        <td>
           <button
-            id="btn"
-            type="button"
-            class="report-table-action-button"
-            (click)="toggleActionMenu($event, report.id)"
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Approval action menu"
           >
-            <action-menu [reportId]="report.id" class="menu-block">
-            </action-menu>
+            <mat-icon>more_horiz</mat-icon>
           </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="approveReport(report.id)">
+              <mat-icon [ngStyle]="{ color: 'darkgreen' }">done_all</mat-icon>
+              <span>Approve</span>
+            </button>
+            <button mat-menu-item (click)="rejectReport(report.id)">
+              <mat-icon [ngStyle]="{ color: 'darkred' }">remove_done</mat-icon>
+              <span>Reject</span>
+            </button>
+          </mat-menu>
         </td>
       </tr>
     </tbody>
