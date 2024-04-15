@@ -25,11 +25,11 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="approveReport(report.id)">
-              <mat-icon [ngStyle]="{ color: 'darkgreen' }">done_all</mat-icon>
+              <mat-icon class="approve-icon">done_all</mat-icon>
               <span>Approve</span>
             </button>
             <button mat-menu-item (click)="rejectReport(report.id)">
-              <mat-icon [ngStyle]="{ color: 'darkred' }">remove_done</mat-icon>
+              <mat-icon class="reject-icon">remove_done</mat-icon>
               <span>Reject</span>
             </button>
           </mat-menu>
