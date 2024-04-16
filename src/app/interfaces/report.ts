@@ -8,6 +8,6 @@ export interface Report {
   lat: number;
   lng: number;
   description: string;
-  status: string;
+  status: 'new' | 'approved' | 'rejected';
   submittedByUserId: number;
 }
