@@ -19,3 +19,18 @@
 .mat-icon.reject-icon {
   color: darkred;
 }
+
+.mat-column-status-col {
+  max-width: 40px;
+}
+
+.mat-column-price-col,
+.mat-column-mileage-col {
+  max-width: 60px;
+  text-align: right;
+}
+
+.mat-column-action-col {
+  width: 20px;
+  text-align: center;
+}
