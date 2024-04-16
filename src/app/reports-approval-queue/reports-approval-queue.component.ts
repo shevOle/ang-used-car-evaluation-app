@@ -5,6 +5,7 @@ import {
   TitleCasePipe,
   DecimalPipe,
 } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +20,7 @@ import { Report } from '../interfaces/report';
     CurrencyPipe,
     TitleCasePipe,
     DecimalPipe,
+    MatTableModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
@@ -27,12 +29,20 @@ import { Report } from '../interfaces/report';
   styleUrl: './reports-approval-queue.component.scss',
 })
 export class ReportsApprovalQueueComponent {
-  reports: Report[] = [];
+  reportsData: Report[] = [];
+  columns: string[] = [
+    'maker-col',
+    'model-col',
+    'price-col',
+    'mileage-col',
+    'status-col',
+    'action-col',
+  ];
 
   constructor(private reportsService: ReportService) {}
 
   async ngOnInit() {
-    this.reports = await this.reportsService.getNewReports();
+    this.reportsData = await this.reportsService.getNewReports();
   }
 
   approveReport(id: string) {
