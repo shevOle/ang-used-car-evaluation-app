@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { merge, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 
@@ -34,6 +36,7 @@ export class ReportsApprovalQueueComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   reportsData: Report[] = [];
+  dataLength = 0;
   dataSource = new MatTableDataSource<Report>(this.reportsData);
   columns: string[] = [
     'maker-col',
@@ -47,11 +50,33 @@ export class ReportsApprovalQueueComponent {
   constructor(private reportsService: ReportService) {}
 
   ngAfterViewInit() {
+    this.paginator.page;
     this.dataSource.paginator = this.paginator;
-  }
 
-  async ngOnInit() {
-    this.reportsData = await this.reportsService.getNewReports();
+    merge(this.paginator.page, this.paginator.pageSize)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          return this.reportsService!.getReports({
+            page: this.paginator.pageIndex + 1,
+            limit: this.paginator.pageSize,
+          }).pipe(
+            catchError((err) => {
+              console.error(err);
+              return observableOf(null);
+            })
+          );
+        }),
+        map((data) => {
+          if (data === null) {
+            return [];
+          }
+
+          this.dataLength = data.length;
+          return data;
+        })
+      )
+      .subscribe((data) => (this.reportsData = data));
   }
 
   approveReport(id: string) {
