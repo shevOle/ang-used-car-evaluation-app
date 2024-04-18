@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-import { merge, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
@@ -50,12 +50,11 @@ export class ReportsApprovalQueueComponent {
   constructor(private reportsService: ReportService) {}
 
   ngAfterViewInit() {
-    this.paginator.page;
     this.dataSource.paginator = this.paginator;
 
-    merge(this.paginator.page, this.paginator.pageSize)
+    this.paginator.page
       .pipe(
-        startWith({}),
+        startWith([]),
         switchMap(() => {
           return this.reportsService!.getReports({
             page: this.paginator.pageIndex + 1,
