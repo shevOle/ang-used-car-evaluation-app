@@ -100,4 +100,12 @@ export class ReportService {
     const observable = this.httpClient.post(this.url, body);
     return firstValueFrom(observable);
   }
+
+  approveReport(id: string) {
+    return this.httpClient.put(`${this.url}/${id}`, { status: 'approved' });
+  }
+
+  rejectReport(id: string) {
+    return this.httpClient.put(`${this.url}/${id}`, { status: 'rejected' });
+  }
 }
