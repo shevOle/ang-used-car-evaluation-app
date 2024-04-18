@@ -80,10 +80,22 @@ export class ReportsApprovalQueueComponent {
   }
 
   approveReport(id: string) {
-    console.log('approve', id);
+    this.reportsService.approveReport(id).subscribe(() => {
+      this.paginator.page.emit({
+        pageIndex: 0,
+        pageSize: this.paginator.pageSize,
+        length: this.paginator.length,
+      });
+    });
   }
 
   rejectReport(id: string) {
-    console.log('reject', id);
+    this.reportsService.rejectReport(id).subscribe(() => {
+      this.paginator.page.emit({
+        pageIndex: 0,
+        pageSize: this.paginator.pageSize,
+        length: this.paginator.length,
+      });
+    });
   }
 }
