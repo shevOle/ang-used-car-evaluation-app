@@ -93,5 +93,7 @@ export class ReportEstimateComponent {
 
         return reports;
       });
+
+    this.estimateForm.reset();
   }
 }
