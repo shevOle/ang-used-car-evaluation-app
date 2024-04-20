@@ -1,8 +1,4 @@
-<form
-  class="estimate-page-form"
-  [formGroup]="addReportForm"
-  (submit)="submitForm()"
->
+<form class="estimate-page-form" [formGroup]="addReportForm">
   <div class="estimate-page-form-input">
     <label for="estimate-page-input-make">Manufacturer:</label>
     <input
@@ -64,9 +60,12 @@
     ></textarea>
   </div>
 
-  <button type="submit" class="submit-button" [disabled]="!addReportForm.valid">
-    Add report
-  </button>
+  <ucea-button
+    label="Add report"
+    [onClick]="submitForm.bind(this)"
+    visual="main"
+    class="submit-button"
+  ></ucea-button>
 
   <div class="estimate-page-form-input-errors">
     <p *ngIf="checkFormField('make', 'required')">Manufacturer is required.</p>

@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ReportService } from '../services/reports.service';
+import { CommonButton } from '../common-components/button';
 
 type FormControlFieldName =
   | 'make'
@@ -21,7 +22,7 @@ type FormControlFieldName =
 @Component({
   selector: 'ucea-add-report',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CommonButton],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
 })
