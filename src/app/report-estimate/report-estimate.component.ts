@@ -8,12 +8,19 @@ import {
 } from '@angular/forms';
 import { ReportService } from '../services/reports.service';
 import { ReportComponent } from '../report/report.component';
+import { CommonButton } from '../common-components/button';
 import { Report } from '../interfaces/report';
 
 @Component({
   selector: 'ucea-report-estimate',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ReportComponent, CurrencyPipe],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ReportComponent,
+    CurrencyPipe,
+    CommonButton,
+  ],
   templateUrl: './report-estimate.component.html',
   styleUrl: './report-estimate.component.scss',
 })

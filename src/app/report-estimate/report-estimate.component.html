@@ -34,13 +34,13 @@
       />
     </div>
 
-    <button
-      type="submit"
-      class="submit-button"
+    <ucea-button
       [disabled]="!estimateForm.valid"
-    >
-      Get estimate!
-    </button>
+      label="Get estimate!"
+      visual="main"
+      [onClick]="submitEstimateForm.bind(this)"
+      class="submit-button"
+    ></ucea-button>
 
     <div class="estimate-page-form-input-errors">
       <p
