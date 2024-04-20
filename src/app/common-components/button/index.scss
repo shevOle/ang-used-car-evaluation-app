@@ -1,0 +1,17 @@
+$main-confirm-color: #51829b;
+$main-reject-color: #b80000;
+
+.mat-mdc-raised-button.mat-main {
+  color: white;
+  background-color: $main-confirm-color;
+}
+
+.mat-mdc-raised-button.mat-secondary {
+  color: $main-confirm-color;
+  background-color: white;
+}
+
+.mat-mdc-raised-button.mat-cancel {
+  color: $main-reject-color;
+  background-color: white;
+}

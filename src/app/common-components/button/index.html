@@ -1,27 +1,8 @@
-<div class="example-button-row">
-  @if (type === 'secondary') {
-  <button
-    mat-raised-button
-    [style]="{ color: '#5BBCFF', backgroundColor: 'white' }"
-    [disabled]="disabled"
-  >
-    {{ label }}
-  </button>
-  } @else if (type === 'primary') {
-  <button
-    mat-raised-button
-    [style]="{ color: 'white', backgroundColor: '#5BBCFF' }"
-    [disabled]="disabled"
-  >
-    {{ label }}
-  </button>
-  } @else if (type === 'cancel') {
-  <button
-    mat-raised-button
-    [style]="{ color: 'red', backgroundColor: 'white' }"
-    [disabled]="disabled"
-  >
-    {{ label }}
-  </button>
-  }
-</div>
+<button
+  mat-raised-button
+  [color]="visual"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  {{ label | titlecase }}
+</button>
