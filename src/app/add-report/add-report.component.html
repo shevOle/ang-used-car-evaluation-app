@@ -65,6 +65,7 @@
     [onClick]="submitForm.bind(this)"
     visual="main"
     class="submit-button"
+    [disabled]="!addReportForm.valid"
   ></ucea-button>
 
   <div class="estimate-page-form-input-errors">
