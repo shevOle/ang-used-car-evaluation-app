@@ -1,37 +1,43 @@
 <section>
   <form class="report-list-filter">
     <div class="form-input">
-      <label for="filter-input-make">Manufacturer:</label>
-      <input type="text" id="filter-input-make" #filterMake />
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Manufacturer</mat-label>
+        <input matInput [formControl]="filterForm.controls.make" />
+      </mat-form-field>
     </div>
     <div class="form-input">
-      <label for="filter-input-model">Model:</label>
-      <input type="text" id="filter-input-model" #filterModel />
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Model</mat-label>
+        <input matInput [formControl]="filterForm.controls.model" />
+      </mat-form-field>
     </div>
     <div class="form-input">
-      <label for="filter-input-year">Year: </label>
-      <select name="year" id="filter-input-year" #filterYear>
-        <option *ngFor="let year of availableYears">{{ year }}</option>
-      </select>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Year</mat-label>
+        <mat-select [formControl]="filterForm.controls.year">
+          <mat-option>--None--</mat-option>
+          <mat-option *ngFor="let year of availableYears" [value]="year">{{
+            year
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="form-buttons">
-      <button
+      <ucea-button
+        visual="main"
+        label="Apply"
         class="submit-button"
-        type="button"
-        (click)="
-          applyFilter(filterMake.value, filterModel.value, filterYear.value)
-        "
-      >
-        Apply
-      </button>
-      <button
+        [onClick]="applyFilter.bind(this)"
+      ></ucea-button>
+
+      <ucea-button
+        visual="cancel"
+        label="Reset"
         class="reset-button"
-        type="button"
-        (click)="resetFilter([filterMake, filterModel, filterYear])"
-      >
-        Reset
-      </button>
+        [onClick]="resetFilter.bind(this)"
+      ></ucea-button>
     </div>
   </form>
   <div class="report-list">
