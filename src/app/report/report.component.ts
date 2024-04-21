@@ -4,6 +4,7 @@ import {
   DatePipe,
   CurrencyPipe,
   TitleCasePipe,
+  DecimalPipe,
 } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Report } from '../interfaces/report';
@@ -11,7 +12,14 @@ import { Report } from '../interfaces/report';
 @Component({
   selector: 'ucea-report',
   standalone: true,
-  imports: [CommonModule, DatePipe, CurrencyPipe, MatCardModule, TitleCasePipe],
+  imports: [
+    CommonModule,
+    DatePipe,
+    CurrencyPipe,
+    MatCardModule,
+    TitleCasePipe,
+    DecimalPipe,
+  ],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss',
 })
