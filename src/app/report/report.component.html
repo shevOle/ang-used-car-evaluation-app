@@ -1,20 +1,24 @@
-<div class="report-list-item" tabindex="1">
-  <div class="report-card-map"></div>
-  <div class="report-card-field">
-    <span class="report-list-item-title">Manufacturer:</span> {{ report.make }}
-  </div>
-  <div class="report-card-field">
-    <span class="report-list-item-title">Model:</span> {{ report.model }}
-  </div>
-  <div class="report-card-field">
-    <span class="report-list-item-title">Mileage:</span> {{ report.mileage }}
-  </div>
-  <div class="report-card-field">
-    <span class="report-list-item-title">Production year:</span>
-    {{ report.year | date : "yyyy" }}
-  </div>
-  <div class="report-card-field">
-    <span class="report-list-item-title">Price:</span>
-    {{ report.price | currency }}
-  </div>
-</div>
+<mat-card class="report-list-item">
+  <mat-card-header>
+    <mat-card-title
+      >{{ report.make | titlecase }}
+      {{ report.model | titlecase }}</mat-card-title
+    >
+    <mat-card-subtitle> {{ report.year | date : "yyyy" }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="../../assets/google-map-dull.png"
+    alt="Location on a map"
+    class="report-list-item-map"
+  />
+  <mat-card-content>
+    <p>
+      <span class="report-list-item-title">Mileage:</span> {{ report.mileage }}
+    </p>
+    <p>
+      <span class="report-list-item-title">Price:</span>
+      {{ report.price | currency }}
+    </p>
+  </mat-card-content>
+</mat-card>
