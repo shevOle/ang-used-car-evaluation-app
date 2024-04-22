@@ -9,7 +9,9 @@
   </a>
   <nav class="site-header-nav">
     @for (nav of navComponents; track nav.title) { @if (nav.type === 'button') {
-    <button type="button" [class]="nav.class" (click)="nav.click()"></button>
+    <button type="button" [class]="nav.class" (click)="nav.click()">
+      <mat-icon [inline]="true">{{ nav.icon }}</mat-icon>
+    </button>
     } @else {
     <a
       *ngIf="nav.isRendered"
@@ -22,10 +24,42 @@
     }}
   </nav>
   <button
+    mat-icon-button
     class="button-default burger-menu"
     type="button"
-    (click)="openBurgerMenu()"
-  ></button>
+    [matMenuTriggerFor]="menu"
+    aria-label="Navigation menu"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (nav of navComponents; track nav.title) { @if (nav.type === 'button') {
+    <button
+      mat-menu-item
+      type="menu"
+      (click)="nav.click()"
+      [ariaLabel]="nav.title"
+    >
+      <mat-icon>{{ nav.icon }}</mat-icon>
+      <span>{{ nav.title }}</span>
+    </button>
+    } @else {
+    <button
+      mat-menu-item
+      type="menu"
+      *ngIf="nav.isRendered"
+      [routerLink]="nav.link"
+      [class]="nav.class"
+      (click)="nav.click()"
+      [ariaLabel]="nav.title"
+    >
+      <mat-icon>
+        {{ nav.icon }}
+      </mat-icon>
+      <span>{{ nav.title }}</span>
+    </button>
+    }}
+  </mat-menu>
 </header>
 <main>
   <router-outlet />
