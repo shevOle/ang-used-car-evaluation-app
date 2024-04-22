@@ -18,7 +18,7 @@ header {
   overflow-x: clip;
 }
 
-.button-default {
+button {
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -42,30 +42,19 @@ header {
   margin: 0;
 }
 
-.site-header-nav .site-header-logo-title {
-  font-size: 20px;
-}
-
-.site-header-nav .site-header-logo-title:hover,
-.site-header-nav .site-header-logo-title:focus {
-  text-decoration: underline;
-}
-
 .site-header-nav {
   display: flex;
   align-items: center;
+
+  & .site-header-logo-title {
+    font-size: 20px;
+  }
 }
 
 .site-header-link {
   padding: 10px;
   text-decoration: none;
   color: inherit;
-}
-
-.button-logout {
-  width: 32px;
-  height: 32px;
-  background-image: url("../assets/logout.png");
 }
 
 .site-header-profile {
@@ -82,48 +71,22 @@ header {
   display: none;
 }
 
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
 @media screen and (max-width: $break-point-m) {
-  header {
-    width: auto;
-  }
-
   .site-header-nav {
-    position: absolute;
-    top: 0px;
-    right: -200px;
-    height: 100vh;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 30px;
-    background-color: $backdrop-color;
-
-    &.visible {
-      right: 0px;
-      left: 0;
-
-      + .burger-menu {
-        display: none;
-      }
-    }
+    display: none;
   }
 
   .burger-menu {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background-image: url("../assets/list.png");
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  .button-close-menu {
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 16px;
-    height: 16px;
-    background-image: url("../assets/close.png");
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    // font-size: 36px;
   }
 }
