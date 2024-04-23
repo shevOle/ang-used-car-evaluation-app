@@ -5,33 +5,39 @@
     (submit)="submitEstimateForm()"
   >
     <div class="estimate-page-form-input">
-      <label for="estimate-page-input-make">Manufacturer:</label>
-      <input
-        id="estimate-page-input-make"
-        type="text"
-        formControlName="make"
-        required
-      />
+      <mat-form-field>
+        <mat-label class="11111">Manufacturer:</mat-label>
+        <input
+          matInput
+          [formControl]="estimateForm.controls.make"
+          type="text"
+          required
+        />
+      </mat-form-field>
     </div>
 
     <div class="estimate-page-form-input">
-      <label for="estimate-page-input-model">Model:</label>
-      <input
-        id="estimate-page-input-model"
-        type="text"
-        formControlName="model"
-        required
-      />
+      <mat-form-field subscriptSizing="fixed">
+        <mat-label>Model:</mat-label>
+        <input
+          matInput
+          [formControl]="estimateForm.controls.model"
+          type="text"
+          required
+        />
+      </mat-form-field>
     </div>
 
     <div class="estimate-page-form-input">
-      <label for="estimate-page-input-year">Production year:</label>
-      <input
-        id="estimate-page-input-year"
-        type="number"
-        formControlName="year"
-        required
-      />
+      <mat-form-field subscriptSizing="fixed">
+        <mat-label>Production year:</mat-label>
+        <input
+          matInput
+          [formControl]="estimateForm.controls.year"
+          type="number"
+          required
+        />
+      </mat-form-field>
     </div>
 
     <ucea-button
