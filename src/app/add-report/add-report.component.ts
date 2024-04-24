@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReportService } from '../services/reports.service';
 import { CommonButton } from '../common-components/button';
 
@@ -22,7 +24,13 @@ type FormControlFieldName =
 @Component({
   selector: 'ucea-add-report',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CommonButton],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CommonButton,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
 })

@@ -1,63 +1,50 @@
 <form class="estimate-page-form" [formGroup]="addReportForm">
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-make">Manufacturer:</label>
-    <input
-      id="estimate-page-input-make"
-      type="text"
-      formControlName="make"
-      required
-    />
+    <mat-form-field>
+      <mat-label for="estimate-page-input-make">Manufacturer:</mat-label
+      ><input matInput type="text" formControlName="make" required
+    /></mat-form-field>
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-model">Model:</label>
-    <input
-      id="estimate-page-input-model"
-      type="text"
-      formControlName="model"
-      required
-    />
+    <mat-form-field
+      ><mat-label for="estimate-page-input-model">Model:</mat-label>
+      <input matInput type="text" formControlName="model" required
+    /></mat-form-field>
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-year">Year:</label>
-    <input
-      id="estimate-page-input-year"
-      type="number"
-      formControlName="year"
-      required
-    />
+    <mat-form-field
+      ><mat-label for="estimate-page-input-year">Year:</mat-label
+      ><input matInput type="number" formControlName="year" required
+    /></mat-form-field>
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-mileage">Mileage:</label>
-    <input
-      id="estimate-page-input-mileage"
-      type="number"
-      formControlName="mileage"
-      required
-    />
+    <mat-form-field
+      ><mat-label for="estimate-page-input-mileage">Mileage:</mat-label
+      ><input matInput type="number" formControlName="mileage" required
+    /></mat-form-field>
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-price">Price:</label>
-    <input
-      id="estimate-page-input-price"
-      type="number"
-      formControlName="price"
-      required
-    />
+    <mat-form-field
+      ><mat-label for="estimate-page-input-price">Price:</mat-label
+      ><input matInput type="number" formControlName="price" required
+    /></mat-form-field>
   </div>
 
   <div class="estimate-page-form-input">
-    <label for="estimate-page-input-description">Description:</label>
-    <textarea
-      id="estimate-page-input-description"
-      type="text"
-      maxlength="150"
-      rows="10"
-      formControlName="description"
-    ></textarea>
+    <mat-form-field>
+      <mat-label for="estimate-page-input-description">Description:</mat-label>
+      <textarea
+        matInput
+        type="text"
+        maxlength="150"
+        rows="10"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
   </div>
 
   <ucea-button
