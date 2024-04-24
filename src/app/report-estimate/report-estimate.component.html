@@ -6,36 +6,36 @@
   >
     <div class="estimate-page-form-input">
       <mat-form-field>
-        <mat-label class="11111">Manufacturer:</mat-label>
         <input
           matInput
           [formControl]="estimateForm.controls.make"
           type="text"
           required
+          placeholder="Manufacturer*"
         />
       </mat-form-field>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field subscriptSizing="fixed">
-        <mat-label>Model:</mat-label>
+      <mat-form-field>
         <input
           matInput
           [formControl]="estimateForm.controls.model"
           type="text"
           required
+          placeholder="Model*"
         />
       </mat-form-field>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field subscriptSizing="fixed">
-        <mat-label>Production year:</mat-label>
+      <mat-form-field>
         <input
           matInput
           [formControl]="estimateForm.controls.year"
           type="number"
           required
+          placeholder="Production year*"
         />
       </mat-form-field>
     </div>

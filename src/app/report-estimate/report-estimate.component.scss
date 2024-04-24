@@ -2,7 +2,7 @@
   padding: 40px;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: 30vh 5vh 65vh;
+  grid-template-rows: 35vh 5vh 60vh;
   align-items: center;
   justify-content: center;
   gap: 15px;
@@ -64,19 +64,6 @@
   row-gap: 10px;
   column-gap: 20px;
   overflow-y: auto;
-}
-
-.estimate-page-form-input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 10px;
-}
-
-.submit-button {
-  width: fit-content;
-  margin-top: 10px;
-  padding: 7px;
 }
 
 #estimate-page-map {
