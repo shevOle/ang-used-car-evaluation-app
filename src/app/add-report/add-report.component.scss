@@ -16,7 +16,8 @@ $break-point-xs: 480px;
   padding: 20px;
 
   .estimate-page-form-input > .mat-mdc-form-field,
-  .mat-mdc-form-field input {
+  .mat-mdc-form-field input,
+  .mat-mdc-form-field textarea {
     width: 100%;
   }
 
