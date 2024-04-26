@@ -1,18 +1,19 @@
 $break-point-s: 720px;
 $break-point-xs: 480px;
 
-.estimate-page-form {
+.mat-mdc-card.mdc-card {
   width: 80%;
-  max-width: 700px;
+  max-width: 900px;
+  border-radius: 10px;
+  margin: 40px auto 0;
+}
 
+.estimate-page-form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 40px;
-  margin: 10px auto;
-  background-color: lightblue;
-  border-radius: 10px;
+  padding: 20px;
 
   .estimate-page-form-input > .mat-mdc-form-field,
   .mat-mdc-form-field input {

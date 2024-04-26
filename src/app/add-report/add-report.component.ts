@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { ReportService } from '../services/reports.service';
 import { CommonButton } from '../common-components/button';
 
@@ -30,6 +31,7 @@ type FormControlFieldName =
     CommonButton,
     MatInputModule,
     MatFormFieldModule,
+    MatCardModule,
   ],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
