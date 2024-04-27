@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReportService } from '../services/reports.service';
 import { ReportComponent } from '../report/report.component';
 import { CommonButton } from '../common-components/button';
+import { FormCard } from '../common-components/form-card';
 import { Report } from '../interfaces/report';
 
 @Component({
@@ -24,6 +25,7 @@ import { Report } from '../interfaces/report';
     CommonButton,
     MatInputModule,
     MatFormFieldModule,
+    FormCard,
   ],
   templateUrl: './report-estimate.component.html',
   styleUrl: './report-estimate.component.scss',
