@@ -9,13 +9,14 @@ import {
 } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { FormCard } from '../common-components/form-card';
 
 type FormControlFieldName = 'email' | 'password';
 
 @Component({
   selector: 'ucea-sign-up',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormCard],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })

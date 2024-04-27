@@ -1,69 +1,73 @@
-<form class="signup-page-form" [formGroup]="signUpForm" (submit)="signUp()">
-  <h3 class="signup-title">Welcome to UCEA!</h3>
-  <div class="signup-page-form-input">
-    <label for="signup-page-input-email">Email:</label>
-    <input
-      id="signup-page-input-email"
-      type="text"
-      formControlName="email"
-      required
-    />
-  </div>
-
-  <div class="signup-page-form-input">
-    <label for="signup-page-input-password">Password:</label>
-    <input
-      id="signup-page-input-password"
-      type="password"
-      formControlName="password"
-      required
-    />
-  </div>
-
-  <h4 class="picture-chooser-title">Choose your avatar:</h4>
-  <div class="picture-chooser">
-    <button
-      type="button"
-      class="picture-chooser-button"
-      (click)="scrollImagesBackwards()"
-    >
-      <
-    </button>
-    <div class="picture-chooser-window">
-      <img [src]="picture.url" [alt]="picture.name" />
+<ucea-form-card>
+  <form class="signup-page-form" [formGroup]="signUpForm" (submit)="signUp()">
+    <h3 class="signup-title">Welcome to UCEA!</h3>
+    <div class="signup-page-form-input">
+      <label for="signup-page-input-email">Email:</label>
+      <input
+        id="signup-page-input-email"
+        type="text"
+        formControlName="email"
+        required
+      />
     </div>
-    <button
-      type="button"
-      class="picture-chooser-button"
-      (click)="scrollImagesForward()"
-    >
+
+    <div class="signup-page-form-input">
+      <label for="signup-page-input-password">Password:</label>
+      <input
+        id="signup-page-input-password"
+        type="password"
+        formControlName="password"
+        required
+      />
+    </div>
+
+    <h4 class="picture-chooser-title">Choose your avatar:</h4>
+    <div class="picture-chooser">
+      <button
+        type="button"
+        class="picture-chooser-button"
+        (click)="scrollImagesBackwards()"
       >
+        <
+      </button>
+      <div class="picture-chooser-window">
+        <img [src]="picture.url" [alt]="picture.name" />
+      </div>
+      <button
+        type="button"
+        class="picture-chooser-button"
+        (click)="scrollImagesForward()"
+      >
+        >
+      </button>
+    </div>
+
+    <div class="signup-page-form-input-errors">
+      <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
+      <p *ngIf="checkFormField('email', 'email')">
+        Provide a valid email address.
+      </p>
+
+      <p *ngIf="checkFormField('password', 'required')">
+        Password is required.
+      </p>
+      <p *ngIf="checkFormField('password', 'minlength')">
+        Password should be at least 3 characters long.
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      class="submit-button"
+      [disabled]="!signUpForm.valid"
+      (click)="signUp()"
+    >
+      Sign Up
     </button>
-  </div>
 
-  <div class="signup-page-form-input-errors">
-    <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
-    <p *ngIf="checkFormField('email', 'email')">
-      Provide a valid email address.
+    <p>
+      Already have an account?<br />
+      <a routerLink="/login">Log in!</a>
     </p>
-
-    <p *ngIf="checkFormField('password', 'required')">Password is required.</p>
-    <p *ngIf="checkFormField('password', 'minlength')">
-      Password should be at least 3 characters long.
-    </p>
-  </div>
-
-  <button
-    type="submit"
-    class="submit-button"
-    [disabled]="!signUpForm.valid"
-    (click)="signUp()"
-  >
-    Sign Up
-  </button>
-
-  <p>
-    Already have an account?<br />
-    <a routerLink="/login">Log in!</a>
-  </p>
-</form>
+  </form>
+</ucea-form-card>
