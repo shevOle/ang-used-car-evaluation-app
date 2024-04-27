@@ -1,43 +1,47 @@
-<form class="login-page-form" [formGroup]="loginForm" (submit)="login()">
-  <h3 class="signup-title">Welcome back!</h3>
-  <div class="login-page-form-input">
-    <label for="login-page-input-email">Email:</label>
-    <input
-      id="login-page-input-email"
-      type="text"
-      formControlName="email"
-      required
-    />
-  </div>
+<ucea-form-card>
+  <form class="login-page-form" [formGroup]="loginForm" (submit)="login()">
+    <h3 class="signup-title">Welcome back!</h3>
+    <div class="login-page-form-input">
+      <label for="login-page-input-email">Email:</label>
+      <input
+        id="login-page-input-email"
+        type="text"
+        formControlName="email"
+        required
+      />
+    </div>
 
-  <div class="login-page-form-input">
-    <label for="login-page-input-password">Password:</label>
-    <input
-      id="login-page-input-password"
-      type="password"
-      formControlName="password"
-      required
-    />
-  </div>
+    <div class="login-page-form-input">
+      <label for="login-page-input-password">Password:</label>
+      <input
+        id="login-page-input-password"
+        type="password"
+        formControlName="password"
+        required
+      />
+    </div>
 
-  <div class="login-page-form-input-errors">
-    <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
-    <p *ngIf="checkFormField('email', 'email')">
-      Provide a valid email address.
+    <div class="login-page-form-input-errors">
+      <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
+      <p *ngIf="checkFormField('email', 'email')">
+        Provide a valid email address.
+      </p>
+
+      <p *ngIf="checkFormField('password', 'required')">
+        Password is required.
+      </p>
+      <p *ngIf="checkFormField('password', 'minlength')">
+        Password should be at least 3 characters long.
+      </p>
+    </div>
+
+    <button type="submit" class="submit-button" [disabled]="!loginForm.valid">
+      Login
+    </button>
+
+    <p>
+      Don't have an account yet? <br />
+      <a routerLink="/sign-up">Sign up!</a>
     </p>
-
-    <p *ngIf="checkFormField('password', 'required')">Password is required.</p>
-    <p *ngIf="checkFormField('password', 'minlength')">
-      Password should be at least 3 characters long.
-    </p>
-  </div>
-
-  <button type="submit" class="submit-button" [disabled]="!loginForm.valid">
-    Login
-  </button>
-
-  <p>
-    Don't have an account yet? <br />
-    <a routerLink="/sign-up">Sign up!</a>
-  </p>
-</form>
+  </form>
+</ucea-form-card>

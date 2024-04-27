@@ -8,13 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { FormCard } from '../common-components/form-card';
 
 type FormControlFieldName = 'email' | 'password';
 
 @Component({
   selector: 'ucea-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormCard],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
