@@ -1,46 +1,49 @@
+$break-point-m: 850px;
+$break-point-s: 480px;
+
 .estimate-page {
   padding: 40px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 35vh 5vh 60vh;
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: max-content;
   gap: 15px;
+}
 
-  @media screen and (max-width: 780px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 30vh 30vh 5vh 35vh;
+.estimate-page > .form-card {
+  display: inline-block;
+  width: 40%;
+
+  @media screen and (max-width: $break-point-m) {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: $break-point-s) {
+    width: 100%;
   }
 }
 
 .estimate-page-form {
-  grid-area: 1/1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  background-color: lightblue;
-  border-radius: 10px;
+  padding: 40px 0;
 
-  input {
-    padding: 5px;
+  & .estimate-page-form-input,
+  .estimate-page-form-input .mat-mdc-form-field {
+    width: 100%;
   }
 }
 
 .estimate-page-price {
-  grid-area: 2 / 1 / span 1 / span 2;
+  width: 100%;
   text-align: center;
-  font-size: clamp(20px, calc((48px - 20px) * (100vw / 780px)), 48px);
-  padding: 10px;
+  font-size: clamp(20px, calc((40px - 20px) * (100vw / 780px)), 40px);
+  padding: 40px;
 
   p {
     margin: 0;
-  }
-
-  @media screen and (max-width: 780px) {
-    grid-area: 3/1;
   }
 }
 
@@ -48,31 +51,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   height: 100%;
-  grid-area: 3 / 1 / span 1 / span 2;
-
-  @media screen and (max-width: 780px) {
-    grid-area: 4/1;
-  }
 }
 
 .estimate-page-reports-grid {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, 280px);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  row-gap: 10px;
-  column-gap: 20px;
+  gap: 10px;
+  margin: 0 auto;
   overflow-y: auto;
 }
 
 #estimate-page-map {
-  height: 100%;
-  grid-area: 1/2;
+  display: inline-block;
+  width: 55%;
+  height: 383px;
   background-image: url("../../assets/google-map-dull.png");
 
-  @media screen and (max-width: 780px) {
-    grid-area: 2/1;
+  @media screen and (max-width: $break-point-m) {
+    width: 90%;
+    margin: 0 auto;
   }
 }
 
