@@ -5,7 +5,12 @@
     </div>
     <div class="profile-info">
       <p>Email: {{ currentUser.email }}</p>
-      <p>Are you an admin: {{ currentUser.isAdmin ? "yeap :)" : "nope :(" }}</p>
+      <p>
+        @if (currentUser.isAdmin) { You are
+        <span class="admin">an Admin</span> } @else { You are
+        <span class="user">not an Admin</span>
+        }
+      </p>
     </div>
   </section>
 </ucea-form-card>

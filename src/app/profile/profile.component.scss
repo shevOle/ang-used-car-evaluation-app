@@ -1,3 +1,5 @@
+$break-point-xs: 400px;
+
 * {
   box-sizing: border-box;
 }
@@ -31,5 +33,25 @@
 .profile-info {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 40px;
+
+  p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+
+    @media screen and (max-width: $break-point-xs) {
+      width: 180px;
+    }
+
+    & > span.admin {
+      color: green;
+    }
+
+    & > span.user {
+      color: red;
+    }
+  }
 }
