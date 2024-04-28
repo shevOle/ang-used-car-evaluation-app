@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../interfaces/user';
+import { FormCard } from '../common-components/form-card';
 
 @Component({
   selector: 'ucea-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormCard],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

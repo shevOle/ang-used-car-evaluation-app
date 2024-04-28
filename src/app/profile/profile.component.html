@@ -1,9 +1,11 @@
-<section class="profile-page" *ngIf="!!currentUser">
-  <div class="profile-photo">
-    <img [src]="pictureUrl" alt="user-photo" />
-  </div>
-  <div>
-    <p>Email: {{ currentUser.email }}</p>
-    <p>Are you an admin: {{ currentUser.isAdmin ? "yeap :)" : "nope :(" }}</p>
-  </div>
-</section>
+<ucea-form-card>
+  <section class="profile-page" *ngIf="!!currentUser">
+    <div class="profile-photo">
+      <img [src]="pictureUrl" alt="user-photo" />
+    </div>
+    <div class="profile-info">
+      <p>Email: {{ currentUser.email }}</p>
+      <p>Are you an admin: {{ currentUser.isAdmin ? "yeap :)" : "nope :(" }}</p>
+    </div>
+  </section>
+</ucea-form-card>
