@@ -2,23 +2,27 @@
   <form class="login-page-form" [formGroup]="loginForm" (submit)="login()">
     <h3 class="signup-title">Welcome back!</h3>
     <div class="login-page-form-input">
-      <label for="login-page-input-email">Email:</label>
-      <input
-        id="login-page-input-email"
-        type="text"
-        formControlName="email"
-        required
-      />
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="loginForm.controls.email"
+          type="email"
+          required
+          placeholder="Email*"
+        />
+      </mat-form-field>
     </div>
 
     <div class="login-page-form-input">
-      <label for="login-page-input-password">Password:</label>
-      <input
-        id="login-page-input-password"
-        type="password"
-        formControlName="password"
-        required
-      />
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="loginForm.controls.password"
+          type="password"
+          required
+          placeholder="Password*"
+        />
+      </mat-form-field>
     </div>
 
     <div class="login-page-form-input-errors">

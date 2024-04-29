@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from '../services/auth.service';
 import { FormCard } from '../common-components/form-card';
 
@@ -15,25 +17,30 @@ type FormControlFieldName = 'email' | 'password';
 @Component({
   selector: 'ucea-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormCard],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormCard,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  loginForm = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
+  });
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.email],
-      }),
-      password: new FormControl('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.minLength(3)],
-      }),
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     if (this.authService.currentUserValue) {
