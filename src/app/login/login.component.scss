@@ -4,12 +4,6 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  gap: 10px;
-}
-
-.login-page-form-input {
-  display: flex;
-  flex-direction: column;
 }
 
 p {
@@ -18,10 +12,13 @@ p {
 }
 
 .login-page-form-input-errors {
-  grid-area: 5 / 1 / 5 / span 6;
   color: red;
 
   p {
     margin: 5px 0;
   }
+}
+
+button {
+  margin-bottom: 10px;
 }
