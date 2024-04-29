@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  gap: 10px;
 }
 
 .signup-page-form-input {
@@ -24,6 +23,10 @@ p {
   p {
     margin: 5px 0;
   }
+}
+
+.submit-button {
+  margin-bottom: 10px;
 }
 
 .picture-chooser {
