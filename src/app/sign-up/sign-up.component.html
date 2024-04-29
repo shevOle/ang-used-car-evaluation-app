@@ -2,23 +2,27 @@
   <form class="signup-page-form" [formGroup]="signUpForm" (submit)="signUp()">
     <h3 class="signup-title">Welcome to UCEA!</h3>
     <div class="signup-page-form-input">
-      <label for="signup-page-input-email">Email:</label>
-      <input
-        id="signup-page-input-email"
-        type="text"
-        formControlName="email"
-        required
-      />
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="signUpForm.controls.email"
+          type="email"
+          required
+          placeholder="Email*"
+        />
+      </mat-form-field>
     </div>
 
     <div class="signup-page-form-input">
-      <label for="signup-page-input-password">Password:</label>
-      <input
-        id="signup-page-input-password"
-        type="password"
-        formControlName="password"
-        required
-      />
+      <mat-form-field>
+        <input
+          matInput
+          [formControl]="signUpForm.controls.password"
+          type="password"
+          required
+          placeholder="Password*"
+        />
+      </mat-form-field>
     </div>
 
     <h4 class="picture-chooser-title">Choose your avatar:</h4>

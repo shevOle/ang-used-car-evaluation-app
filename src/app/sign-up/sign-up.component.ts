@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { FormCard } from '../common-components/form-card';
@@ -16,7 +18,14 @@ type FormControlFieldName = 'email' | 'password';
 @Component({
   selector: 'ucea-sign-up',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormCard],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormCard,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
