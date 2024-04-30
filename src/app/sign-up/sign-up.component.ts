@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { FormCard } from '../common-components/form-card';
+import { CommonButton } from '../common-components/button';
 
 type FormControlFieldName = 'email' | 'password';
 
@@ -25,6 +26,7 @@ type FormControlFieldName = 'email' | 'password';
     FormCard,
     MatInputModule,
     MatFormFieldModule,
+    CommonButton,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',

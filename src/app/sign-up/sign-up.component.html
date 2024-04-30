@@ -60,14 +60,13 @@
       </p>
     </div>
 
-    <button
-      type="submit"
-      class="submit-button"
+    <ucea-button
+      visual="main"
+      label="Sign Up"
+      [onClick]="signUp.bind(this)"
       [disabled]="!signUpForm.valid"
-      (click)="signUp()"
-    >
-      Sign Up
-    </button>
+      class="submit-button"
+    ></ucea-button>
 
     <p>
       Already have an account?<br />
