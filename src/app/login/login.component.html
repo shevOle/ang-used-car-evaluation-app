@@ -1,5 +1,5 @@
 <ucea-form-card>
-  <form class="login-page-form" [formGroup]="loginForm" (submit)="login()">
+  <form class="login-page-form" [formGroup]="loginForm">
     <h3 class="signup-title">Welcome back!</h3>
     <div class="login-page-form-input">
       <mat-form-field>
@@ -39,9 +39,13 @@
       </p>
     </div>
 
-    <button type="submit" class="submit-button" [disabled]="!loginForm.valid">
-      Login
-    </button>
+    <ucea-button
+      visual="main"
+      label="Login"
+      [onClick]="login.bind(this)"
+      [disabled]="!loginForm.valid"
+      class="submit-button"
+    ></ucea-button>
 
     <p>
       Don't have an account yet? <br />
