@@ -7,16 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { IUser } from './interfaces/user';
-
-interface IAppNavigationLink {
-  link: string;
-  isRendered: boolean;
-  class: string;
-  type: 'link' | 'button';
-  title: string;
-  icon: string;
-  click?: () => void;
-}
+import { IAppNavigationLink } from './interfaces/navigation-link';
 
 @Component({
   selector: 'ucea-root',
