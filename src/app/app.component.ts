@@ -25,65 +25,72 @@ import { IUser } from './interfaces/user';
 export class AppComponent {
   navElement: Element | null = null;
   currentUser: Partial<IUser> | null = null;
-  navComponents = [
-    {
-      link: '/reports',
-      isRendered: true,
-      class: 'site-header-link',
-      type: 'link',
-      click: this.closeBurgerMenu.bind(this),
-      title: 'Reports',
-      icon: 'article',
-    },
-    {
-      link: '/estimate',
-      isRendered: true,
-      class: 'site-header-link',
-      type: 'link',
-      click: this.closeBurgerMenu.bind(this),
-      title: 'Estimate',
-      icon: 'calculate',
-    },
-    {
-      link: '/add-report',
-      isRendered: true,
-      class: 'site-header-link',
-      type: 'link',
-      click: this.closeBurgerMenu.bind(this),
-      title: 'Add report',
-      icon: 'note_add',
-    },
-    {
-      link: '/report-approval-queue',
-      isRendered: this.currentUser?.isAdmin,
-      class: 'site-header-link',
-      type: 'link',
-      click: this.closeBurgerMenu.bind(this),
-      title: 'Reports Approvals',
-      icon: 'fact_check',
-    },
-    {
-      link: '/profile',
-      isRendered: true,
-      class: 'site-header-link',
-      type: 'link',
-      click: this.closeBurgerMenu.bind(this),
-      title: 'Profile',
-      icon: 'manage_accounts',
-    },
-    {
-      link: '',
-      isRendered: true,
-      class: 'logout-button',
-      type: 'button',
-      click: this.logOut.bind(this),
-      title: 'Logout',
-      icon: 'logout',
-    },
-  ];
+  navComponents = this.constructNavComponents();
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.currentUser.subscribe((user) => {
+      this.currentUser = user;
+      this.navComponents = this.constructNavComponents(user?.isAdmin);
+    });
+  }
+
+  constructNavComponents(isAdmin: boolean = false) {
+    return [
+      {
+        link: '/reports',
+        isRendered: true,
+        class: 'site-header-link',
+        type: 'link',
+        click: this.closeBurgerMenu.bind(this),
+        title: 'Reports',
+        icon: 'article',
+      },
+      {
+        link: '/estimate',
+        isRendered: true,
+        class: 'site-header-link',
+        type: 'link',
+        click: this.closeBurgerMenu.bind(this),
+        title: 'Estimate',
+        icon: 'calculate',
+      },
+      {
+        link: '/add-report',
+        isRendered: true,
+        class: 'site-header-link',
+        type: 'link',
+        click: this.closeBurgerMenu.bind(this),
+        title: 'Add report',
+        icon: 'note_add',
+      },
+      {
+        link: '/report-approval-queue',
+        isRendered: isAdmin,
+        class: 'site-header-link',
+        type: 'link',
+        click: this.closeBurgerMenu.bind(this),
+        title: 'Reports Approvals',
+        icon: 'fact_check',
+      },
+      {
+        link: '/profile',
+        isRendered: true,
+        class: 'site-header-link',
+        type: 'link',
+        click: this.closeBurgerMenu.bind(this),
+        title: 'Profile',
+        icon: 'manage_accounts',
+      },
+      {
+        link: '',
+        isRendered: true,
+        class: 'logout-button',
+        type: 'button',
+        click: this.logOut.bind(this),
+        title: 'Logout',
+        icon: 'logout',
+      },
+    ];
   }
 
   ngAfterViewInit() {
