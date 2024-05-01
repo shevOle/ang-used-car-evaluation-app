@@ -8,6 +8,16 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { IUser } from './interfaces/user';
 
+interface IAppNavigationLink {
+  link: string;
+  isRendered: boolean;
+  class: string;
+  type: 'link' | 'button';
+  title: string;
+  icon: string;
+  click?: () => void;
+}
+
 @Component({
   selector: 'ucea-root',
   standalone: true,
@@ -23,25 +33,23 @@ import { IUser } from './interfaces/user';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  navElement: Element | null = null;
   currentUser: Partial<IUser> | null = null;
-  navComponents = this.constructNavComponents();
+  navLinks: IAppNavigationLink[] = this.constructNavComponents();
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser.subscribe((user) => {
       this.currentUser = user;
-      this.navComponents = this.constructNavComponents(user?.isAdmin);
+      this.navLinks = this.constructNavComponents(user?.isAdmin);
     });
   }
 
-  constructNavComponents(isAdmin: boolean = false) {
+  constructNavComponents(isAdmin: boolean = false): IAppNavigationLink[] {
     return [
       {
         link: '/reports',
         isRendered: true,
         class: 'site-header-link',
         type: 'link',
-        click: this.closeBurgerMenu.bind(this),
         title: 'Reports',
         icon: 'article',
       },
@@ -50,7 +58,6 @@ export class AppComponent {
         isRendered: true,
         class: 'site-header-link',
         type: 'link',
-        click: this.closeBurgerMenu.bind(this),
         title: 'Estimate',
         icon: 'calculate',
       },
@@ -59,7 +66,6 @@ export class AppComponent {
         isRendered: true,
         class: 'site-header-link',
         type: 'link',
-        click: this.closeBurgerMenu.bind(this),
         title: 'Add report',
         icon: 'note_add',
       },
@@ -68,7 +74,6 @@ export class AppComponent {
         isRendered: isAdmin,
         class: 'site-header-link',
         type: 'link',
-        click: this.closeBurgerMenu.bind(this),
         title: 'Reports Approvals',
         icon: 'fact_check',
       },
@@ -77,36 +82,14 @@ export class AppComponent {
         isRendered: true,
         class: 'site-header-link',
         type: 'link',
-        click: this.closeBurgerMenu.bind(this),
         title: 'Profile',
         icon: 'manage_accounts',
       },
-      {
-        link: '',
-        isRendered: true,
-        class: 'logout-button',
-        type: 'button',
-        click: this.logOut.bind(this),
-        title: 'Logout',
-        icon: 'logout',
-      },
     ];
-  }
-
-  ngAfterViewInit() {
-    this.navElement = document.querySelector('.site-header-nav');
   }
 
   logOut() {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  openBurgerMenu() {
-    this.navElement?.classList.add('visible');
-  }
-
-  closeBurgerMenu() {
-    this.navElement?.classList.remove('visible');
   }
 }
