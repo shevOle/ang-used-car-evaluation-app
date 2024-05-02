@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../interfaces/user';
 import { FormCard } from '../common-components/form-card';
@@ -7,7 +8,7 @@ import { FormCard } from '../common-components/form-card';
 @Component({
   selector: 'ucea-profile',
   standalone: true,
-  imports: [CommonModule, FormCard],
+  imports: [CommonModule, FormCard, MatTooltipModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

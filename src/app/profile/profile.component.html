@@ -4,7 +4,9 @@
       <img [src]="pictureUrl" alt="user-photo" />
     </div>
     <div class="profile-info">
-      <p>Email: {{ currentUser.email }}</p>
+      <p #tooltip="matTooltip" [matTooltip]="currentUser.email">
+        Email: {{ currentUser.email }}
+      </p>
       <p>
         @if (currentUser.isAdmin) { You are
         <span class="admin">an Admin</span> } @else { You are
