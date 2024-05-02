@@ -28,39 +28,3 @@ p {
 .submit-button {
   margin: 10px 0;
 }
-
-.picture-chooser {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
-  max-width: 300px;
-
-  & button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 32px;
-    height: fit-content;
-  }
-
-  &-title {
-    margin: 20px auto 0;
-  }
-}
-
-.picture-chooser-window {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-
-  & img {
-    height: 100%;
-    width: auto;
-    object-position: 50% 50%;
-  }
-}
