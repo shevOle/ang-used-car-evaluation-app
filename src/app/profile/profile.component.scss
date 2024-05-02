@@ -38,12 +38,12 @@ $break-point-xs: 400px;
 
   p {
     margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
 
     @media screen and (max-width: $break-point-xs) {
       width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
     }
 
     & > span.admin {
