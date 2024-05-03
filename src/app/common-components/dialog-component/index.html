@@ -1,0 +1,8 @@
+<!-- <h2 mat-dialog-title>{{ data.title }}</h2> -->
+<mat-dialog-content class="mat-typography">
+  <ucea-picture-chooser [formField]="data.formField"></ucea-picture-chooser>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">{{data.cancelBtnTitle}}</button>
+  <button mat-button (click)="confirm()">{{data.acceptBtnTitle}}</button>
+</mat-dialog-actions>
