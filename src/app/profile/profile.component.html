@@ -1,6 +1,6 @@
 <ucea-form-card>
   <section class="profile-page" *ngIf="!!currentUser">
-    <div class="profile-photo">
+    <div class="profile-photo" (click)="openPictureChooser()">
       <img [src]="pictureUrl" alt="user-photo" />
     </div>
     <div class="profile-info">
