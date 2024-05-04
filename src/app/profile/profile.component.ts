@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { IUser } from '../interfaces/user';
 import { FormCard } from '../common-components/form-card';
 // import { PictureChooserComponent } from '../common-components/profile-picture-chooser';
@@ -27,8 +28,15 @@ export class ProfileComponent {
   isPictureChooserOpen = false;
   pictureChooserFormField = new FormControl('');
 
-  constructor(private authService: AuthService, public dialog: MatDialog) {
-    this.user = this.authService.currentUserValue;
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    public dialog: MatDialog
+  ) {
+    this.authService.currentUser.subscribe((user) => {
+      this.user = user;
+    });
+    this.pictureChooserFormField.setValue(this.user?.profilePicture || '');
   }
 
   get currentUser() {
@@ -40,10 +48,10 @@ export class ProfileComponent {
   }
 
   openPictureChooser() {
-    const dialogRef = this.dialog.open(CommonDialogComponent, {
+    this.dialog.open(CommonDialogComponent, {
       data: {
         // title: 'Choose your new avatar',
-        acceptBtnAction: this.accept.bind(this),
+        acceptBtnAction: this.acceptChanges.bind(this),
         acceptBtnTitle: 'Ok',
         cancelBtnTitle: 'Cancel',
         formField: this.pictureChooserFormField,
@@ -51,7 +59,10 @@ export class ProfileComponent {
     });
   }
 
-  accept() {
-    console.log(111, this.pictureChooserFormField?.value);
+  acceptChanges() {
+    this.userService.updateUser({
+      id: this.user?.id!,
+      profilePicture: this.pictureChooserFormField.value!,
+    });
   }
 }
