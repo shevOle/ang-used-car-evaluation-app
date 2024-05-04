@@ -35,11 +35,8 @@ export class AuthService {
 
       const user = ((await firstValueFrom(observable)) as IUser[])[0];
       if (!user) throw new Error('Incorrect login or password');
-      const userObject: Partial<IUser> = { ...user };
-      delete userObject.password;
 
-      localStorage.setItem('currentUser', JSON.stringify(userObject));
-      this.currentUserSubject.next(user);
+      this.saveUser(user);
 
       const { queryParams } = this.router.parseUrl(
         this.router.routerState.snapshot.url
@@ -49,6 +46,14 @@ export class AuthService {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  saveUser(user: IUser) {
+    const userObject: Partial<IUser> = { ...user };
+    delete userObject.password;
+
+    localStorage.setItem('currentUser', JSON.stringify(userObject));
+    this.currentUserSubject.next(user);
   }
 
   logout() {
