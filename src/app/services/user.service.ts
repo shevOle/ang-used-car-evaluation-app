@@ -17,31 +17,14 @@ export class UserService {
     private authService: AuthService
   ) {}
 
-  async getUserById(id: number): Promise<IUser> {
-    const params = new HttpParams({ fromObject: { id } });
-    const observable = this.httpClient.get(this.url, {
-      params,
-    });
-
-    const user = ((await firstValueFrom(observable)) as IUser[])[0];
-    return user;
-  }
-
-  async getUserByCredentials(email: string, password: string): Promise<IUser> {
-    const params = new HttpParams({ fromObject: { email, password } });
-    const observable = this.httpClient.get(this.url, {
-      params,
-    });
-
-    const user = ((await firstValueFrom(observable)) as IUser[])[0];
-    return user;
-  }
-
-  updateUser(input: IUpdateUserInput) {
+  async updateUser(input: IUpdateUserInput) {
     const updateUrl = `${this.url}/${input.id}`;
     const update = Object.assign({}, input) as any;
     delete update.id;
 
-    return this.httpClient.put(updateUrl, update).subscribe(console.log);
+    const observable = this.httpClient.put(updateUrl, update);
+
+    const user = (await firstValueFrom(observable)) as IUser;
+    this.authService.saveUser(user);
   }
 }
