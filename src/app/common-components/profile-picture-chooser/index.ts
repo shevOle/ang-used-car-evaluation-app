@@ -22,13 +22,22 @@ export class PictureChooserComponent {
     { url: '../assets/profile/solo.png', name: 'solo' },
     { url: '../assets/profile/mando.png', name: 'mando' },
   ];
-  chosenPictureIndex = 0;
+  chosenPictureIndex: number;
   pictureChangeEventEmitter = new EventEmitter();
 
   constructor() {
+    this.chosenPictureIndex = 0;
     merge(this.pictureChangeEventEmitter)
       .pipe(takeUntilDestroyed())
       .subscribe((x) => this.formField.setValue(this.profilePictures[x].url));
+  }
+
+  ngAfterContentInit() {
+    if (this.formField?.value) {
+      this.chosenPictureIndex = this.profilePictures.findIndex(
+        (p) => p.url === this.formField?.value
+      );
+    }
   }
 
   get picture() {
