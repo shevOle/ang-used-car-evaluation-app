@@ -58,7 +58,7 @@ export class LoginComponent {
     password: [
       {
         errorType: 'minlength',
-        message: 'Password should be at least 3 characters long',
+        message: 'Minimum 3 symbols required',
       },
       { errorType: 'required', message: 'Password is required' },
     ],
