@@ -9,9 +9,11 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { IError } from '../interfaces/validation-error';
 import { AuthService } from '../services/auth.service';
 import { FormCard } from '../common-components/form-card';
 import { CommonButton } from '../common-components/button';
+import { BaseFieldWithError } from '../common-components/form-field-with-error';
 
 type FormControlFieldName = 'email' | 'password';
 
@@ -26,6 +28,7 @@ type FormControlFieldName = 'email' | 'password';
     MatInputModule,
     MatFormFieldModule,
     CommonButton,
+    BaseFieldWithError,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -38,9 +41,28 @@ export class LoginComponent {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3)],
+      validators: [
+        Validators.required,
+        Validators.requiredTrue,
+        Validators.minLength(3),
+      ],
     }),
   });
+
+  errors: { [key: string]: IError[] } = {
+    email: [
+      { errorType: 'required', message: 'Email is required' },
+      { errorType: 'email', message: 'Please, provide a valid email' },
+    ],
+
+    password: [
+      {
+        errorType: 'minlength',
+        message: 'Password should be at least 3 characters long',
+      },
+      { errorType: 'required', message: 'Password is required' },
+    ],
+  };
 
   constructor(private authService: AuthService, private router: Router) {}
 
