@@ -14,8 +14,8 @@ import { AuthService } from '../services/auth.service';
 import { FormCard } from '../common-components/form-card';
 import { CommonButton } from '../common-components/button';
 import { PictureChooserComponent } from '../common-components/profile-picture-chooser';
-
-type FormControlFieldName = 'email' | 'password';
+import { BaseFieldWithError } from '../common-components/form-field-with-error';
+import { IError } from '../interfaces/validation-error';
 
 @Component({
   selector: 'ucea-sign-up',
@@ -29,6 +29,7 @@ type FormControlFieldName = 'email' | 'password';
     MatFormFieldModule,
     CommonButton,
     PictureChooserComponent,
+    BaseFieldWithError,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
@@ -50,17 +51,20 @@ export class SignUpComponent {
     }),
   });
 
-  get email() {
-    return this.signUpForm.get('email')!;
-  }
+  errors: { [key: string]: IError[] } = {
+    email: [
+      { errorType: 'required', message: 'Email is required' },
+      { errorType: 'email', message: 'Please, provide a valid email' },
+    ],
 
-  get password() {
-    return this.signUpForm.get('password')!;
-  }
-
-  get picture() {
-    return this.signUpForm.get('picture')!;
-  }
+    password: [
+      {
+        errorType: 'minlength',
+        message: 'Minimum 3 symbols required',
+      },
+      { errorType: 'required', message: 'Password is required' },
+    ],
+  };
 
   async signUp() {
     const email = this.signUpForm.value.email!;
@@ -78,14 +82,5 @@ export class SignUpComponent {
     this.signUpForm.reset();
 
     this.authService.loginUser({ email, password });
-  }
-
-  checkFormField(fieldName: FormControlFieldName, error: string): boolean {
-    return (
-      this[fieldName].invalid &&
-      this[fieldName].touched &&
-      this[fieldName].dirty &&
-      this[fieldName].errors?.[error]
-    );
   }
 }

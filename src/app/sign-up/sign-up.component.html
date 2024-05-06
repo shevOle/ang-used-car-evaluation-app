@@ -2,46 +2,27 @@
   <form class="signup-page-form" [formGroup]="signUpForm" (submit)="signUp()">
     <h3 class="signup-title">Welcome to UCEA!</h3>
     <div class="signup-page-form-input">
-      <mat-form-field>
-        <input
-          matInput
-          [formControl]="signUpForm.controls.email"
-          type="email"
-          required
-          placeholder="Email*"
-        />
-      </mat-form-field>
+      <ucea-form-field-with-error
+        type="email"
+        [field]="signUpForm.controls.email"
+        label="Email"
+        placeholder="example@gmail.com"
+        [errorsList]="errors['email']"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="signup-page-form-input">
-      <mat-form-field>
-        <input
-          matInput
-          [formControl]="signUpForm.controls.password"
-          type="password"
-          required
-          placeholder="Password*"
-        />
-      </mat-form-field>
+      <ucea-form-field-with-error
+        type="password"
+        [field]="signUpForm.controls.password"
+        label="Password"
+        [errorsList]="errors['password']"
+      ></ucea-form-field-with-error>
     </div>
 
     <ucea-picture-chooser
       [formField]="signUpForm.controls.picture"
     ></ucea-picture-chooser>
-
-    <div class="signup-page-form-input-errors">
-      <p *ngIf="checkFormField('email', 'required')">Email is required.</p>
-      <p *ngIf="checkFormField('email', 'email')">
-        Provide a valid email address.
-      </p>
-
-      <p *ngIf="checkFormField('password', 'required')">
-        Password is required.
-      </p>
-      <p *ngIf="checkFormField('password', 'minlength')">
-        Password should be at least 3 characters long.
-      </p>
-    </div>
 
     <ucea-button
       visual="main"
