@@ -15,8 +15,6 @@ import { FormCard } from '../common-components/form-card';
 import { CommonButton } from '../common-components/button';
 import { BaseFieldWithError } from '../common-components/form-field-with-error';
 
-type FormControlFieldName = 'email' | 'password';
-
 @Component({
   selector: 'ucea-login',
   standalone: true,
@@ -41,11 +39,7 @@ export class LoginComponent {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.requiredTrue,
-        Validators.minLength(3),
-      ],
+      validators: [Validators.required, Validators.minLength(3)],
     }),
   });
 
@@ -56,11 +50,11 @@ export class LoginComponent {
     ],
 
     password: [
+      { errorType: 'required', message: 'Password is required' },
       {
         errorType: 'minlength',
         message: 'Minimum 3 symbols required',
       },
-      { errorType: 'required', message: 'Password is required' },
     ],
   };
 
@@ -72,14 +66,6 @@ export class LoginComponent {
     }
   }
 
-  get email() {
-    return this.loginForm.get('email')!;
-  }
-
-  get password() {
-    return this.loginForm.get('password')!;
-  }
-
   login() {
     this.authService.loginUser({
       email: this.loginForm.value.email!,
@@ -87,14 +73,5 @@ export class LoginComponent {
     });
 
     this.loginForm.reset();
-  }
-
-  checkFormField(fieldName: FormControlFieldName, error: string): boolean {
-    return (
-      this[fieldName].invalid &&
-      this[fieldName].touched &&
-      this[fieldName].dirty &&
-      this[fieldName].errors?.[error]
-    );
   }
 }
