@@ -11,16 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReportService } from '../services/reports.service';
 import { CommonButton } from '../common-components/button';
 import { FormCard } from '../common-components/form-card';
-
-type FormControlFieldName =
-  | 'make'
-  | 'model'
-  | 'year'
-  | 'price'
-  | 'mileage'
-  | 'description'
-  | 'lat'
-  | 'lng';
+import { BaseFieldWithError } from '../common-components/form-field-with-error';
+import { IError } from '../interfaces/validation-error';
 
 @Component({
   selector: 'ucea-add-report',
@@ -32,6 +24,7 @@ type FormControlFieldName =
     MatInputModule,
     MatFormFieldModule,
     FormCard,
+    BaseFieldWithError,
   ],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
@@ -90,49 +83,47 @@ export class AddReportComponent {
     }),
   });
 
-  get make() {
-    return this.addReportForm.get('make')!;
-  }
-
-  get model() {
-    return this.addReportForm.get('model')!;
-  }
-
-  get year() {
-    return this.addReportForm.get('year')!;
-  }
-
-  get price() {
-    return this.addReportForm.get('price')!;
-  }
-
-  get mileage() {
-    return this.addReportForm.get('mileage')!;
-  }
-
-  get description() {
-    return this.addReportForm.get('description')!;
-  }
-
-  get lat() {
-    return this.addReportForm.get('lat')!;
-  }
-
-  get lng() {
-    return this.addReportForm.get('lng')!;
-  }
+  errors: { [key: string]: IError[] } = {
+    make: [{ errorType: 'required', message: 'Manufacturer is required' }],
+    model: [{ errorType: 'required', message: 'Model is required' }],
+    year: [
+      { errorType: 'required', message: 'Year is required' },
+      { errorType: 'min', message: 'Minimum accepted year is 1990' },
+      {
+        errorType: 'max',
+        message: `Maximum accepted year is ${this.currentYear}`,
+      },
+    ],
+    price: [
+      { errorType: 'required', message: 'Price is required' },
+      { errorType: 'min', message: "Price can't be less than 0" },
+      {
+        errorType: 'max',
+        message: `Maximum accepted price is 1000000`,
+      },
+    ],
+    mileage: [
+      { errorType: 'required', message: 'Mileage is required' },
+      { errorType: 'min', message: "Mileage can't be less than 0" },
+      {
+        errorType: 'max',
+        message: `Maximum accepted mileage is 1000000`,
+      },
+    ],
+    lat: [
+      { errorType: 'required', message: 'Latitude is required' },
+      { errorType: 'min', message: 'Latitude value is invalid' },
+      { errorType: 'max', message: `Latitude value is invalid` },
+    ],
+    lng: [
+      { errorType: 'required', message: 'Longtitude is required' },
+      { errorType: 'min', message: 'Longtitude value is invalid' },
+      { errorType: 'max', message: `Longtitude value is invalid` },
+    ],
+  };
 
   get currentYear() {
     return new Date().getFullYear();
-  }
-
-  checkFormField(fieldName: FormControlFieldName, error: string): boolean {
-    return (
-      this[fieldName].invalid &&
-      this[fieldName].touched &&
-      this[fieldName].dirty &&
-      this[fieldName].errors?.[error]
-    );
   }
 
   submitForm() {

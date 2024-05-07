@@ -1,42 +1,58 @@
 <ucea-form-card class="add-report-card">
   <form class="estimate-page-form" [formGroup]="addReportForm">
     <div class="estimate-page-form-input">
-      <mat-form-field>
-        <mat-label for="estimate-page-input-make">Manufacturer:</mat-label
-        ><input matInput type="text" formControlName="make" required
-      /></mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.make"
+        label="Manufacturer"
+        [errorsList]="errors['make']"
+        type="text"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field
-        ><mat-label for="estimate-page-input-model">Model:</mat-label>
-        <input matInput type="text" formControlName="model" required
-      /></mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.model"
+        label="Model"
+        [errorsList]="errors['model']"
+        type="text"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field
-        ><mat-label for="estimate-page-input-year">Year:</mat-label
-        ><input matInput type="number" formControlName="year" required
-      /></mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.year"
+        label="Year"
+        [errorsList]="errors['year']"
+        type="number"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field
-        ><mat-label for="estimate-page-input-mileage">Mileage:</mat-label
-        ><input matInput type="number" formControlName="mileage" required
-      /></mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.mileage"
+        label="Mileage"
+        [errorsList]="errors['mileage']"
+        type="number"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field
-        ><mat-label for="estimate-page-input-price">Price:</mat-label
-        ><input matInput type="number" formControlName="price" required
-      /></mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.price"
+        label="Price"
+        [errorsList]="errors['price']"
+        type="number"
+      ></ucea-form-field-with-error>
     </div>
 
     <div class="estimate-page-form-input">
-      <mat-form-field>
+      <ucea-form-field-with-error
+        [field]="addReportForm.controls.description"
+        label="Description"
+        [errorsList]="errors['description']"
+        type="textarea"
+      ></ucea-form-field-with-error>
+      <!-- <mat-form-field>
         <mat-label for="estimate-page-input-description"
           >Description:</mat-label
         >
@@ -47,7 +63,7 @@
           rows="10"
           formControlName="description"
         ></textarea>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
     <ucea-button
@@ -57,48 +73,5 @@
       class="submit-button"
       [disabled]="!addReportForm.valid"
     ></ucea-button>
-
-    <div class="estimate-page-form-input-errors">
-      <p *ngIf="checkFormField('make', 'required')">
-        Manufacturer is required.
-      </p>
-      <p *ngIf="checkFormField('make', 'invalid')">
-        Manufacturer should be a string.
-      </p>
-      <p *ngIf="checkFormField('model', 'required')">Model is required.</p>
-      <p *ngIf="checkFormField('model', 'invalid')">
-        Model should be a string.
-      </p>
-      <p *ngIf="checkFormField('year', 'required')">
-        Production year is required.
-      </p>
-      <p *ngIf="checkFormField('year', 'invalid')">
-        Production year should be a number.
-      </p>
-      <p *ngIf="checkFormField('year', 'max')">
-        Production year can't be greater than {{ currentYear }}.
-      </p>
-      <p *ngIf="checkFormField('year', 'min')">
-        Production year can't be less than 1990.
-      </p>
-      <p *ngIf="checkFormField('price', 'required')">Price is required.</p>
-      <p *ngIf="checkFormField('price', 'invalid')">
-        Price should be a number.
-      </p>
-      <p *ngIf="checkFormField('price', 'max')">
-        Price can't be greater than $1000000.
-      </p>
-      <p *ngIf="checkFormField('price', 'min')">Price can't be less than $0.</p>
-      <p *ngIf="checkFormField('mileage', 'required')">Mileage is required.</p>
-      <p *ngIf="checkFormField('mileage', 'invalid')">
-        Mileage should be a number.
-      </p>
-      <p *ngIf="checkFormField('mileage', 'max')">
-        Mileage can't be greater than 1000000 miles.
-      </p>
-      <p *ngIf="checkFormField('mileage', 'min')">
-        Mileage can't be less than 0 miles.
-      </p>
-    </div>
   </form>
 </ucea-form-card>
