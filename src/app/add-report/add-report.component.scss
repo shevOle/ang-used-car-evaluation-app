@@ -36,16 +36,6 @@ $break-point-xs: 480px;
   .submit-button {
     margin: 0 auto;
   }
-
-  .estimate-page-form-input-errors {
-    width: 100%;
-    color: red;
-    text-align: center;
-
-    p {
-      margin: 5px 0;
-    }
-  }
 }
 
 @media screen and (max-width: $break-point-s) {

@@ -1,69 +1,62 @@
 <ucea-form-card class="add-report-card">
-  <form class="estimate-page-form" [formGroup]="addReportForm">
-    <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.make"
-        label="Manufacturer"
-        [errorsList]="errors['make']"
-        type="text"
-      ></ucea-form-field-with-error>
-    </div>
+  <form
+    class="estimate-page-form"
+    [formGroup]="addReportForm"
+    id="estimate-page-form"
+  >
+    <ucea-form-field-with-error
+      class="estimate-page-form-input"
+      [field]="addReportForm.controls.make"
+      label="Manufacturer"
+      [errorsList]="errors['make']"
+      type="text"
+    ></ucea-form-field-with-error>
+
+    <ucea-form-field-with-error
+      class="estimate-page-form-input"
+      [field]="addReportForm.controls.model"
+      label="Model"
+      [errorsList]="errors['model']"
+      type="text"
+    ></ucea-form-field-with-error>
+
+    <ucea-form-field-with-error
+      class="estimate-page-form-input"
+      [field]="addReportForm.controls.year"
+      label="Year"
+      [errorsList]="errors['year']"
+      type="number"
+    ></ucea-form-field-with-error>
+
+    <ucea-form-field-with-error
+      class="estimate-page-form-input"
+      [field]="addReportForm.controls.mileage"
+      label="Mileage"
+      [errorsList]="errors['mileage']"
+      type="number"
+    ></ucea-form-field-with-error>
+
+    <ucea-form-field-with-error
+      class="estimate-page-form-input"
+      [field]="addReportForm.controls.price"
+      label="Price"
+      [errorsList]="errors['price']"
+      type="number"
+    ></ucea-form-field-with-error>
 
     <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.model"
-        label="Model"
-        [errorsList]="errors['model']"
-        type="text"
-      ></ucea-form-field-with-error>
-    </div>
-
-    <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.year"
-        label="Year"
-        [errorsList]="errors['year']"
-        type="number"
-      ></ucea-form-field-with-error>
-    </div>
-
-    <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.mileage"
-        label="Mileage"
-        [errorsList]="errors['mileage']"
-        type="number"
-      ></ucea-form-field-with-error>
-    </div>
-
-    <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.price"
-        label="Price"
-        [errorsList]="errors['price']"
-        type="number"
-      ></ucea-form-field-with-error>
-    </div>
-
-    <div class="estimate-page-form-input">
-      <ucea-form-field-with-error
-        [field]="addReportForm.controls.description"
-        label="Description"
-        [errorsList]="errors['description']"
-        type="textarea"
-      ></ucea-form-field-with-error>
-      <!-- <mat-form-field>
+      <mat-form-field>
         <mat-label for="estimate-page-input-description"
           >Description:</mat-label
         >
         <textarea
-          matInput
+          matInputz
           type="text"
           maxlength="150"
           rows="10"
           formControlName="description"
         ></textarea>
-      </mat-form-field> -->
+      </mat-form-field>
     </div>
 
     <ucea-button
