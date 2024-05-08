@@ -9,6 +9,9 @@ import { IError } from '../../interfaces/validation-error';
 @Component({
   selector: 'ucea-form-field-with-error',
   templateUrl: 'index.html',
+  styles: `.form-field-with-error {
+    width: 100%;
+  }`,
   standalone: true,
   imports: [
     MatFormFieldModule,
