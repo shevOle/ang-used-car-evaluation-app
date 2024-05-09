@@ -30,9 +30,9 @@ $break-point-s: 480px;
   justify-content: center;
   padding: 40px 0;
 
-  & .estimate-page-form-input,
-  .estimate-page-form-input .mat-mdc-form-field {
-    width: 100%;
+  & .estimate-page-form-input {
+    width: 70%;
+    margin-bottom: 10px;
   }
 }
 
