@@ -13,6 +13,8 @@ import { ReportComponent } from '../report/report.component';
 import { CommonButton } from '../common-components/button';
 import { FormCard } from '../common-components/form-card';
 import { Report } from '../interfaces/report';
+import { BaseFieldWithError } from '../common-components/form-field-with-error';
+import { IError } from '../interfaces/validation-error';
 
 @Component({
   selector: 'ucea-report-estimate',
@@ -26,6 +28,7 @@ import { Report } from '../interfaces/report';
     MatInputModule,
     MatFormFieldModule,
     FormCard,
+    BaseFieldWithError,
   ],
   templateUrl: './report-estimate.component.html',
   styleUrl: './report-estimate.component.scss',
@@ -60,25 +63,18 @@ export class ReportEstimateComponent {
   $similarReports!: Promise<Report[]>;
   estimatePrice: number = 0;
 
-  get make() {
-    return this.estimateForm.get('make')!;
-  }
-
-  get model() {
-    return this.estimateForm.get('model')!;
-  }
-
-  get year() {
-    return this.estimateForm.get('year')!;
-  }
-
-  get lat() {
-    return this.estimateForm.get('lat')!;
-  }
-
-  get lng() {
-    return this.estimateForm.get('lng')!;
-  }
+  errors: { [key: string]: IError[] } = {
+    make: [{ errorType: 'required', message: 'Manufacturer is required' }],
+    model: [{ errorType: 'required', message: 'Model is required' }],
+    year: [
+      { errorType: 'required', message: 'Year is required' },
+      { errorType: 'min', message: 'Minimum accepted year is 1990' },
+      {
+        errorType: 'max',
+        message: `Maximum accepted year is ${this.currentYear}`,
+      },
+    ],
+  };
 
   get currentYear() {
     return new Date().getFullYear();

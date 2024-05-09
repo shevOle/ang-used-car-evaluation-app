@@ -5,41 +5,29 @@
       [formGroup]="estimateForm"
       (submit)="submitEstimateForm()"
     >
-      <div class="estimate-page-form-input">
-        <mat-form-field>
-          <input
-            matInput
-            [formControl]="estimateForm.controls.make"
-            type="text"
-            required
-            placeholder="Manufacturer*"
-          />
-        </mat-form-field>
-      </div>
+      <ucea-form-field-with-error
+        class="estimate-page-form-input"
+        [field]="estimateForm.controls.make"
+        label="Manufacturer"
+        [errorsList]="errors['make']"
+        type="text"
+      ></ucea-form-field-with-error>
 
-      <div class="estimate-page-form-input">
-        <mat-form-field>
-          <input
-            matInput
-            [formControl]="estimateForm.controls.model"
-            type="text"
-            required
-            placeholder="Model*"
-          />
-        </mat-form-field>
-      </div>
+      <ucea-form-field-with-error
+        class="estimate-page-form-input"
+        [field]="estimateForm.controls.model"
+        label="Model"
+        [errorsList]="errors['model']"
+        type="text"
+      ></ucea-form-field-with-error>
 
-      <div class="estimate-page-form-input">
-        <mat-form-field>
-          <input
-            matInput
-            [formControl]="estimateForm.controls.year"
-            type="number"
-            required
-            placeholder="Production year*"
-          />
-        </mat-form-field>
-      </div>
+      <ucea-form-field-with-error
+        class="estimate-page-form-input"
+        [field]="estimateForm.controls.year"
+        label="Year"
+        [errorsList]="errors['year']"
+        type="number"
+      ></ucea-form-field-with-error>
 
       <ucea-button
         [disabled]="!estimateForm.valid"
@@ -48,49 +36,6 @@
         [onClick]="submitEstimateForm.bind(this)"
         class="submit-button"
       ></ucea-button>
-
-      <div class="estimate-page-form-input-errors">
-        <p
-          *ngIf="make.invalid && make.touched && make.dirty && make.errors?.['required']"
-        >
-          Manufacturer is required.
-        </p>
-        <p
-          *ngIf="make.invalid && make.touched && make.dirty && make.errors?.['invalid']"
-        >
-          Manufacturer should be a string.
-        </p>
-        <p
-          *ngIf="model.invalid && model.touched && model.dirty && model.errors?.['required']"
-        >
-          Model is required.
-        </p>
-        <p
-          *ngIf="model.invalid && model.touched && model.dirty && model.errors?.['invalid']"
-        >
-          Model should be a string.
-        </p>
-        <p
-          *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['required']"
-        >
-          Production year is required.
-        </p>
-        <p
-          *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['invalid']"
-        >
-          Production year should be a number.
-        </p>
-        <p
-          *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['max']"
-        >
-          Production year can't be greater than {{ currentYear }}.
-        </p>
-        <p
-          *ngIf="year.invalid && year.touched && year.dirty && year.errors?.['min']"
-        >
-          Production year can't be less than 1990.
-        </p>
-      </div>
     </form>
   </ucea-form-card>
   <div id="estimate-page-map"></div>
