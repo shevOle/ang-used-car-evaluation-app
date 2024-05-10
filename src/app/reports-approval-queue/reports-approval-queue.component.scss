@@ -1,14 +1,33 @@
+$break-point-m: 920px;
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
+
 .report-approval-page {
   width: 80%;
   margin: 0 auto;
   padding: 40px 0;
 }
 
-.demo-table {
+.filters-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  @media screen and (max-width: $break-point-m) {
+    gap: 10px;
+  }
+}
+
+.table-block {
+  overflow: scroll;
+}
+
+.report-approval-table {
   width: 100%;
 }
 
