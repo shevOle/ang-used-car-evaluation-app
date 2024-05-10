@@ -1,3 +1,9 @@
+export enum ReportStatus {
+  NEW = 'new',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
 export interface Report {
   id: string;
   make: string;
@@ -8,6 +14,6 @@ export interface Report {
   lat: number;
   lng: number;
   description: string;
-  status: 'new' | 'approved' | 'rejected';
+  status: ReportStatus;
   submittedByUserId: number;
 }
