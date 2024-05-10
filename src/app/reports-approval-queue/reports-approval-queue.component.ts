@@ -5,12 +5,21 @@ import {
   TitleCasePipe,
   DecimalPipe,
 } from '@angular/common';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
@@ -28,6 +37,10 @@ import { Report } from '../interfaces/report';
     MatMenuModule,
     MatIconModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   templateUrl: './reports-approval-queue.component.html',
   styleUrl: './reports-approval-queue.component.scss',
@@ -46,17 +59,26 @@ export class ReportsApprovalQueueComponent {
     'status-col',
     'action-col',
   ];
+  filterForm = new FormGroup({
+    status: new FormControl(''),
+    make: new FormControl(''),
+    model: new FormControl(''),
+  });
 
   constructor(private reportsService: ReportService) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
 
-    this.paginator.page
+    // TODO: figure out issue with data updates
+    merge(this.paginator.page, this.filterForm.controls.status.valueChanges)
       .pipe(
         startWith([]),
         switchMap(() => {
           return this.reportsService!.getReports({
+            make: this.filterForm.value?.make,
+            model: this.filterForm.value?.model,
+            status: this.filterForm.value?.status,
             page: this.paginator.pageIndex + 1,
             limit: this.paginator.pageSize,
           }).pipe(

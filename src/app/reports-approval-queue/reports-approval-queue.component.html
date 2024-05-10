@@ -1,69 +1,102 @@
 <section class="report-approval-page">
-  <table
-    mat-table
-    [dataSource]="reportsData"
-    class="mat-elevation-z8 demo-table"
-  >
-    <ng-container matColumnDef="maker-col">
-      <th mat-header-cell *matHeaderCellDef>Maker</th>
-      <td mat-cell *matCellDef="let element">{{ element.make | titlecase }}</td>
-    </ng-container>
+  <div class="filters-block">
+    <div class="filter-form-input">
+      <mat-form-field>
+        <mat-label>Manufacturer</mat-label>
+        <input matInput type="text" [formControl]="filterForm.controls.make" />
+      </mat-form-field>
+    </div>
+    <div class="filter-form-input">
+      <mat-form-field>
+        <mat-label>Manufacturer</mat-label>
+        <input matInput type="text" [formControl]="filterForm.controls.make" />
+      </mat-form-field>
+    </div>
+    <div class="filter-form-input">
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select [(value)]="filterForm.value.status">
+          <mat-option value="">--None--</mat-option>
+          <mat-option value="new">New</mat-option>
+          <mat-option value="approved">Approved</mat-option>
+          <mat-option value="rejected">Rejected</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="table-block">
+    <table
+      mat-table
+      [dataSource]="reportsData"
+      class="mat-elevation-z8 report-approval-table"
+    >
+      <ng-container matColumnDef="maker-col">
+        <th mat-header-cell *matHeaderCellDef>Maker</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.make | titlecase }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="model-col">
-      <th mat-header-cell *matHeaderCellDef>Model</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.model | titlecase }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="model-col">
+        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.model | titlecase }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="price-col">
-      <th mat-header-cell *matHeaderCellDef>Price</th>
-      <td mat-cell *matCellDef="let element">{{ element.price | currency }}</td>
-    </ng-container>
+      <ng-container matColumnDef="price-col">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.price | currency }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="mileage-col">
-      <th mat-header-cell *matHeaderCellDef>Mileage</th>
-      <td mat-cell *matCellDef="let element">{{ element.mileage | number }}</td>
-    </ng-container>
+      <ng-container matColumnDef="mileage-col">
+        <th mat-header-cell *matHeaderCellDef>Mileage</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.mileage | number }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="status-col">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.status | titlecase }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="status-col">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status | titlecase }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="action-col">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          aria-label="Approval action menu"
-        >
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="approveReport(element.id)">
-            <mat-icon class="approve-icon">done_all</mat-icon>
-            <span>Approve</span>
+      <ng-container matColumnDef="action-col">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Approval action menu"
+          >
+            <mat-icon>more_horiz</mat-icon>
           </button>
-          <button mat-menu-item (click)="rejectReport(element.id)">
-            <mat-icon class="reject-icon">remove_done</mat-icon>
-            <span>Reject</span>
-          </button>
-        </mat-menu>
-      </td>
-    </ng-container>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="approveReport(element.id)">
+              <mat-icon class="approve-icon">done_all</mat-icon>
+              <span>Approve</span>
+            </button>
+            <button mat-menu-item (click)="rejectReport(element.id)">
+              <mat-icon class="reject-icon">remove_done</mat-icon>
+              <span>Reject</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns"></tr>
-  </table>
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    [length]="dataLength"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-  >
-  </mat-paginator>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      [length]="dataLength"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
 </section>
