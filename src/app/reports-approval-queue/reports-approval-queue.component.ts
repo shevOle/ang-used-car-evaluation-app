@@ -70,7 +70,6 @@ export class ReportsApprovalQueueComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
 
-    // TODO: figure out issue with data updates
     merge(this.paginator.page, this.filterForm.statusChanges)
       .pipe(
         startWith([]),
