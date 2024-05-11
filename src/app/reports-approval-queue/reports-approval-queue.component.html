@@ -79,11 +79,19 @@
             <mat-icon>more_horiz</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="approveReport(element.id)">
+            <button
+              mat-menu-item
+              (click)="approveReport(element.id)"
+              [disabled]="element.status !== 'new'"
+            >
               <mat-icon class="approve-icon">done_all</mat-icon>
               <span>Approve</span>
             </button>
-            <button mat-menu-item (click)="rejectReport(element.id)">
+            <button
+              mat-menu-item
+              (click)="rejectReport(element.id)"
+              [disabled]="element.status !== 'new'"
+            >
               <mat-icon class="reject-icon">remove_done</mat-icon>
               <span>Reject</span>
             </button>
