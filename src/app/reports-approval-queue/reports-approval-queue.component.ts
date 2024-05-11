@@ -71,7 +71,7 @@ export class ReportsApprovalQueueComponent {
     this.dataSource.paginator = this.paginator;
 
     // TODO: figure out issue with data updates
-    merge(this.paginator.page, this.filterForm.controls.status.valueChanges)
+    merge(this.paginator.page, this.filterForm.statusChanges)
       .pipe(
         startWith([]),
         switchMap(() => {
