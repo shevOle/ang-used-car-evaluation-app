@@ -69,6 +69,14 @@ export class AppComponent {
         icon: 'fact_check',
       },
       {
+        link: '/my-reports',
+        isRendered: true,
+        class: 'site-header-link',
+        type: 'link',
+        title: 'My Reports',
+        icon: 'view_list',
+      },
+      {
         link: '/profile',
         isRendered: true,
         class: 'site-header-link',
