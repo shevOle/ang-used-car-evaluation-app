@@ -3,11 +3,9 @@ section {
 }
 
 .my-reports {
-  width: 80%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 280px);
   justify-content: center;
-  gap: 10px;
-  margin: 0 auto;
-  overflow-y: auto;
+  gap: 15px;
+  margin-top: 40px;
 }

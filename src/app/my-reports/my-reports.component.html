@@ -1,9 +1,9 @@
 <section>
-  <div
-    *ngFor="let report of reports | async"
-    [routerLink]="['/reports', report.id]"
-    class="my-reports"
-  >
-    <ucea-report [report]="report"></ucea-report>
+  <div class="my-reports">
+    <ucea-report
+      *ngFor="let report of reports | async"
+      [routerLink]="['/reports', report.id]"
+      [report]="report"
+    ></ucea-report>
   </div>
 </section>
