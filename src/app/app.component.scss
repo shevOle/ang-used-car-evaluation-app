@@ -1,7 +1,7 @@
 $break-point-m: 1080px;
 $backdrop-color: rgba(
   $color: #fff,
-  $alpha: 0.7,
+  $alpha: 0.95,
 );
 
 header {
@@ -10,7 +10,7 @@ header {
   align-items: center;
   justify-content: space-between;
   position: sticky;
-  top: 8px;
+  top: 0;
   background-color: $backdrop-color;
   width: 80vw;
   margin: 0 auto 40px;
