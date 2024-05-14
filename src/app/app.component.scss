@@ -1,21 +1,35 @@
 $break-point-m: 1080px;
-$backdrop-color: rgba(
+$background-color-main: rgba(
   $color: #fff,
   $alpha: 0.95,
 );
+$background-color-secondary: rgba(
+  $color: #dbdbdb,
+  $alpha: 0.95,
+);
+$font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
 header {
-  position: relative;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
   top: 0;
-  background-color: $backdrop-color;
+  background-color: $background-color-main;
   width: 80vw;
   margin: 0 auto 40px;
   z-index: 10;
   overflow-x: clip;
+}
+
+footer {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  background-color: $background-color-secondary;
+  margin: 40px auto 0;
+  z-index: 10;
 }
 
 button {
@@ -38,7 +52,7 @@ button {
 }
 
 .site-header-logo-title {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: $font-family;
   margin: 0;
 }
 
@@ -78,6 +92,28 @@ button {
   font-size: 36px;
 }
 
+.footer-title {
+  font-family: $font-family;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10vw;
+  align-self: flex-end;
+  gap: 5px;
+
+  & img {
+    height: 24px;
+    width: 24px;
+  }
+}
+
 @media screen and (max-width: $break-point-m) {
   .site-header-nav {
     display: none;
@@ -87,6 +123,5 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    // font-size: 36px;
   }
 }
