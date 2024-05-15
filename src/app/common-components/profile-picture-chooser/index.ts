@@ -37,6 +37,8 @@ export class PictureChooserComponent {
       this.chosenPictureIndex = this.profilePictures.findIndex(
         (p) => p.url === this.formField?.value
       );
+    } else {
+      this.formField.setValue(this.profilePictures[this.chosenPictureIndex]);
     }
   }
 
