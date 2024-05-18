@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IUserLoginInput } from '../interfaces/login-input';
@@ -7,36 +7,49 @@ import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
 import { apiUrl } from '../helpers/constants';
 
+const getToken = (cookieString: string) =>
+  Object.fromEntries(cookieString.split('; ').map((v) => v.split('='))).token;
+
+const getPayload = (token: string) => JSON.parse(atob(token.split('.')[1]));
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  protected url: string = `${apiUrl}/users`;
-  private currentUserSubject: BehaviorSubject<IUser | null>;
+  protected url: string = `${apiUrl}/auth`;
+  private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<IUser | null>;
 
   constructor(private httpClient: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<IUser | null>(
-      JSON.parse(localStorage.getItem('currentUser')!)
-    );
+    this.currentUserSubject = new BehaviorSubject({});
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): IUser | null {
+    if (
+      this.currentUserSubject.value &&
+      this.currentUserSubject.value.exp * 1000 < Date.now()
+    ) {
+      this.currentUserSubject.next(null);
+    }
     return this.currentUserSubject.value;
   }
 
   async loginUser({ email, password }: IUserLoginInput) {
     try {
-      const params = new HttpParams({ fromObject: { email, password } });
-      const observable = this.httpClient.get(this.url, {
-        params,
-      });
-
-      const user = ((await firstValueFrom(observable)) as IUser[])[0];
-      if (!user) throw new Error('Incorrect login or password');
-
-      this.saveUser(user);
+      console.log(
+        await firstValueFrom(
+          this.httpClient.post(
+            `${this.url}/login`,
+            {
+              email,
+              password,
+            },
+            { withCredentials: true, observe: 'events' }
+          )
+        )
+      );
+      this.saveUser();
 
       const { queryParams } = this.router.parseUrl(
         this.router.routerState.snapshot.url
@@ -48,12 +61,15 @@ export class AuthService {
     }
   }
 
-  saveUser(user: IUser) {
-    const userObject: Partial<IUser> = { ...user };
-    delete userObject.password;
+  saveUser() {
+    const token = getToken(document.cookie);
+    const userInfo = getPayload(token);
 
-    localStorage.setItem('currentUser', JSON.stringify(userObject));
-    this.currentUserSubject.next(user);
+    if (userInfo && userInfo.exp * 1000 < Date.now()) {
+      this.currentUserSubject.next(null);
+    }
+
+    this.currentUserSubject.next(userInfo);
   }
 
   logout() {
@@ -66,6 +82,6 @@ export class AuthService {
       ...input,
       isAdmin: false,
     };
-    return this.httpClient.post(this.url, userData);
+    return this.httpClient.post(`${this.url}/signup`, userData);
   }
 }
