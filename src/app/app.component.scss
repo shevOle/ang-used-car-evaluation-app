@@ -9,6 +9,10 @@ $background-color-secondary: rgba(
 );
 $font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
+main {
+  min-height: 100vh;
+}
+
 header {
   position: sticky;
   display: flex;
