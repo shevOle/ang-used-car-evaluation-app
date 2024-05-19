@@ -29,6 +29,8 @@ export class AppComponent {
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser.subscribe((user) => {
+      if (!user) this.router.navigate(['/login']);
+
       this.currentUser = user;
       this.navLinks = this.constructNavComponents(user?.isAdmin);
     });
@@ -87,8 +89,7 @@ export class AppComponent {
     ];
   }
 
-  logOut() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  async logOut() {
+    await this.authService.logout();
   }
 }
