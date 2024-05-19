@@ -71,16 +71,12 @@ export class SignUpComponent {
     const password = this.signUpForm.value.password!;
     const picture = this.signUpForm.value.picture!;
 
-    await firstValueFrom(
-      this.authService.signUp({
-        email,
-        password,
-        profilePicture: picture,
-      })
-    );
+    await this.authService.signUp({
+      email,
+      password,
+      profilePicture: picture,
+    });
 
     this.signUpForm.reset();
-
-    this.authService.loginUser({ email, password });
   }
 }
