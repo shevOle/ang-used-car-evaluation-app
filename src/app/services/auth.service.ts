@@ -35,19 +35,13 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  async loginUser({ email, password }: IUserLoginInput) {
+  async loginUser(data: IUserLoginInput) {
     try {
-      console.log(
-        await firstValueFrom(
-          this.httpClient.post(
-            `${this.url}/login`,
-            {
-              email,
-              password,
-            },
-            { withCredentials: true, observe: 'events' }
-          )
-        )
+      await firstValueFrom(
+        this.httpClient.post(`${this.url}/login`, data, {
+          withCredentials: true,
+          observe: 'events',
+        })
       );
       this.saveUser();
 
