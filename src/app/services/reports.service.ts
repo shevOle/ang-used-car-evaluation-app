@@ -97,7 +97,10 @@ export class ReportService {
       status: 'new',
       submittedByUserId: userId,
     };
-    const observable = this.httpClient.post(this.url, body);
+    const observable = this.httpClient.post(this.url, body, {
+      withCredentials: true,
+      observe: 'response',
+    });
     return firstValueFrom(observable);
   }
 
