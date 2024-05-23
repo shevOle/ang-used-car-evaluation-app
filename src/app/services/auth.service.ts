@@ -23,23 +23,21 @@ export class AuthService {
   constructor(private httpClient: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
+
+    this.saveUser();
   }
 
   saveUser() {
     const token = getToken(document.cookie);
     const userInfo = getPayload(token);
 
-    if (userInfo && userInfo.exp * 1000 < Date.now()) {
+    const tokenIsExpired = userInfo && userInfo.exp * 1000 < Date.now();
+
+    if (!userInfo || tokenIsExpired) {
       this.currentUserSubject.next(null);
     }
 
     this.currentUserSubject.next(userInfo);
-
-    const { queryParams } = this.router.parseUrl(
-      this.router.routerState.snapshot.url
-    );
-
-    this.router.navigate([queryParams['returnUrl'] || '/']);
   }
 
   public get currentUserValue(): IUser | null {
@@ -62,6 +60,12 @@ export class AuthService {
     );
 
     this.saveUser();
+
+    const { queryParams } = this.router.parseUrl(
+      this.router.routerState.snapshot.url
+    );
+
+    this.router.navigate([queryParams['returnUrl'] || '/']);
   }
 
   async logout() {
@@ -95,5 +99,11 @@ export class AuthService {
     );
 
     this.saveUser();
+
+    const { queryParams } = this.router.parseUrl(
+      this.router.routerState.snapshot.url
+    );
+
+    this.router.navigate([queryParams['returnUrl'] || '/']);
   }
 }
