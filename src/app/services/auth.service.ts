@@ -7,10 +7,19 @@ import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
 import { apiUrl } from '../helpers/constants';
 
-const getToken = (cookieString: string) =>
-  Object.fromEntries(cookieString.split('; ').map((v) => v.split('='))).token;
+const getToken = (cookieString: string) => {
+  if (!cookieString) return null;
 
-const getPayload = (token: string) => JSON.parse(atob(token.split('.')[1]));
+  const cookieValues = cookieString.split('; ').map((v) => v.split('='));
+
+  return Object.fromEntries(cookieValues).token;
+};
+
+const getPayload = (token: string) => {
+  if (!token) return null;
+
+  return JSON.parse(atob(token.split('.')[1]));
+};
 
 @Injectable({
   providedIn: 'root',
