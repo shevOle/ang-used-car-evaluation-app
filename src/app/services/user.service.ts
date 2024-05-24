@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { IUpdateUserInput } from '../interfaces/updateUser-input';
 import { apiUrl } from '../helpers/constants';
-import { IUser } from '../interfaces/user';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -22,9 +21,13 @@ export class UserService {
     const update = Object.assign({}, input) as any;
     delete update.id;
 
-    const observable = this.httpClient.put(updateUrl, update);
+    const observable = this.httpClient.patch(updateUrl, update, {
+      withCredentials: true,
+      observe: 'response',
+      responseType: 'text',
+    });
 
-    const user = (await firstValueFrom(observable)) as IUser;
-    this.authService.saveUser(user);
+    await firstValueFrom(observable);
+    this.authService.saveUser();
   }
 }
