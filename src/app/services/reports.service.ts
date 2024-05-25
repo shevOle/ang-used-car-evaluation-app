@@ -19,9 +19,9 @@ export class ReportService {
   ) {}
 
   getAllReports(): Promise<Report[]> {
-    const reportsObservable = this.httpClient.get(this.url) as Observable<
-      Report[]
-    >;
+    const reportsObservable = this.httpClient.get(this.url, {
+      withCredentials: true,
+    }) as Observable<Report[]>;
 
     return firstValueFrom(reportsObservable);
   }
