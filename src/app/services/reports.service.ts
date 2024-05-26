@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
+import omitBy from 'lodash/omitBy';
+import isEmpty from 'lodash/isEmpty';
 import { AuthService } from './auth.service';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
@@ -39,20 +41,18 @@ export class ReportService {
     return this.httpClient.get(this.url, { params }) as Observable<Report[]>;
   }
 
-  getFilteredReports(
-    make: string,
-    model: string,
-    year: string
-  ): Promise<Report[]> {
-    const params = new HttpParams({
-      fromObject: {
-        make,
-        model,
-      },
-    });
+  getFilteredReports(options: {
+    make?: string;
+    model?: string;
+    year?: string;
+  }): Promise<Report[]> {
+    const fromObject = omitBy(options, isEmpty);
+
+    const params = new HttpParams({ fromObject });
 
     const reportsObservable = this.httpClient.get(this.url, {
       params,
+      withCredentials: true,
     }) as Observable<Report[]>;
 
     return firstValueFrom(reportsObservable);
@@ -100,6 +100,7 @@ export class ReportService {
     const observable = this.httpClient.post(this.url, body, {
       withCredentials: true,
       observe: 'response',
+      responseType: 'text',
     });
     return firstValueFrom(observable);
   }

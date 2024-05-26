@@ -58,11 +58,11 @@ export class ReportsListComponent {
 
   applyFilter() {
     const { make, model, year } = this.filterForm.value!;
-    this.$reports = this.reportsService.getFilteredReports(
-      make!,
-      model!,
-      year!
-    );
+    this.$reports = this.reportsService.getFilteredReports({
+      make,
+      model,
+      year,
+    });
   }
 
   resetFilter() {
