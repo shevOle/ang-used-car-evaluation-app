@@ -59,9 +59,9 @@ export class ReportService {
   }
 
   getReportById(id: string): Promise<Report> {
-    const reportObservable = this.httpClient.get(
-      `${this.url}/${id}`
-    ) as Observable<Report>;
+    const reportObservable = this.httpClient.get(`${this.url}/${id}`, {
+      withCredentials: true,
+    }) as Observable<Report>;
 
     return firstValueFrom(reportObservable);
   }
