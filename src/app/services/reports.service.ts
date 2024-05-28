@@ -66,16 +66,22 @@ export class ReportService {
     return firstValueFrom(reportObservable);
   }
 
-  getEstimate(input: IReportEstimateInput) {
+  async getEstimate(input: IReportEstimateInput) {
     const params = new HttpParams({
       fromObject: {
         make: input.make,
         model: input.model,
+        mileage: input.mileage,
+        year: input.year,
+        lat: input.lat,
+        lng: input.lng,
       },
     });
     const reportObservable = this.httpClient.get(this.url, {
       params,
+      withCredentials: true,
     }) as Observable<Report[]>;
+
     return firstValueFrom(reportObservable);
     // return this.reportsList
     //   .filter((report) => {
