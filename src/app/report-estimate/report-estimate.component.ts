@@ -86,8 +86,11 @@ export class ReportEstimateComponent {
         make: this.estimateForm.value.make!.toLowerCase(),
         model: this.estimateForm.value.model!.toLowerCase(),
         year: this.estimateForm.value.year!,
-        lat: this.estimateForm.value.lat!,
-        lng: this.estimateForm.value.lng!,
+        mileage: 0,
+        // lat: this.estimateForm.value.lat!,
+        lat: 0,
+        // lng: this.estimateForm.value.lng!,
+        lng: 0,
       })
       .then((reports) => {
         this.estimatePrice =
