@@ -92,9 +92,8 @@ export class ReportEstimateComponent {
         // lng: this.estimateForm.value.lng!,
         lng: 0,
       })
-      .then((reports) => {
-        this.estimatePrice =
-          reports.reduce((sum, { price }) => price + sum, 0) / reports.length;
+      .then(({ reports, averagePrice }) => {
+        this.estimatePrice = averagePrice;
 
         return reports;
       });
