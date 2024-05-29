@@ -60,8 +60,11 @@ export class ReportEstimateComponent {
       ],
     }),
   });
-  $similarReports!: Promise<Report[]>;
+  estimateReports!: Report[];
   estimatePrice: number = 0;
+  estimateMake: string = '';
+  estimateModel: string = '';
+  estimateYear: number = 0;
 
   errors: { [key: string]: IError[] } = {
     make: [{ errorType: 'required', message: 'Manufacturer is required' }],
@@ -76,28 +79,53 @@ export class ReportEstimateComponent {
     ],
   };
 
+  private setEstimates(options: {
+    reports: Report[];
+    averagePrice: number;
+    make: string;
+    model: string;
+    year: number;
+  }) {
+    this.estimatePrice = options.averagePrice;
+    this.estimateMake = options.make;
+    this.estimateModel = options.model;
+    this.estimateYear = options.year;
+    this.estimateReports = options.reports;
+  }
+
+  private resetEstimates() {
+    this.estimatePrice = 0;
+    this.estimateMake = '';
+    this.estimateModel = '';
+    this.estimateYear = 0;
+    this.estimateReports = [];
+  }
+
   get currentYear() {
     return new Date().getFullYear();
   }
 
-  submitEstimateForm() {
-    this.$similarReports = this.reportsService
-      .getEstimate({
-        make: this.estimateForm.value.make!.toLowerCase(),
-        model: this.estimateForm.value.model!.toLowerCase(),
-        year: this.estimateForm.value.year!,
-        mileage: 0,
-        // lat: this.estimateForm.value.lat!,
-        lat: 0,
-        // lng: this.estimateForm.value.lng!,
-        lng: 0,
-      })
-      .then(({ reports, averagePrice }) => {
-        this.estimatePrice = averagePrice;
+  async submitEstimateForm() {
+    try {
+      const make = this.estimateForm.value.make!.toLowerCase();
+      const model = this.estimateForm.value.model!.toLowerCase();
+      const year = this.estimateForm.value.year!;
 
-        return reports;
+      const { reports, averagePrice } = await this.reportsService.getEstimate({
+        make,
+        model,
+        year,
+        // TODO: add inputs for mileage, lat and lng
+        mileage: 0,
+        lat: 0,
+        lng: 0,
       });
 
-    this.estimateForm.reset();
+      this.setEstimates({ averagePrice, make, model, year, reports });
+      this.estimateForm.reset();
+    } catch (err) {
+      console.error(err);
+      this.resetEstimates();
+    }
   }
 }

@@ -40,22 +40,21 @@
   </ucea-form-card>
   <div id="estimate-page-map"></div>
 
-  <div *ngIf="($similarReports | async)?.length" class="estimate-page-price">
+  <div *ngIf="estimateReports?.length" class="estimate-page-price">
     <p>
-      Estimate price for {{ estimateForm.value.make }}
-      {{ estimateForm.value.model }} manufactured in
-      {{ estimateForm.value.year }} is {{ estimatePrice | currency }}
+      Estimate price for {{ estimateMake }} {{ estimateModel }} manufactured in
+      {{ estimateYear }} is {{ estimatePrice | currency }}
     </p>
   </div>
-  <div *ngIf="!($similarReports | async)?.length" class="estimate-page-price">
+  <div *ngIf="!estimateReports?.length" class="estimate-page-price">
     No reports found for your search
   </div>
 
-  <div *ngIf="($similarReports | async)?.length" class="estimate-page-reports">
+  <div *ngIf="estimateReports?.length" class="estimate-page-reports">
     <h4>Reports that does satisfy your requirements:</h4>
     <div class="estimate-page-reports-grid">
       <ucea-report
-        *ngFor="let report of $similarReports | async"
+        *ngFor="let report of estimateReports"
         [report]="report"
       ></ucea-report>
     </div>
