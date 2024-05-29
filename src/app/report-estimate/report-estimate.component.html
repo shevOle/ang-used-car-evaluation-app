@@ -30,7 +30,7 @@
       ></ucea-form-field-with-error>
 
       <ucea-button
-        [disabled]="!estimateForm.valid"
+        [disabled]="estimateForm.pristine || !estimateForm.valid"
         label="Get estimate!"
         visual="main"
         [onClick]="submitEstimateForm.bind(this)"

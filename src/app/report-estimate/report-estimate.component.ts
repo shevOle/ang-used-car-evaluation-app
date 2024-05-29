@@ -54,27 +54,27 @@ export class ReportEstimateComponent {
       nonNullable: true,
     }),
     mileage: new FormControl(0, {
-      validators: [
-        Validators.required,
-        Validators.min(1990),
-        Validators.max(this.currentYear),
-      ],
+      // validators: [
+      //   Validators.required,
+      //   Validators.min(1990),
+      //   Validators.max(this.currentYear),
+      // ],
       nonNullable: true,
     }),
     lat: new FormControl(0, {
-      validators: [
-        Validators.required,
-        Validators.min(-90),
-        Validators.max(90),
-      ],
+      // validators: [
+      //   Validators.required,
+      //   Validators.min(-90),
+      //   Validators.max(90),
+      // ],
       nonNullable: true,
     }),
     lng: new FormControl(0, {
-      validators: [
-        Validators.required,
-        Validators.min(-180),
-        Validators.max(180),
-      ],
+      // validators: [
+      //   Validators.required,
+      //   Validators.min(-180),
+      //   Validators.max(180),
+      // ],
       nonNullable: true,
     }),
   });
