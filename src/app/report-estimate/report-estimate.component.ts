@@ -16,6 +16,7 @@ import { Report } from '../interfaces/report';
 import { BaseFieldWithError } from '../common-components/form-field-with-error';
 import { IError } from '../interfaces/validation-error';
 
+// TODO: add HTML inputs for mileage, lat and lng
 @Component({
   selector: 'ucea-report-estimate',
   standalone: true,
@@ -36,14 +37,29 @@ import { IError } from '../interfaces/validation-error';
 export class ReportEstimateComponent {
   reportsService: ReportService = inject(ReportService);
   estimateForm = new FormGroup({
-    make: new FormControl('', { validators: [Validators.required] }),
-    model: new FormControl('', { validators: [Validators.required] }),
+    make: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    model: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     year: new FormControl(1990, {
       validators: [
         Validators.required,
         Validators.min(1990),
         Validators.max(this.currentYear),
       ],
+      nonNullable: true,
+    }),
+    mileage: new FormControl(0, {
+      validators: [
+        Validators.required,
+        Validators.min(1990),
+        Validators.max(this.currentYear),
+      ],
+      nonNullable: true,
     }),
     lat: new FormControl(0, {
       validators: [
@@ -51,6 +67,7 @@ export class ReportEstimateComponent {
         Validators.min(-90),
         Validators.max(90),
       ],
+      nonNullable: true,
     }),
     lng: new FormControl(0, {
       validators: [
@@ -58,6 +75,7 @@ export class ReportEstimateComponent {
         Validators.min(-180),
         Validators.max(180),
       ],
+      nonNullable: true,
     }),
   });
   estimateReports!: Report[];
@@ -110,15 +128,17 @@ export class ReportEstimateComponent {
       const make = this.estimateForm.value.make!.toLowerCase();
       const model = this.estimateForm.value.model!.toLowerCase();
       const year = this.estimateForm.value.year!;
+      const mileage = this.estimateForm.value.mileage!;
+      const lat = this.estimateForm.value.lat!;
+      const lng = this.estimateForm.value.lng!;
 
       const { reports, averagePrice } = await this.reportsService.getEstimate({
         make,
         model,
         year,
-        // TODO: add inputs for mileage, lat and lng
-        mileage: 0,
-        lat: 0,
-        lng: 0,
+        mileage,
+        lat,
+        lng,
       });
 
       this.setEstimates({ averagePrice, make, model, year, reports });
