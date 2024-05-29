@@ -67,20 +67,11 @@ export class ReportService {
   }
 
   async getEstimate(input: IReportEstimateInput) {
-    const params = new HttpParams({
-      fromObject: {
-        make: input.make,
-        model: input.model,
-        mileage: input.mileage,
-        year: input.year,
-        lat: input.lat,
-        lng: input.lng,
-      },
-    });
-    const reportObservable = this.httpClient.get(this.url, {
+    const params = new HttpParams({ fromObject: { ...input } });
+    const reportObservable = this.httpClient.get(`${this.url}/estimate`, {
       params,
       withCredentials: true,
-    }) as Observable<Report[]>;
+    }) as Observable<{ reports: Report[]; averagePrice: number }>;
 
     return firstValueFrom(reportObservable);
     // return this.reportsList
