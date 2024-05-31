@@ -74,7 +74,7 @@ export class ReportsApprovalQueueComponent {
             model: this.filterForm.value?.model,
             status: this.filterForm.value?.status,
             page: this.paginator.pageIndex + 1,
-            limit: this.paginator.pageSize,
+            perPage: this.paginator.pageSize,
           }).pipe(
             catchError((err) => {
               console.error(err);

@@ -38,7 +38,10 @@ export class ReportService {
 
   getReports(options: { [param: string]: any }) {
     const params = new HttpParams({ fromObject: options });
-    return this.httpClient.get(this.url, { params }) as Observable<Report[]>;
+    return this.httpClient.get(this.url, {
+      params,
+      withCredentials: true,
+    }) as Observable<Report[]>;
   }
 
   getFilteredReports(options: {
