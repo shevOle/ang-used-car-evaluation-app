@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { of as observableOf, merge } from 'rxjs';
+import { pickBy, isEmpty } from 'lodash';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
@@ -69,10 +70,9 @@ export class ReportsApprovalQueueComponent {
       .pipe(
         startWith([]),
         switchMap(() => {
-          return this.reportsService!.getReports({
-            make: this.filterForm.value?.make,
-            model: this.filterForm.value?.model,
-            status: this.filterForm.value?.status,
+          const filters = pickBy(this.filterForm.value, (v) => !isEmpty(v));
+
+          return this.reportsService!.getReports(filters, {
             page: this.paginator.pageIndex + 1,
             perPage: this.paginator.pageSize,
           }).pipe(
@@ -87,8 +87,8 @@ export class ReportsApprovalQueueComponent {
             return [];
           }
 
-          this.dataLength = data.length;
-          return data;
+          this.dataLength = data.count;
+          return data.results;
         })
       )
       .subscribe((data) => (this.reportsData = data));

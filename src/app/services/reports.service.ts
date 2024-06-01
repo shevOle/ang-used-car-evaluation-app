@@ -9,6 +9,12 @@ import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
 import { apiUrl } from '../helpers/constants';
 
+interface IPaginationOptions {
+  page?: number;
+  perPage?: number;
+  limit?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,12 +42,29 @@ export class ReportService {
     return firstValueFrom(obsservable);
   }
 
-  getReports(options: { [param: string]: any }) {
-    const params = new HttpParams({ fromObject: options });
+  getReports(options: Partial<Report>): Observable<Report[]>;
+  getReports(
+    options: Partial<Report>,
+    pagination: IPaginationOptions
+  ): Observable<{ results: Report[]; count: number }>;
+  getReports(
+    options: Partial<Report>,
+    pagination?: IPaginationOptions
+  ): Observable<Report[] | { results: Report[]; count: number }> {
+    const params = new HttpParams({
+      fromObject: { ...options, ...pagination },
+    });
+
+    if (!pagination)
+      return this.httpClient.get(this.url, {
+        params,
+        withCredentials: true,
+      }) as Observable<Report[]>;
+
     return this.httpClient.get(this.url, {
       params,
       withCredentials: true,
-    }) as Observable<Report[]>;
+    }) as Observable<{ results: Report[]; count: number }>;
   }
 
   getFilteredReports(options: {
