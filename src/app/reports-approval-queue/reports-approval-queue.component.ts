@@ -73,7 +73,7 @@ export class ReportsApprovalQueueComponent {
           const filters = pickBy(this.filterForm.value, (v) => !isEmpty(v));
 
           return this.reportsService!.getReports(filters, {
-            page: this.paginator.pageIndex + 1,
+            page: this.paginator.pageIndex,
             perPage: this.paginator.pageSize,
           }).pipe(
             catchError((err) => {
