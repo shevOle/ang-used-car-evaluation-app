@@ -129,10 +129,18 @@ export class ReportService {
   }
 
   approveReport(id: string) {
-    return this.httpClient.put(`${this.url}/${id}`, { status: 'approved' });
+    return this.httpClient.patch(
+      `${this.url}/${id}`,
+      { status: 'approved' },
+      { withCredentials: true, observe: 'response', responseType: 'text' }
+    );
   }
 
   rejectReport(id: string) {
-    return this.httpClient.put(`${this.url}/${id}`, { status: 'rejected' });
+    return this.httpClient.patch(
+      `${this.url}/${id}`,
+      { status: 'rejected' },
+      { withCredentials: true, observe: 'response', responseType: 'text' }
+    );
   }
 }
