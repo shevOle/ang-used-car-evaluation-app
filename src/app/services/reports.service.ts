@@ -34,6 +34,12 @@ export class ReportService {
     return firstValueFrom(reportsObservable);
   }
 
+  getOwnReports(): Observable<Report[]> {
+    return this.httpClient.get(`${this.url}/own`, {
+      withCredentials: true,
+    }) as Observable<Report[]>;
+  }
+
   getNewReports(): Promise<Report[]> {
     const params = new HttpParams({ fromObject: { status: 'new' } });
     const obsservable = this.httpClient.get(this.url, { params }) as Observable<
