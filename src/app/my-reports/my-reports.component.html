@@ -1,6 +1,7 @@
 <section>
   <div class="my-reports">
     <ucea-report
+      class="report-card"
       *ngFor="let report of reports | async"
       [routerLink]="['/reports', report.id]"
       [report]="report"
