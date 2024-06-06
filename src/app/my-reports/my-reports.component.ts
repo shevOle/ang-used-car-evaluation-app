@@ -29,12 +29,4 @@ export class MyReportsComponent {
   ngAfterViewInit() {
     this.reports = this.reportsService.getOwnReports();
   }
-  // getMyReports(options: { make?: string; model?: string; year?: string }) {
-  //   return firstValueFrom(
-  //     this.reportsService.getReports({
-  //       ...options,
-  //       submittedByUserId: this.user?.id,
-  //     })
-  //   );
-  // }
 }
