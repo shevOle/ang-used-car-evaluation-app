@@ -1,7 +1,9 @@
 <mat-card class="report-list-item">
   <mat-card-header>
-    <mat-card-title
+    <mat-card-title [title]="report.make | titlecase"
       >{{ report.make | titlecase }}
+    </mat-card-title>
+    <mat-card-title [title]="report.model | titlecase">
       {{ report.model | titlecase }}</mat-card-title
     >
     <mat-card-subtitle> {{ report.year }}</mat-card-subtitle>
