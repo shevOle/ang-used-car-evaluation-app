@@ -1,5 +1,9 @@
-<section class="report-page" *ngIf="$report | async as report">
-  <div class="report-page-map"></div>
+<section class="report-page" *ngIf="$report as report">
+  <div class="report-page-map">
+    <google-map height="100%" width="100%" [center]="markerSpot" [zoom]="4">
+      <map-marker [position]="markerSpot" />
+    </google-map>
+  </div>
   <div class="report-page-price">
     Price:
     <span class="report-page-price-number">{{ report.price | currency }}</span>
