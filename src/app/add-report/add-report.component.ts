@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ReportService } from '../services/reports.service';
 import { CommonButton } from '../common-components/button';
 import { FormCard } from '../common-components/form-card';
@@ -25,6 +26,8 @@ import { IError } from '../interfaces/validation-error';
     MatFormFieldModule,
     FormCard,
     BaseFieldWithError,
+    GoogleMap,
+    MapMarker,
   ],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
