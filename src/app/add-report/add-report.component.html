@@ -59,6 +59,13 @@
       </mat-form-field>
     </div>
 
+    <div class="add-report-map">
+      <h3>Mark an area where the car was sold:</h3>
+      <google-map height="90%" width="100%" [zoom]="4">
+        <!-- <map-marker [position]="markerSpot" /> -->
+      </google-map>
+    </div>
+
     <ucea-button
       label="Add report"
       [onClick]="submitForm.bind(this)"
