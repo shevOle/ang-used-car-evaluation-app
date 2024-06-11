@@ -61,8 +61,13 @@
 
     <div class="add-report-map">
       <h3>Mark an area where the car was sold:</h3>
-      <google-map height="90%" width="100%" [zoom]="4">
-        <!-- <map-marker [position]="markerSpot" /> -->
+      <google-map
+        height="90%"
+        width="100%"
+        [zoom]="10"
+        (mapClick)="setMarker($event)"
+      >
+        <map-marker *ngIf="markerPosition" [position]="markerPosition" />
       </google-map>
     </div>
 
