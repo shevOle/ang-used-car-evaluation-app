@@ -34,6 +34,7 @@ import { IError } from '../interfaces/validation-error';
 })
 export class AddReportComponent {
   reportsService: ReportService = inject(ReportService);
+  markerPosition: google.maps.LatLngLiteral | null = null;
   addReportForm = new FormGroup({
     make: new FormControl('', {
       validators: [Validators.required],
@@ -142,5 +143,9 @@ export class AddReportComponent {
         lng: 0,
       })
       .then(() => this.addReportForm.reset());
+  }
+
+  setMarker(event: google.maps.MapMouseEvent) {
+    this.markerPosition = event?.latLng?.toJSON() || null;
   }
 }
