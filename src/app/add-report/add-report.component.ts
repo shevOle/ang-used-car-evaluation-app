@@ -75,7 +75,6 @@ export class AddReportComponent {
         Validators.min(-90),
         Validators.max(90),
       ],
-      nonNullable: true,
     }),
     lng: new FormControl(0, {
       validators: [
@@ -83,7 +82,6 @@ export class AddReportComponent {
         Validators.min(-180),
         Validators.max(180),
       ],
-      nonNullable: true,
     }),
   });
 
@@ -146,6 +144,10 @@ export class AddReportComponent {
   }
 
   setMarker(event: google.maps.MapMouseEvent) {
-    this.markerPosition = event?.latLng?.toJSON() || null;
+    const position = event?.latLng?.toJSON() || null;
+
+    this.markerPosition = position;
+    this.addReportForm.controls.lat.setValue(position?.lat || null);
+    this.addReportForm.controls.lat.setValue(position?.lng || null);
   }
 }
