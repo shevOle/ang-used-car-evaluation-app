@@ -137,8 +137,8 @@ export class AddReportComponent {
         price: this.addReportForm.value.price!,
         mileage: this.addReportForm.value.mileage!,
         description: this.addReportForm.value.description!,
-        lat: 0,
-        lng: 0,
+        lat: this.addReportForm.value.lat!,
+        lng: this.addReportForm.value.lng!,
       })
       .then(() => this.addReportForm.reset());
   }
