@@ -143,11 +143,30 @@ export class AddReportComponent {
       .then(() => this.addReportForm.reset());
   }
 
-  setMarker(event: google.maps.MapMouseEvent) {
+  setMarker(position: google.maps.LatLngLiteral) {
+    this.markerPosition = position;
+    this.addReportForm.controls.lat.setValue(position?.lat);
+    this.addReportForm.controls.lat.setValue(position?.lng);
+  }
+
+  removeMarker() {
+    this.markerPosition = null;
+    this.addReportForm.controls.lat.setValue(null);
+    this.addReportForm.controls.lat.setValue(null);
+  }
+
+  handleMarkerEvent(event: google.maps.MapMouseEvent) {
     const position = event?.latLng?.toJSON() || null;
 
-    this.markerPosition = position;
-    this.addReportForm.controls.lat.setValue(position?.lat || null);
-    this.addReportForm.controls.lat.setValue(position?.lng || null);
+    const isPositionTheSame =
+      position &&
+      position!.lat === this.addReportForm.value.lat &&
+      position!.lng === this.addReportForm.value.lng;
+
+    if (isPositionTheSame) {
+      return this.removeMarker();
+    }
+
+    this.setMarker(position!);
   }
 }

@@ -65,7 +65,7 @@
         height="90%"
         width="100%"
         [zoom]="10"
-        (mapClick)="setMarker($event)"
+        (mapClick)="handleMarkerEvent($event)"
       >
         <map-marker *ngIf="markerPosition" [position]="markerPosition" />
       </google-map>
