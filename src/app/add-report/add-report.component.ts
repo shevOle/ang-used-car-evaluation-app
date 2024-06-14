@@ -35,6 +35,7 @@ import { IError } from '../interfaces/validation-error';
 export class AddReportComponent {
   reportsService: ReportService = inject(ReportService);
   markerPosition: google.maps.LatLngLiteral | null = null;
+  coordinatesError: string = '';
   addReportForm = new FormGroup({
     make: new FormControl('', {
       validators: [Validators.required],
@@ -112,15 +113,13 @@ export class AddReportComponent {
         message: `Maximum accepted mileage is 1000000`,
       },
     ],
-    lat: [
-      { errorType: 'required', message: 'Latitude is required' },
-      { errorType: 'min', message: 'Latitude value is invalid' },
-      { errorType: 'max', message: `Latitude value is invalid` },
-    ],
-    lng: [
-      { errorType: 'required', message: 'Longtitude is required' },
-      { errorType: 'min', message: 'Longtitude value is invalid' },
-      { errorType: 'max', message: `Longtitude value is invalid` },
+    coordinates: [
+      {
+        errorType: 'required',
+        message: 'Coordinates is required, please, choose location on map',
+      },
+      { errorType: 'min', message: 'Coordinates is invalid' },
+      { errorType: 'max', message: `Coordinates is invalid` },
     ],
   };
 
@@ -129,6 +128,18 @@ export class AddReportComponent {
   }
 
   submitForm() {
+    const triggeredError = this.errors['coordinates'].find(
+      (err) =>
+        this.addReportForm.controls.lat.hasError(err.errorType) ||
+        this.addReportForm.controls.lng.hasError(err.errorType)
+    );
+
+    if (triggeredError) {
+      this.coordinatesError = triggeredError.message;
+      return;
+    }
+
+    this.coordinatesError = '';
     this.reportsService
       .addReport({
         make: this.addReportForm.value.make!.toLowerCase(),
