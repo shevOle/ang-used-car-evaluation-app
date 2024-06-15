@@ -134,8 +134,13 @@ export class AddReportComponent {
         this.addReportForm.controls.lng.hasError(err.errorType)
     );
 
-    if (triggeredError) {
-      this.coordinatesError = triggeredError.message;
+    const isInitialPosition =
+      !this.addReportForm.controls.lat.touched ||
+      !this.addReportForm.controls.lng.touched;
+
+    if (triggeredError || isInitialPosition) {
+      this.coordinatesError =
+        triggeredError?.message || 'Please, provide the coordinates of sale';
       return;
     }
 
