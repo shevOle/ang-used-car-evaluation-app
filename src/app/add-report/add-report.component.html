@@ -73,10 +73,10 @@
           (mapClick)="removeMarker()"
         />
       </google-map>
+      @if (coordinatesError) {
+      <mat-error>{{ coordinatesError }}</mat-error>
+      }
     </div>
-    @if (coordinatesError) {
-    <mat-error>{{ coordinatesError }}</mat-error>
-    }
 
     <ucea-button
       label="Add report"
