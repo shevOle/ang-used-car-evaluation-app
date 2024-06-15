@@ -67,7 +67,11 @@
         [zoom]="10"
         (mapClick)="handleMarkerEvent($event)"
       >
-        <map-marker *ngIf="markerPosition" [position]="markerPosition" />
+        <map-marker
+          *ngIf="markerPosition"
+          [position]="markerPosition"
+          (mapClick)="removeMarker()"
+        />
       </google-map>
     </div>
     @if (coordinatesError) {
