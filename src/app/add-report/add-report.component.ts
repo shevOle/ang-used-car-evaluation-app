@@ -70,14 +70,14 @@ export class AddReportComponent {
       nonNullable: true,
     }),
     description: new FormControl(''),
-    lat: new FormControl(0, {
+    lat: new FormControl<number | null>(null, {
       validators: [
         Validators.required,
         Validators.min(-90),
         Validators.max(90),
       ],
     }),
-    lng: new FormControl(0, {
+    lng: new FormControl<number | null>(null, {
       validators: [
         Validators.required,
         Validators.min(-180),
@@ -162,13 +162,13 @@ export class AddReportComponent {
   setMarker(position: google.maps.LatLngLiteral) {
     this.markerPosition = position;
     this.addReportForm.controls.lat.setValue(position?.lat);
-    this.addReportForm.controls.lat.setValue(position?.lng);
+    this.addReportForm.controls.lng.setValue(position?.lng);
   }
 
   removeMarker() {
     this.markerPosition = null;
     this.addReportForm.controls.lat.setValue(null);
-    this.addReportForm.controls.lat.setValue(null);
+    this.addReportForm.controls.lng.setValue(null);
   }
 
   handleMarkerEvent(event: google.maps.MapMouseEvent) {
