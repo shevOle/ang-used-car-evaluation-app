@@ -162,7 +162,9 @@ export class AddReportComponent {
   setMarker(position: google.maps.LatLngLiteral) {
     this.markerPosition = position;
     this.addReportForm.controls.lat.setValue(position?.lat);
+    this.addReportForm.controls.lat.markAsTouched();
     this.addReportForm.controls.lng.setValue(position?.lng);
+    this.addReportForm.controls.lng.markAsTouched();
   }
 
   removeMarker() {
