@@ -156,7 +156,10 @@ export class AddReportComponent {
         lat: this.addReportForm.value.lat!,
         lng: this.addReportForm.value.lng!,
       })
-      .then(() => this.addReportForm.reset());
+      .then(() => {
+        this.addReportForm.reset();
+        this.removeMarker();
+      });
   }
 
   setMarker(position: google.maps.LatLngLiteral) {
