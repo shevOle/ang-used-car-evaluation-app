@@ -38,7 +38,23 @@
       ></ucea-button>
     </form>
   </ucea-form-card>
-  <div id="estimate-page-map"></div>
+  <div id="estimate-page-map">
+    <google-map
+      height="100%"
+      width="100%"
+      [zoom]="10"
+      (mapClick)="handleMarkerEvent($event)"
+    >
+      <map-marker
+        *ngIf="markerPosition"
+        [position]="markerPosition"
+        (mapClick)="removeMarker()"
+      />
+    </google-map>
+    <!-- @if (coordinatesError) {
+    <mat-error>{{ coordinatesError }}</mat-error>
+    } -->
+  </div>
 
   <div *ngIf="estimateReports?.length" class="estimate-page-price">
     <p>

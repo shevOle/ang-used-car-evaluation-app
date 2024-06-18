@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ReportService } from '../services/reports.service';
 import { ReportComponent } from '../report/report.component';
 import { CommonButton } from '../common-components/button';
@@ -30,12 +31,15 @@ import { IError } from '../interfaces/validation-error';
     MatFormFieldModule,
     FormCard,
     BaseFieldWithError,
+    GoogleMap,
+    MapMarker,
   ],
   templateUrl: './report-estimate.component.html',
   styleUrl: './report-estimate.component.scss',
 })
 export class ReportEstimateComponent {
   reportsService: ReportService = inject(ReportService);
+  markerPosition: google.maps.LatLngLiteral | null = null;
   estimateForm = new FormGroup({
     make: new FormControl('', {
       validators: [Validators.required],
@@ -61,21 +65,19 @@ export class ReportEstimateComponent {
       ],
       nonNullable: true,
     }),
-    lat: new FormControl(0, {
+    lat: new FormControl<number | null>(null, {
       validators: [
         Validators.required,
         Validators.min(-90),
         Validators.max(90),
       ],
-      nonNullable: true,
     }),
-    lng: new FormControl(0, {
+    lng: new FormControl<number | null>(null, {
       validators: [
         Validators.required,
         Validators.min(-180),
         Validators.max(180),
       ],
-      nonNullable: true,
     }),
   });
   estimateReports!: Report[];
@@ -147,5 +149,34 @@ export class ReportEstimateComponent {
       console.error(err);
       this.resetEstimates();
     }
+  }
+
+  setMarker(position: google.maps.LatLngLiteral) {
+    this.markerPosition = position;
+    this.estimateForm.controls.lat.setValue(position?.lat);
+    this.estimateForm.controls.lat.markAsTouched();
+    this.estimateForm.controls.lng.setValue(position?.lng);
+    this.estimateForm.controls.lng.markAsTouched();
+  }
+
+  removeMarker() {
+    this.markerPosition = null;
+    this.estimateForm.controls.lat.setValue(null);
+    this.estimateForm.controls.lng.setValue(null);
+  }
+
+  handleMarkerEvent(event: google.maps.MapMouseEvent) {
+    const position = event?.latLng?.toJSON() || null;
+
+    const isPositionTheSame =
+      position &&
+      position!.lat === this.estimateForm.value.lat &&
+      position!.lng === this.estimateForm.value.lng;
+
+    if (isPositionTheSame) {
+      return this.removeMarker();
+    }
+
+    this.setMarker(position!);
   }
 }
