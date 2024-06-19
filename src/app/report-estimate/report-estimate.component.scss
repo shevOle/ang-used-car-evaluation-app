@@ -67,11 +67,10 @@ $break-point-s: 480px;
 #estimate-page-map {
   display: inline-block;
   width: 55%;
-  height: 383px;
-  background-image: url("../../assets/google-map-dull.png");
 
   @media screen and (max-width: $break-point-m) {
     width: 90%;
+    height: 400px;
     margin: 0 auto;
   }
 }
