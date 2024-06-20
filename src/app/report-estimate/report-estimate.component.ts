@@ -40,6 +40,7 @@ import { IError } from '../interfaces/validation-error';
 export class ReportEstimateComponent {
   reportsService: ReportService = inject(ReportService);
   markerPosition: google.maps.LatLngLiteral | null = null;
+  coordinatesError: string = '';
   estimateForm = new FormGroup({
     make: new FormControl('', {
       validators: [Validators.required],
@@ -97,6 +98,14 @@ export class ReportEstimateComponent {
         message: `Maximum accepted year is ${this.currentYear}`,
       },
     ],
+    coordinates: [
+      {
+        errorType: 'required',
+        message: 'Coordinates is required, please, choose location on map',
+      },
+      { errorType: 'min', message: 'Coordinates is invalid' },
+      { errorType: 'max', message: `Coordinates is invalid` },
+    ],
   };
 
   private setEstimates(options: {
@@ -133,6 +142,22 @@ export class ReportEstimateComponent {
       const mileage = this.estimateForm.value.mileage!;
       const lat = this.estimateForm.value.lat!;
       const lng = this.estimateForm.value.lng!;
+
+      const triggeredError = this.errors['coordinates'].find(
+        (err) =>
+          this.estimateForm.controls.lat.hasError(err.errorType) ||
+          this.estimateForm.controls.lng.hasError(err.errorType)
+      );
+
+      const isInitialPosition =
+        !this.estimateForm.controls.lat.touched ||
+        !this.estimateForm.controls.lng.touched;
+
+      if (triggeredError || isInitialPosition) {
+        this.coordinatesError =
+          triggeredError?.message || 'Please, provide the coordinates of sale';
+        return;
+      }
 
       const { reports, averagePrice } = await this.reportsService.getEstimate({
         make,

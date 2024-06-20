@@ -51,9 +51,9 @@
         (mapClick)="removeMarker()"
       />
     </google-map>
-    <!-- @if (coordinatesError) {
+    @if (coordinatesError) {
     <mat-error>{{ coordinatesError }}</mat-error>
-    } -->
+    }
   </div>
 
   <div *ngIf="estimateReports?.length" class="estimate-page-price">
