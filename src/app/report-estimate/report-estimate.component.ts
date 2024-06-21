@@ -61,8 +61,8 @@ export class ReportEstimateComponent {
     mileage: new FormControl(0, {
       validators: [
         Validators.required,
-        Validators.min(1990),
-        Validators.max(this.currentYear),
+        Validators.min(0),
+        Validators.max(100000),
       ],
       nonNullable: true,
     }),
