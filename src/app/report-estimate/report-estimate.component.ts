@@ -91,7 +91,15 @@ export class ReportEstimateComponent {
     make: [{ errorType: 'required', message: 'Manufacturer is required' }],
     model: [{ errorType: 'required', message: 'Model is required' }],
     year: [
-      { errorType: 'required', message: 'Year is required' },
+      { errorType: 'required', message: 'Mileage is required' },
+      { errorType: 'min', message: 'Minimum accepted mileage is 0' },
+      {
+        errorType: 'max',
+        message: 'Maximum accepted mileage is 100000',
+      },
+    ],
+    mileage: [
+      { errorType: 'required', message: 'Mileage is required' },
       { errorType: 'min', message: 'Minimum accepted year is 1990' },
       {
         errorType: 'max',

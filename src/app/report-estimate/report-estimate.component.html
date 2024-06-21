@@ -29,6 +29,14 @@
         type="number"
       ></ucea-form-field-with-error>
 
+      <ucea-form-field-with-error
+        class="estimate-page-form-input"
+        [field]="estimateForm.controls.mileage"
+        label="Mileage"
+        [errorsList]="errors['mileage']"
+        type="number"
+      ></ucea-form-field-with-error>
+
       <ucea-button
         [disabled]="estimateForm.pristine || !estimateForm.valid"
         label="Get estimate!"
