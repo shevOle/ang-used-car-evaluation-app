@@ -100,10 +100,10 @@ export class ReportEstimateComponent {
     ],
     mileage: [
       { errorType: 'required', message: 'Mileage is required' },
-      { errorType: 'min', message: 'Minimum accepted year is 1990' },
+      { errorType: 'min', message: 'Minimum accepted mileage is 0' },
       {
         errorType: 'max',
-        message: `Maximum accepted year is ${this.currentYear}`,
+        message: `Maximum accepted mileage is 100000`,
       },
     ],
     coordinates: [
