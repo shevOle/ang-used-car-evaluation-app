@@ -14,12 +14,8 @@ $break-point-s: 480px;
   width: 40%;
 
   @media screen and (max-width: $break-point-m) {
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  @media screen and (max-width: $break-point-s) {
     width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -69,7 +65,7 @@ $break-point-s: 480px;
   width: 55%;
 
   @media screen and (max-width: $break-point-m) {
-    width: 90%;
+    width: 80%;
     height: 400px;
     margin: 0 auto;
   }
