@@ -4,8 +4,8 @@
       >{{ report.make | titlecase }}
     </mat-card-title>
     <mat-card-title [title]="report.model | titlecase">
-      {{ report.model | titlecase }}</mat-card-title
-    >
+      {{ report.model | titlecase }}
+    </mat-card-title>
     <mat-card-subtitle> {{ report.year }}</mat-card-subtitle>
   </mat-card-header>
   <div class="report-list-item-map" alt="Location on a map">
@@ -13,7 +13,7 @@
       height="100%"
       width="100%"
       [center]="markerSpot"
-      [zoom]="3"
+      [zoom]="5"
       [options]="{ disableDefaultUI: true, draggable: false }"
     >
       <map-marker [position]="markerSpot" />
