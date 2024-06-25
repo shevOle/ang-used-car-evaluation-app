@@ -16,7 +16,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { of as observableOf, merge } from 'rxjs';
 import { pickBy, isEmpty } from 'lodash';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
 
@@ -66,7 +66,11 @@ export class ReportsApprovalQueueComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
 
-    merge(this.paginator.page, this.filterForm.statusChanges)
+    const onFilterChange = this.filterForm.statusChanges.pipe(
+      tap(() => this.paginator.firstPage())
+    );
+
+    merge(this.paginator.page, onFilterChange)
       .pipe(
         startWith([]),
         switchMap(() => {
