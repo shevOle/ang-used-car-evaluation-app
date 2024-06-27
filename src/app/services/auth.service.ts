@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { IUserLoginInput } from '../interfaces/login-input';
 import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
@@ -29,7 +30,11 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<IUser | null>;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
 
@@ -60,21 +65,27 @@ export class AuthService {
   }
 
   async loginUser(data: IUserLoginInput) {
-    await firstValueFrom(
-      this.httpClient.post(`${this.url}/login`, data, {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'text',
-      })
-    );
+    try {
+      await firstValueFrom(
+        this.httpClient.post(`${this.url}/login`, data, {
+          withCredentials: true,
+          observe: 'response',
+          responseType: 'text',
+        })
+      );
 
-    this.saveUser();
+      this.saveUser();
 
-    const { queryParams } = this.router.parseUrl(
-      this.router.routerState.snapshot.url
-    );
+      this.toastr.success(`Welcome, ${this.currentUserValue?.email}`);
 
-    this.router.navigate([queryParams['returnUrl'] || '/']);
+      const { queryParams } = this.router.parseUrl(
+        this.router.routerState.snapshot.url
+      );
+
+      this.router.navigate([queryParams['returnUrl'] || '/']);
+    } catch (err: any) {
+      this.toastr.error(err?.error || err?.message || 'Something went wrong');
+    }
   }
 
   async logout() {
