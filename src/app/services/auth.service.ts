@@ -105,25 +105,31 @@ export class AuthService {
   }
 
   async signUp(input: IUserSignUpInput) {
-    const userData = {
-      ...input,
-      isAdmin: false,
-    };
+    try {
+      const userData = {
+        ...input,
+        isAdmin: false,
+      };
 
-    await firstValueFrom(
-      this.httpClient.post(`${this.url}/signup`, userData, {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'text',
-      })
-    );
+      await firstValueFrom(
+        this.httpClient.post(`${this.url}/signup`, userData, {
+          withCredentials: true,
+          observe: 'response',
+          responseType: 'text',
+        })
+      );
 
-    this.saveUser();
+      this.saveUser();
 
-    const { queryParams } = this.router.parseUrl(
-      this.router.routerState.snapshot.url
-    );
+      this.toastr.success(`Welcome, ${this.currentUserValue?.email}`);
 
-    this.router.navigate([queryParams['returnUrl'] || '/']);
+      const { queryParams } = this.router.parseUrl(
+        this.router.routerState.snapshot.url
+      );
+
+      this.router.navigate([queryParams['returnUrl'] || '/']);
+    } catch (err: any) {
+      this.toastr.error(err?.error || err?.message || 'Something went wrong');
+    }
   }
 }
