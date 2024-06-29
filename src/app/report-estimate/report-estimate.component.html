@@ -1,10 +1,6 @@
 <section class="estimate-page">
   <ucea-form-card class="form-card">
-    <form
-      class="estimate-page-form"
-      [formGroup]="estimateForm"
-      (submit)="submitEstimateForm()"
-    >
+    <form class="estimate-page-form" [formGroup]="estimateForm">
       <ucea-form-field-with-error
         class="estimate-page-form-input"
         [field]="estimateForm.controls.make"
