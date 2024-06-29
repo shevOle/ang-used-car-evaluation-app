@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
 import omitBy from 'lodash/omitBy';
 import isEmpty from 'lodash/isEmpty';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
 import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
@@ -23,8 +24,24 @@ export class ReportService {
   protected url: string = `${apiUrl}/reports`;
   constructor(
     protected httpClient: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
+
+  private async withNotification(
+    func: () => Promise<any>,
+    message: string
+  ): Promise<any> {
+    try {
+      console.error('sss');
+      const result = await func();
+
+      this.toastr.success(message);
+      return result;
+    } catch (err: any) {
+      this.toastr.error(err);
+    }
+  }
 
   getAllReports(): Promise<Report[]> {
     const reportsObservable = this.httpClient.get(this.url, {
@@ -98,7 +115,7 @@ export class ReportService {
     return firstValueFrom(reportObservable);
   }
 
-  async getEstimate(input: IReportEstimateInput) {
+  private async _getEstimate(input: IReportEstimateInput) {
     const params = new HttpParams({ fromObject: { ...input } });
     const reportObservable = this.httpClient.get(`${this.url}/estimate`, {
       params,
@@ -117,6 +134,12 @@ export class ReportService {
     //     return true;
     //   })
     //   .sort((a, b) => a.mileage - b.mileage);
+  }
+  async getEstimate(input: IReportEstimateInput) {
+    return this.withNotification(
+      () => this._getEstimate(input),
+      'Estimate request received successfully'
+    );
   }
 
   addReport(params: IAddReport) {
