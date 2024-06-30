@@ -131,7 +131,7 @@ export class ReportService {
     );
   }
 
-  addReport(params: IAddReport) {
+  private _addReport(params: IAddReport) {
     const userId = this.authService.currentUserValue?.id;
     const body = {
       ...params,
@@ -145,20 +145,42 @@ export class ReportService {
     });
     return firstValueFrom(observable);
   }
-
-  approveReport(id: string) {
-    return this.httpClient.patch(
-      `${this.url}/${id}`,
-      { status: 'approved' },
-      { withCredentials: true, observe: 'response', responseType: 'text' }
+  addReport(params: IAddReport) {
+    return this.withNotification(
+      () => this._addReport(params),
+      'Report was successfully created and set for approval'
     );
   }
 
+  private _approveReport(id: string) {
+    return firstValueFrom(
+      this.httpClient.patch(
+        `${this.url}/${id}`,
+        { status: 'approved' },
+        { withCredentials: true, observe: 'response', responseType: 'text' }
+      )
+    );
+  }
+  approveReport(id: string) {
+    return this.withNotification(
+      () => this._approveReport(id),
+      'Report was successfully approved'
+    );
+  }
+
+  private _rejectReport(id: string) {
+    return firstValueFrom(
+      this.httpClient.patch(
+        `${this.url}/${id}`,
+        { status: 'rejected' },
+        { withCredentials: true, observe: 'response', responseType: 'text' }
+      )
+    );
+  }
   rejectReport(id: string) {
-    return this.httpClient.patch(
-      `${this.url}/${id}`,
-      { status: 'rejected' },
-      { withCredentials: true, observe: 'response', responseType: 'text' }
+    return this.withNotification(
+      () => this._rejectReport(id),
+      'Report was successfully rejected'
     );
   }
 }
