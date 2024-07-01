@@ -30,13 +30,12 @@ export class ReportService {
 
   private async withNotification(
     func: () => Promise<any>,
-    message: string
+    message?: string
   ): Promise<any> {
     try {
-      console.error('sss');
       const result = await func();
 
-      this.toastr.success(message);
+      message && this.toastr.success(message);
       return result;
     } catch (err: any) {
       this.toastr.error(err);
