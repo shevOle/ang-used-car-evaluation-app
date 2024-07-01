@@ -29,7 +29,7 @@ export class ReportService {
   ) {}
 
   private async withNotification(
-    func: () => Promise<any>,
+    func: () => Promise<any> | Observable<any>,
     message?: string
   ): Promise<any> {
     try {
@@ -42,26 +42,35 @@ export class ReportService {
     }
   }
 
-  getAllReports(): Promise<Report[]> {
+  private _getAllReports(): Promise<Report[]> {
     const reportsObservable = this.httpClient.get(this.url, {
       withCredentials: true,
     }) as Observable<Report[]>;
 
     return firstValueFrom(reportsObservable);
   }
+  getAllReports() {
+    return this.withNotification(() => this._getAllReports());
+  }
 
-  getOwnReports(): Observable<Report[]> {
+  private _getOwnReports(): Observable<Report[]> {
     return this.httpClient.get(`${this.url}/own`, {
       withCredentials: true,
     }) as Observable<Report[]>;
   }
+  getOwnReports() {
+    return this.withNotification(() => this._getOwnReports());
+  }
 
-  getNewReports(): Promise<Report[]> {
+  private _getNewReports(): Promise<Report[]> {
     const params = new HttpParams({ fromObject: { status: 'new' } });
     const obsservable = this.httpClient.get(this.url, { params }) as Observable<
       Report[]
     >;
     return firstValueFrom(obsservable);
+  }
+  getNewReports() {
+    return this.withNotification(() => this._getNewReports());
   }
 
   getReports(options: Partial<Report>): Observable<Report[]>;
@@ -89,7 +98,7 @@ export class ReportService {
     }) as Observable<{ results: Report[]; count: number }>;
   }
 
-  getFilteredReports(options: {
+  private _getFilteredReports(options: {
     make?: string;
     model?: string;
     year?: string;
@@ -105,13 +114,23 @@ export class ReportService {
 
     return firstValueFrom(reportsObservable);
   }
+  getFilteredReports(options: {
+    make?: string;
+    model?: string;
+    year?: string;
+  }) {
+    return this.withNotification(() => this._getFilteredReports(options));
+  }
 
-  getReportById(id: string): Promise<Report> {
+  private _getReportById(id: string): Promise<Report> {
     const reportObservable = this.httpClient.get(`${this.url}/${id}`, {
       withCredentials: true,
     }) as Observable<Report>;
 
     return firstValueFrom(reportObservable);
+  }
+  getReportById(id: string) {
+    return this.withNotification(() => this._getReportById(id));
   }
 
   private async _getEstimate(input: IReportEstimateInput) {
