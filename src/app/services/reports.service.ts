@@ -73,12 +73,12 @@ export class ReportService {
     return this.withNotification(() => this._getNewReports());
   }
 
-  getReports(options: Partial<Report>): Observable<Report[]>;
-  getReports(
+  private _getReports(options: Partial<Report>): Observable<Report[]>;
+  private _getReports(
     options: Partial<Report>,
     pagination: IPaginationOptions
   ): Observable<{ results: Report[]; count: number }>;
-  getReports(
+  private _getReports(
     options: Partial<Report>,
     pagination?: IPaginationOptions
   ): Observable<Report[] | { results: Report[]; count: number }> {
@@ -96,6 +96,13 @@ export class ReportService {
       params,
       withCredentials: true,
     }) as Observable<{ results: Report[]; count: number }>;
+  }
+  getReports(options: Partial<Report>, pagination?: IPaginationOptions) {
+    return this.withNotification(
+      pagination
+        ? () => this._getReports(options, pagination)
+        : () => this._getReports(options)
+    );
   }
 
   private _getFilteredReports(options: {
