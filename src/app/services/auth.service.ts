@@ -89,19 +89,23 @@ export class AuthService {
   }
 
   async logout() {
-    await firstValueFrom(
-      this.httpClient.post(
-        `${this.url}/logout`,
-        {},
-        {
-          withCredentials: true,
-          observe: 'response',
-          responseType: 'text',
-        }
-      )
-    );
+    try {
+      await firstValueFrom(
+        this.httpClient.post(
+          `${this.url}/logout`,
+          {},
+          {
+            withCredentials: true,
+            observe: 'response',
+            responseType: 'text',
+          }
+        )
+      );
 
-    this.currentUserSubject.next(null);
+      this.currentUserSubject.next(null);
+    } catch (err: any) {
+      this.toastr.error(err?.error || err?.message || 'Something went wrong');
+    }
   }
 
   async signUp(input: IUserSignUpInput) {
