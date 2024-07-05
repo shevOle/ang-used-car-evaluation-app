@@ -9,6 +9,7 @@ import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
 import { apiUrl } from '../helpers/constants';
+import { AbstractService } from './abstract-service';
 
 interface IPaginationOptions {
   page?: number;
@@ -19,27 +20,15 @@ interface IPaginationOptions {
 @Injectable({
   providedIn: 'root',
 })
-export class ReportService {
+export class ReportService extends AbstractService {
   protected reportsList: Report[] = [];
   protected url: string = `${apiUrl}/reports`;
   constructor(
     protected httpClient: HttpClient,
     private authService: AuthService,
-    private toastr: ToastrService
-  ) {}
-
-  private async withNotification(
-    func: () => Promise<any> | Observable<any>,
-    message?: string
-  ): Promise<any> {
-    try {
-      const result = await func();
-
-      message && this.toastr.success(message);
-      return result;
-    } catch (err: any) {
-      this.toastr.error(err);
-    }
+    toastr: ToastrService
+  ) {
+    super(toastr);
   }
 
   private _getAllReports(): Promise<Report[]> {
