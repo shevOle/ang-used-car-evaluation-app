@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractService } from './abstract-service';
 import { IUserLoginInput } from '../interfaces/login-input';
 import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
@@ -25,7 +26,7 @@ const getPayload = (token: string) => {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService extends AbstractService {
   protected url: string = `${apiUrl}/auth`;
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<IUser | null>;
@@ -33,8 +34,9 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private toastr: ToastrService
+    toastr: ToastrService
   ) {
+    super(toastr);
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
 

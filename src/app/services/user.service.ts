@@ -5,18 +5,21 @@ import { ToastrService } from 'ngx-toastr';
 import { IUpdateUserInput } from '../interfaces/updateUser-input';
 import { apiUrl } from '../helpers/constants';
 import { AuthService } from './auth.service';
+import { AbstractService } from './abstract-service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService extends AbstractService {
   protected url: string = `${apiUrl}/users`;
 
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,
-    private toastr: ToastrService
-  ) {}
+    toastr: ToastrService
+  ) {
+    super(toastr);
+  }
 
   async updateUser(input: IUpdateUserInput) {
     try {
