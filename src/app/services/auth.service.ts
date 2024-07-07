@@ -66,76 +66,75 @@ export class AuthService extends AbstractService {
     return this.currentUserSubject.value;
   }
 
-  async loginUser(data: IUserLoginInput) {
-    try {
-      await firstValueFrom(
-        this.httpClient.post(`${this.url}/login`, data, {
+  private async _loginUser(data: IUserLoginInput) {
+    await firstValueFrom(
+      this.httpClient.post(`${this.url}/login`, data, {
+        withCredentials: true,
+        observe: 'response',
+        responseType: 'text',
+      })
+    );
+
+    this.saveUser();
+
+    const { queryParams } = this.router.parseUrl(
+      this.router.routerState.snapshot.url
+    );
+
+    this.router.navigate([queryParams['returnUrl'] || '/']);
+  }
+  loginUser(data: IUserLoginInput) {
+    return this.withNotification(
+      () => this._loginUser(data),
+      `Welcome, ${this.currentUserValue?.email}`
+    );
+  }
+
+  private async _logout() {
+    await firstValueFrom(
+      this.httpClient.post(
+        `${this.url}/logout`,
+        {},
+        {
           withCredentials: true,
           observe: 'response',
           responseType: 'text',
-        })
-      );
+        }
+      )
+    );
 
-      this.saveUser();
-
-      this.toastr.success(`Welcome, ${this.currentUserValue?.email}`);
-
-      const { queryParams } = this.router.parseUrl(
-        this.router.routerState.snapshot.url
-      );
-
-      this.router.navigate([queryParams['returnUrl'] || '/']);
-    } catch (err: any) {
-      this.toastr.error(err?.error || err?.message || 'Something went wrong');
-    }
+    this.currentUserSubject.next(null);
+  }
+  logout() {
+    return this.withNotification(() => this._logout());
   }
 
-  async logout() {
-    try {
-      await firstValueFrom(
-        this.httpClient.post(
-          `${this.url}/logout`,
-          {},
-          {
-            withCredentials: true,
-            observe: 'response',
-            responseType: 'text',
-          }
-        )
-      );
+  private async _signUp(input: IUserSignUpInput) {
+    const userData = {
+      ...input,
+      isAdmin: false,
+    };
 
-      this.currentUserSubject.next(null);
-    } catch (err: any) {
-      this.toastr.error(err?.error || err?.message || 'Something went wrong');
-    }
+    await firstValueFrom(
+      this.httpClient.post(`${this.url}/signup`, userData, {
+        withCredentials: true,
+        observe: 'response',
+        responseType: 'text',
+      })
+    );
+
+    this.saveUser();
+
+    const { queryParams } = this.router.parseUrl(
+      this.router.routerState.snapshot.url
+    );
+
+    this.router.navigate([queryParams['returnUrl'] || '/']);
   }
-
-  async signUp(input: IUserSignUpInput) {
-    try {
-      const userData = {
-        ...input,
-        isAdmin: false,
-      };
-
-      await firstValueFrom(
-        this.httpClient.post(`${this.url}/signup`, userData, {
-          withCredentials: true,
-          observe: 'response',
-          responseType: 'text',
-        })
-      );
-
-      this.saveUser();
-
-      this.toastr.success(`Welcome, ${this.currentUserValue?.email}`);
-
-      const { queryParams } = this.router.parseUrl(
-        this.router.routerState.snapshot.url
-      );
-
-      this.router.navigate([queryParams['returnUrl'] || '/']);
-    } catch (err: any) {
-      this.toastr.error(err?.error || err?.message || 'Something went wrong');
-    }
+  signUp(input: IUserSignUpInput) {
+    return this.withNotification(
+      () => this._signUp(input),
+      `Welcome, ${this.currentUserValue?.email}`
+    );
   }
 }
