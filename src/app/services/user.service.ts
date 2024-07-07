@@ -21,23 +21,24 @@ export class UserService extends AbstractService {
     super(toastr);
   }
 
-  async updateUser(input: IUpdateUserInput) {
-    try {
-      const updateUrl = `${this.url}/${input.id}`;
-      const update = Object.assign({}, input) as any;
-      delete update.id;
+  private async _updateUser(input: IUpdateUserInput) {
+    const updateUrl = `${this.url}/${input.id}`;
+    const update = Object.assign({}, input) as any;
+    delete update.id;
 
-      const observable = this.httpClient.patch(updateUrl, update, {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'text',
-      });
+    const observable = this.httpClient.patch(updateUrl, update, {
+      withCredentials: true,
+      observe: 'response',
+      responseType: 'text',
+    });
 
-      await firstValueFrom(observable);
-      this.authService.saveUser();
-      this.toastr.success('Data was successfully updated');
-    } catch (err: any) {
-      this.toastr.error(err);
-    }
+    await firstValueFrom(observable);
+    this.authService.saveUser();
+  }
+  updateUser(input: IUpdateUserInput) {
+    return this.withNotification(
+      () => this._updateUser(input),
+      'Data was successfully updated'
+    );
   }
 }
