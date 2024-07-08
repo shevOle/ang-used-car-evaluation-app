@@ -73,18 +73,17 @@ export class ReportsApprovalQueueComponent {
     merge(this.paginator.page, onFilterChange)
       .pipe(
         startWith([]),
-        switchMap(() => {
+        switchMap(async () => {
           const filters = pickBy(this.filterForm.value, (v) => !isEmpty(v));
-
-          return this.reportsService!.getReports(filters, {
-            page: this.paginator.pageIndex,
-            perPage: this.paginator.pageSize,
-          }).pipe(
-            catchError((err) => {
-              console.error(err);
-              return observableOf(null);
-            })
-          );
+          try {
+            return this.reportsService!.getReports(filters, {
+              page: this.paginator.pageIndex,
+              perPage: this.paginator.pageSize,
+            });
+          } catch (err) {
+            console.error(err);
+            return observableOf(null);
+          }
         }),
         map((data) => {
           if (data === null) {
@@ -98,23 +97,23 @@ export class ReportsApprovalQueueComponent {
       .subscribe((data) => (this.reportsData = data));
   }
 
-  approveReport(id: string) {
-    this.reportsService.approveReport(id).subscribe(() => {
-      this.paginator.page.emit({
-        pageIndex: 0,
-        pageSize: this.paginator.pageSize,
-        length: this.paginator.length,
-      });
+  async approveReport(id: string) {
+    await this.reportsService.approveReport(id);
+    this.paginator.page.emit({
+      pageIndex: 0,
+      pageSize: this.paginator.pageSize,
+      length: this.paginator.length,
     });
   }
 
-  rejectReport(id: string) {
-    this.reportsService.rejectReport(id).subscribe(() => {
-      this.paginator.page.emit({
-        pageIndex: 0,
-        pageSize: this.paginator.pageSize,
-        length: this.paginator.length,
-      });
+  async rejectReport(id: string) {
+    await this.reportsService.rejectReport(id);
+
+    this.paginator.page.emit({
+      pageIndex: 0,
+      pageSize: this.paginator.pageSize,
+      length: this.paginator.length,
     });
   }
 }
+// TODO: fix errors
