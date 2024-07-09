@@ -86,7 +86,7 @@ export class AuthService extends AbstractService {
   loginUser(data: IUserLoginInput) {
     return this.withNotification(
       () => this._loginUser(data),
-      `Welcome, ${this.currentUserValue?.email}`
+      `Welcome, ${data.email}`
     );
   }
 
@@ -134,7 +134,7 @@ export class AuthService extends AbstractService {
   signUp(input: IUserSignUpInput) {
     return this.withNotification(
       () => this._signUp(input),
-      `Welcome, ${this.currentUserValue?.email}`
+      `Welcome, ${input.email}`
     );
   }
 }
