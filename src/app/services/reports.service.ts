@@ -162,7 +162,7 @@ export class ReportService extends AbstractService {
   addReport(params: IAddReport) {
     return this.withNotification(
       () => this._addReport(params),
-      'Report was successfully created and set for approval'
+      'Report was successfully created and sent for approval'
     );
   }
 
