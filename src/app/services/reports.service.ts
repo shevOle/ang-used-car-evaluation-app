@@ -9,7 +9,6 @@ import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
 import { apiUrl } from '../helpers/constants';
-import { AbstractService } from './abstract-service';
 
 interface IPaginationOptions {
   page?: number;
@@ -20,54 +19,42 @@ interface IPaginationOptions {
 @Injectable({
   providedIn: 'root',
 })
-export class ReportService extends AbstractService {
+export class ReportService {
   protected reportsList: Report[] = [];
   protected url: string = `${apiUrl}/reports`;
   constructor(
     protected httpClient: HttpClient,
-    private authService: AuthService,
-    toastr: ToastrService
-  ) {
-    super(toastr);
-  }
+    private authService: AuthService
+  ) {}
 
-  private _getAllReports(): Promise<Report[]> {
+  getAllReports(): Promise<Report[]> {
     const reportsObservable = this.httpClient.get(this.url, {
       withCredentials: true,
     }) as Observable<Report[]>;
 
     return firstValueFrom(reportsObservable);
   }
-  getAllReports() {
-    return this.withNotification(() => this._getAllReports());
-  }
 
-  private _getOwnReports(): Observable<Report[]> {
+  getOwnReports(): Observable<Report[]> {
     return this.httpClient.get(`${this.url}/own`, {
       withCredentials: true,
     }) as Observable<Report[]>;
   }
-  getOwnReports() {
-    return this.withNotification(() => this._getOwnReports());
-  }
 
-  private _getNewReports(): Promise<Report[]> {
+  getNewReports(): Promise<Report[]> {
     const params = new HttpParams({ fromObject: { status: 'new' } });
     const obsservable = this.httpClient.get(this.url, { params }) as Observable<
       Report[]
     >;
     return firstValueFrom(obsservable);
   }
-  getNewReports() {
-    return this.withNotification(() => this._getNewReports());
-  }
 
-  private _getReports(options: Partial<Report>): Observable<Report[]>;
-  private _getReports(
+  getReports(options: Partial<Report>): Observable<Report[]>;
+  getReports(
     options: Partial<Report>,
     pagination: IPaginationOptions
   ): Observable<{ results: Report[]; count: number }>;
-  private _getReports(
+  getReports(
     options: Partial<Report>,
     pagination?: IPaginationOptions
   ): Observable<Report[] | { results: Report[]; count: number }> {
@@ -86,15 +73,8 @@ export class ReportService extends AbstractService {
       withCredentials: true,
     }) as Observable<{ results: Report[]; count: number }>;
   }
-  getReports(options: Partial<Report>, pagination?: IPaginationOptions) {
-    return this.withNotification(
-      pagination
-        ? () => this._getReports(options, pagination)
-        : () => this._getReports(options)
-    );
-  }
 
-  private _getFilteredReports(options: {
+  getFilteredReports(options: {
     make?: string;
     model?: string;
     year?: string;
@@ -110,26 +90,16 @@ export class ReportService extends AbstractService {
 
     return firstValueFrom(reportsObservable);
   }
-  getFilteredReports(options: {
-    make?: string;
-    model?: string;
-    year?: string;
-  }) {
-    return this.withNotification(() => this._getFilteredReports(options));
-  }
 
-  private _getReportById(id: string): Promise<Report> {
+  getReportById(id: string): Promise<Report> {
     const reportObservable = this.httpClient.get(`${this.url}/${id}`, {
       withCredentials: true,
     }) as Observable<Report>;
 
     return firstValueFrom(reportObservable);
   }
-  getReportById(id: string) {
-    return this.withNotification(() => this._getReportById(id));
-  }
 
-  private async _getEstimate(input: IReportEstimateInput) {
+  getEstimate(input: IReportEstimateInput) {
     const params = new HttpParams({ fromObject: { ...input } });
     const reportObservable = this.httpClient.get(`${this.url}/estimate`, {
       params,
@@ -138,14 +108,8 @@ export class ReportService extends AbstractService {
 
     return firstValueFrom(reportObservable);
   }
-  async getEstimate(input: IReportEstimateInput) {
-    return this.withNotification(
-      () => this._getEstimate(input),
-      'Estimate request received successfully'
-    );
-  }
 
-  private _addReport(params: IAddReport) {
+  addReport(params: IAddReport) {
     const userId = this.authService.currentUserValue?.id;
     const body = {
       ...params,
@@ -159,14 +123,8 @@ export class ReportService extends AbstractService {
     });
     return firstValueFrom(observable);
   }
-  addReport(params: IAddReport) {
-    return this.withNotification(
-      () => this._addReport(params),
-      'Report was successfully created and sent for approval'
-    );
-  }
 
-  private _approveReport(id: string) {
+  approveReport(id: string) {
     return firstValueFrom(
       this.httpClient.patch(
         `${this.url}/${id}`,
@@ -175,26 +133,14 @@ export class ReportService extends AbstractService {
       )
     );
   }
-  approveReport(id: string) {
-    return this.withNotification(
-      () => this._approveReport(id),
-      'Report was successfully approved'
-    );
-  }
 
-  private _rejectReport(id: string) {
+  rejectReport(id: string) {
     return firstValueFrom(
       this.httpClient.patch(
         `${this.url}/${id}`,
         { status: 'rejected' },
         { withCredentials: true, observe: 'response', responseType: 'text' }
       )
-    );
-  }
-  rejectReport(id: string) {
-    return this.withNotification(
-      () => this._rejectReport(id),
-      'Report was successfully rejected'
     );
   }
 }
