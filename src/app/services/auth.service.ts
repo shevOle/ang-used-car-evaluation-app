@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { AbstractService } from './abstract-service';
 import { IUserLoginInput } from '../interfaces/login-input';
 import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
@@ -26,17 +24,12 @@ const getPayload = (token: string) => {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService extends AbstractService {
+export class AuthService {
   protected url: string = `${apiUrl}/auth`;
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<IUser | null>;
 
-  constructor(
-    private httpClient: HttpClient,
-    private router: Router,
-    toastr: ToastrService
-  ) {
-    super(toastr);
+  constructor(private httpClient: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
 
@@ -66,7 +59,7 @@ export class AuthService extends AbstractService {
     return this.currentUserSubject.value;
   }
 
-  private async _loginUser(data: IUserLoginInput) {
+  async loginUser(data: IUserLoginInput) {
     await firstValueFrom(
       this.httpClient.post(`${this.url}/login`, data, {
         withCredentials: true,
@@ -83,14 +76,8 @@ export class AuthService extends AbstractService {
 
     this.router.navigate([queryParams['returnUrl'] || '/']);
   }
-  loginUser(data: IUserLoginInput) {
-    return this.withNotification(
-      () => this._loginUser(data),
-      `Welcome, ${data.email}`
-    );
-  }
 
-  private async _logout() {
+  async logout() {
     await firstValueFrom(
       this.httpClient.post(
         `${this.url}/logout`,
@@ -105,11 +92,8 @@ export class AuthService extends AbstractService {
 
     this.currentUserSubject.next(null);
   }
-  logout() {
-    return this.withNotification(() => this._logout());
-  }
 
-  private async _signUp(input: IUserSignUpInput) {
+  async signUp(input: IUserSignUpInput) {
     const userData = {
       ...input,
       isAdmin: false,
@@ -130,11 +114,5 @@ export class AuthService extends AbstractService {
     );
 
     this.router.navigate([queryParams['returnUrl'] || '/']);
-  }
-  signUp(input: IUserSignUpInput) {
-    return this.withNotification(
-      () => this._signUp(input),
-      `Welcome, ${input.email}`
-    );
   }
 }
