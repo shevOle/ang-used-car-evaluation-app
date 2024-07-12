@@ -24,7 +24,8 @@ export class ReportService {
   protected url: string = `${apiUrl}/reports`;
   constructor(
     protected httpClient: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   getAllReports(): Promise<Report[]> {
@@ -109,7 +110,7 @@ export class ReportService {
     return firstValueFrom(reportObservable);
   }
 
-  addReport(params: IAddReport) {
+  async addReport(params: IAddReport) {
     const userId = this.authService.currentUserValue?.id;
     const body = {
       ...params,
@@ -121,26 +122,37 @@ export class ReportService {
       observe: 'response',
       responseType: 'text',
     });
-    return firstValueFrom(observable);
+
+    const result = await firstValueFrom(observable);
+    this.toastr.success('Report was successfully submitted!');
+
+    return result;
   }
 
-  approveReport(id: string) {
-    return firstValueFrom(
+  async approveReport(id: string) {
+    const result = await firstValueFrom(
       this.httpClient.patch(
         `${this.url}/${id}`,
         { status: 'approved' },
         { withCredentials: true, observe: 'response', responseType: 'text' }
       )
     );
+
+    this.toastr.success('Report was successfully approved!');
+
+    return result;
   }
 
-  rejectReport(id: string) {
-    return firstValueFrom(
+  async rejectReport(id: string) {
+    const result = await firstValueFrom(
       this.httpClient.patch(
         `${this.url}/${id}`,
         { status: 'rejected' },
         { withCredentials: true, observe: 'response', responseType: 'text' }
       )
     );
+
+    this.toastr.success('Report was successfully rejected!');
+    return result;
   }
 }
