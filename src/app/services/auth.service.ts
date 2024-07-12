@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { IUserLoginInput } from '../interfaces/login-input';
 import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
@@ -29,7 +30,11 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<IUser | null>;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
 
@@ -75,6 +80,8 @@ export class AuthService {
     );
 
     this.router.navigate([queryParams['returnUrl'] || '/']);
+
+    this.toastr.success(`Welcoome, ${data.email}`);
   }
 
   async logout() {
@@ -114,5 +121,6 @@ export class AuthService {
     );
 
     this.router.navigate([queryParams['returnUrl'] || '/']);
+    this.toastr.success(`Welcoome, ${input.email}`);
   }
 }
