@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { IUpdateUserInput } from '../interfaces/updateUser-input';
 import { apiUrl } from '../helpers/constants';
 import { AuthService } from './auth.service';
@@ -13,7 +14,8 @@ export class UserService {
 
   constructor(
     private httpClient: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   async updateUser(input: IUpdateUserInput) {
@@ -29,5 +31,7 @@ export class UserService {
 
     await firstValueFrom(observable);
     this.authService.saveUser();
+
+    this.toastr.success('User was successfully updated!');
   }
 }
