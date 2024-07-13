@@ -17,7 +17,7 @@ import { ReportComponent } from '../report/report.component';
 })
 export class MyReportsComponent {
   user: IUser | null = null;
-  reports!: Report[];
+  reports!: Observable<Report[]>;
   constructor(
     private authService: AuthService,
     private reportsService: ReportService
@@ -27,6 +27,6 @@ export class MyReportsComponent {
     });
   }
   async ngAfterViewInit() {
-    this.reports = await this.reportsService.getOwnReports();
+    this.reports = this.reportsService.getOwnReports();
   }
 }
