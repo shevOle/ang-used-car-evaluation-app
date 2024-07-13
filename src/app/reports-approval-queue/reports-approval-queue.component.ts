@@ -19,6 +19,7 @@ import { pickBy, isEmpty } from 'lodash';
 import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
+import { IReportsPaginatedResult } from '../interfaces/reports-paginated-result';
 
 @Component({
   selector: 'ucea-reports-approval-queue',
@@ -73,17 +74,18 @@ export class ReportsApprovalQueueComponent {
     merge(this.paginator.page, onFilterChange)
       .pipe(
         startWith([]),
-        switchMap(async () => {
+        switchMap(() => {
           const filters = pickBy(this.filterForm.value, (v) => !isEmpty(v));
-          try {
-            return this.reportsService!.getReports(filters, {
-              page: this.paginator.pageIndex,
-              perPage: this.paginator.pageSize,
-            });
-          } catch (err) {
-            console.error(err);
-            return observableOf(null);
-          }
+
+          return this.reportsService!.getReports(filters, {
+            page: this.paginator.pageIndex,
+            perPage: this.paginator.pageSize,
+          }).pipe(
+            catchError((err) => {
+              console.error(err);
+              return observableOf(null);
+            })
+          );
         }),
         map((data) => {
           if (data === null) {
