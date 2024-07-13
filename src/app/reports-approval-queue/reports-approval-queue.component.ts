@@ -19,7 +19,6 @@ import { pickBy, isEmpty } from 'lodash';
 import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ReportService } from '../services/reports.service';
 import { Report } from '../interfaces/report';
-import { IReportsPaginatedResult } from '../interfaces/reports-paginated-result';
 
 @Component({
   selector: 'ucea-reports-approval-queue',
