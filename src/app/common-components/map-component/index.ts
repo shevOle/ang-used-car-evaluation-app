@@ -18,8 +18,6 @@ export class MapComponent {
   async ngOnInit(): Promise<void> {
     this.options = {
       center: this.markerSpot,
-      disableDefaultUI: true,
-      draggable: false,
       zoom: 5,
       ...this.mapOptions,
     };
