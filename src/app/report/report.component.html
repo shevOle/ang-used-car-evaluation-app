@@ -9,15 +9,10 @@
     <mat-card-subtitle> {{ report.year }}</mat-card-subtitle>
   </mat-card-header>
   <div class="report-list-item-map" alt="Location on a map">
-    <google-map
-      height="100%"
-      width="100%"
-      [center]="markerSpot"
-      [zoom]="5"
-      [options]="{ disableDefaultUI: true, draggable: false }"
-    >
-      <map-marker [position]="markerSpot" />
-    </google-map>
+    <ucea-map
+      [markerSpot]="markerSpot"
+      [mapOptions]="{ disableDefaultUI: true, draggable: false }"
+    ></ucea-map>
   </div>
 
   <mat-card-content>
