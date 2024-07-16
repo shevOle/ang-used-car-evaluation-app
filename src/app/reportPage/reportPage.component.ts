@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { Report } from '../interfaces/report';
 import { ReportService } from '../services/reports.service';
+import { MapComponent } from '../common-components/map-component';
 
 @Component({
   selector: 'ucea-reportPage',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, GoogleMap, MapMarker],
+  imports: [CommonModule, CurrencyPipe, MapComponent],
   templateUrl: './reportPage.component.html',
   styleUrl: './reportPage.component.scss',
 })
