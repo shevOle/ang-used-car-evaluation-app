@@ -1,3 +1,9 @@
-<google-map height="100%" width="100%" [options]="options">
-  @if (markerSpot) { <map-marker [position]="markerSpot" /> }
+<google-map
+  height="100%"
+  width="100%"
+  [options]="options"
+  (mapClick)="mapClick($event)"
+>
+  @if (markerSpot) {
+  <map-marker [position]="markerSpot" (mapClick)="markerClick($event)" /> }
 </google-map>
