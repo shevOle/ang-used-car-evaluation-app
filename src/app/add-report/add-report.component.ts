@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ReportService } from '../services/reports.service';
 import { CommonButton } from '../common-components/button';
 import { FormCard } from '../common-components/form-card';
 import { BaseFieldWithError } from '../common-components/form-field-with-error';
 import { IError } from '../interfaces/validation-error';
+import { MapComponent } from '../common-components/map-component';
 
 @Component({
   selector: 'ucea-add-report',
@@ -26,8 +26,7 @@ import { IError } from '../interfaces/validation-error';
     MatFormFieldModule,
     FormCard,
     BaseFieldWithError,
-    GoogleMap,
-    MapMarker,
+    MapComponent,
   ],
   templateUrl: './add-report.component.html',
   styleUrl: './add-report.component.scss',
@@ -170,13 +169,13 @@ export class AddReportComponent {
     this.addReportForm.controls.lng.markAsTouched();
   }
 
-  removeMarker() {
+  removeMarker = () => {
     this.markerPosition = null;
     this.addReportForm.controls.lat.setValue(null);
     this.addReportForm.controls.lng.setValue(null);
-  }
+  };
 
-  handleMarkerEvent(event: google.maps.MapMouseEvent) {
+  handleMarkerEvent = (event: google.maps.MapMouseEvent) => {
     const position = event?.latLng?.toJSON() || null;
 
     const isPositionTheSame =
@@ -189,5 +188,5 @@ export class AddReportComponent {
     }
 
     this.setMarker(position!);
-  }
+  };
 }

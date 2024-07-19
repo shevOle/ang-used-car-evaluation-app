@@ -61,18 +61,12 @@
 
     <div class="add-report-map">
       <h3>Mark the area where the car was sold:</h3>
-      <google-map
-        height="90%"
-        width="100%"
-        [zoom]="10"
-        (mapClick)="handleMarkerEvent($event)"
-      >
-        <map-marker
-          *ngIf="markerPosition"
-          [position]="markerPosition"
-          (mapClick)="removeMarker()"
-        />
-      </google-map>
+      <ucea-map
+        [markerSpot]="markerPosition"
+        [mapOptions]="{ zoom: 10 }"
+        [onMapClick]="handleMarkerEvent"
+        [onMarkerClick]="removeMarker"
+      ></ucea-map>
       @if (coordinatesError) {
       <mat-error>{{ coordinatesError }}</mat-error>
       }
