@@ -66,6 +66,7 @@
         [mapOptions]="{ zoom: 10 }"
         [onMapClick]="handleMarkerEvent"
         [onMarkerClick]="removeMarker"
+        class="map-region"
       ></ucea-map>
       @if (coordinatesError) {
       <mat-error>{{ coordinatesError }}</mat-error>

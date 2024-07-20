@@ -39,13 +39,18 @@ $break-point-xs: 480px;
 
   .add-report-map {
     width: 100%;
-    height: 350px;
     padding: 20px;
+
+    .map-region {
+      display: inline-block;
+      height: 350px;
+      width: 100%;
+    }
 
     h3,
     mat-error {
       width: 100%;
-      margin: 0 auto;
+      margin: 0 auto 20px;
       text-align: center;
     }
   }
@@ -63,5 +68,9 @@ $break-point-xs: 480px;
 @media screen and (max-width: $break-point-xs) {
   .estimate-page-form .estimate-page-form-input {
     width: 100%;
+  }
+
+  .estimate-page-form .add-report-map .map-region {
+    height: 300px;
   }
 }
