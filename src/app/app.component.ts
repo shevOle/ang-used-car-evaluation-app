@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { IUser } from './interfaces/user';
 import { IAppNavigationLink } from './interfaces/navigation-link';
+import { LoadingIndicatorComponent } from './common-components/loading-component';
 
 @Component({
   selector: 'ucea-root',
@@ -19,6 +20,7 @@ import { IAppNavigationLink } from './interfaces/navigation-link';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

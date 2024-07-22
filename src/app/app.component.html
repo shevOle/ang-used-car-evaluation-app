@@ -55,6 +55,7 @@
 </header>
 <main>
   <router-outlet />
+  <loading-indicator [detectRouteTransitions]="true" />
 </main>
 <footer *ngIf="currentUser">
   <div class="footer-title">
