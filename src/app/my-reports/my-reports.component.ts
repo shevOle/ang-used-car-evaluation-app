@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { ReportService } from '../services/reports.service';
 import { AuthService } from '../services/auth.service';
 import { Report } from '../interfaces/report';
 import { IUser } from '../interfaces/user';
 import { ReportComponent } from '../report/report.component';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'ucea-my-reports',
@@ -17,16 +18,19 @@ import { ReportComponent } from '../report/report.component';
 })
 export class MyReportsComponent {
   user: IUser | null = null;
-  reports!: Observable<Report[]>;
+  reports!: Report[];
   constructor(
     private authService: AuthService,
-    private reportsService: ReportService
+    private reportsService: ReportService,
+    private loadingService: LoadingService
   ) {
     this.authService.currentUser.subscribe((user) => {
       this.user = user;
     });
   }
   async ngAfterViewInit() {
-    this.reports = this.reportsService.getOwnReports();
+    this.loadingService.loadingOn();
+    this.reports = await firstValueFrom(this.reportsService.getOwnReports());
+    this.loadingService.loadingOff();
   }
 }

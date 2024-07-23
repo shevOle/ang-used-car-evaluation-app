@@ -2,7 +2,7 @@
   <div class="my-reports">
     <ucea-report
       class="report-card"
-      *ngFor="let report of reports | async"
+      *ngFor="let report of reports"
       [routerLink]="['/reports', report.id]"
       [report]="report"
     ></ucea-report>
