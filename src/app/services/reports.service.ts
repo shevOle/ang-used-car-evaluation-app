@@ -9,6 +9,7 @@ import { Report } from '../interfaces/report';
 import { IReportEstimateInput } from '../interfaces/reportEstimate-input';
 import { IAddReport } from '../interfaces/addReport-input';
 import { apiUrl } from '../helpers/constants';
+import { LoadingService } from './loading.service';
 
 interface IPaginationOptions {
   page?: number;
@@ -25,15 +26,21 @@ export class ReportService {
   constructor(
     protected httpClient: HttpClient,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loadingService: LoadingService
   ) {}
 
   getAllReports(): Promise<Report[]> {
-    const reportsObservable = this.httpClient.get(this.url, {
-      withCredentials: true,
-    }) as Observable<Report[]>;
+    try {
+      this.loadingService.loadingOn();
+      const reportsObservable = this.httpClient.get(this.url, {
+        withCredentials: true,
+      }) as Observable<Report[]>;
 
-    return firstValueFrom(reportsObservable);
+      return firstValueFrom(reportsObservable);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getOwnReports(): Observable<Report[]> {
