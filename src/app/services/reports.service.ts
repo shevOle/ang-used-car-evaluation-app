@@ -44,17 +44,27 @@ export class ReportService {
   }
 
   getOwnReports(): Observable<Report[]> {
-    return this.httpClient.get(`${this.url}/own`, {
-      withCredentials: true,
-    }) as Observable<Report[]>;
+    try {
+      this.loadingService.loadingOn();
+      return this.httpClient.get(`${this.url}/own`, {
+        withCredentials: true,
+      }) as Observable<Report[]>;
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getNewReports(): Promise<Report[]> {
-    const params = new HttpParams({ fromObject: { status: 'new' } });
-    const obsservable = this.httpClient.get(this.url, { params }) as Observable<
-      Report[]
-    >;
-    return firstValueFrom(obsservable);
+    try {
+      this.loadingService.loadingOn();
+      const params = new HttpParams({ fromObject: { status: 'new' } });
+      const obsservable = this.httpClient.get(this.url, {
+        params,
+      }) as Observable<Report[]>;
+      return firstValueFrom(obsservable);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getReports(options: Partial<Report>): Observable<Report[]>;
@@ -66,20 +76,25 @@ export class ReportService {
     options: Partial<Report>,
     pagination?: IPaginationOptions
   ): Observable<Report[] | { results: Report[]; count: number }> {
-    const params = new HttpParams({
-      fromObject: { ...options, ...pagination },
-    });
+    try {
+      this.loadingService.loadingOn();
+      const params = new HttpParams({
+        fromObject: { ...options, ...pagination },
+      });
 
-    if (!pagination)
+      if (!pagination)
+        return this.httpClient.get(this.url, {
+          params,
+          withCredentials: true,
+        }) as Observable<Report[]>;
+
       return this.httpClient.get(this.url, {
         params,
         withCredentials: true,
-      }) as Observable<Report[]>;
-
-    return this.httpClient.get(this.url, {
-      params,
-      withCredentials: true,
-    }) as Observable<{ results: Report[]; count: number }>;
+      }) as Observable<{ results: Report[]; count: number }>;
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getFilteredReports(options: {
@@ -87,79 +102,109 @@ export class ReportService {
     model?: string;
     year?: string;
   }): Promise<Report[]> {
-    const fromObject = omitBy(options, isEmpty);
+    try {
+      this.loadingService.loadingOn();
+      const fromObject = omitBy(options, isEmpty);
 
-    const params = new HttpParams({ fromObject });
+      const params = new HttpParams({ fromObject });
 
-    const reportsObservable = this.httpClient.get(this.url, {
-      params,
-      withCredentials: true,
-    }) as Observable<Report[]>;
+      const reportsObservable = this.httpClient.get(this.url, {
+        params,
+        withCredentials: true,
+      }) as Observable<Report[]>;
 
-    return firstValueFrom(reportsObservable);
+      return firstValueFrom(reportsObservable);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getReportById(id: string): Promise<Report> {
-    const reportObservable = this.httpClient.get(`${this.url}/${id}`, {
-      withCredentials: true,
-    }) as Observable<Report>;
+    try {
+      this.loadingService.loadingOn();
+      const reportObservable = this.httpClient.get(`${this.url}/${id}`, {
+        withCredentials: true,
+      }) as Observable<Report>;
 
-    return firstValueFrom(reportObservable);
+      return firstValueFrom(reportObservable);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   getEstimate(input: IReportEstimateInput) {
-    const params = new HttpParams({ fromObject: { ...input } });
-    const reportObservable = this.httpClient.get(`${this.url}/estimate`, {
-      params,
-      withCredentials: true,
-    }) as Observable<{ reports: Report[]; averagePrice: number }>;
+    try {
+      this.loadingService.loadingOn();
+      const params = new HttpParams({ fromObject: { ...input } });
+      const reportObservable = this.httpClient.get(`${this.url}/estimate`, {
+        params,
+        withCredentials: true,
+      }) as Observable<{ reports: Report[]; averagePrice: number }>;
 
-    return firstValueFrom(reportObservable);
+      return firstValueFrom(reportObservable);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   async addReport(params: IAddReport) {
-    const userId = this.authService.currentUserValue?.id;
-    const body = {
-      ...params,
-      status: 'new',
-      submittedByUserId: userId,
-    };
-    const observable = this.httpClient.post(this.url, body, {
-      withCredentials: true,
-      observe: 'response',
-      responseType: 'text',
-    });
+    try {
+      this.loadingService.loadingOn();
+      const userId = this.authService.currentUserValue?.id;
+      const body = {
+        ...params,
+        status: 'new',
+        submittedByUserId: userId,
+      };
+      const observable = this.httpClient.post(this.url, body, {
+        withCredentials: true,
+        observe: 'response',
+        responseType: 'text',
+      });
 
-    const result = await firstValueFrom(observable);
-    this.toastr.success('Report was successfully submitted!');
+      const result = await firstValueFrom(observable);
+      this.toastr.success('Report was successfully submitted!');
 
-    return result;
+      return result;
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   async approveReport(id: string) {
-    const result = await firstValueFrom(
-      this.httpClient.patch(
-        `${this.url}/${id}`,
-        { status: 'approved' },
-        { withCredentials: true, observe: 'response', responseType: 'text' }
-      )
-    );
+    try {
+      this.loadingService.loadingOn();
+      const result = await firstValueFrom(
+        this.httpClient.patch(
+          `${this.url}/${id}`,
+          { status: 'approved' },
+          { withCredentials: true, observe: 'response', responseType: 'text' }
+        )
+      );
 
-    this.toastr.success('Report was successfully approved!');
+      this.toastr.success('Report was successfully approved!');
 
-    return result;
+      return result;
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   async rejectReport(id: string) {
-    const result = await firstValueFrom(
-      this.httpClient.patch(
-        `${this.url}/${id}`,
-        { status: 'rejected' },
-        { withCredentials: true, observe: 'response', responseType: 'text' }
-      )
-    );
+    try {
+      this.loadingService.loadingOn();
+      const result = await firstValueFrom(
+        this.httpClient.patch(
+          `${this.url}/${id}`,
+          { status: 'rejected' },
+          { withCredentials: true, observe: 'response', responseType: 'text' }
+        )
+      );
 
-    this.toastr.success('Report was successfully rejected!');
-    return result;
+      this.toastr.success('Report was successfully rejected!');
+      return result;
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 }
