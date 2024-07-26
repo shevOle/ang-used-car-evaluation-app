@@ -7,6 +7,7 @@ import { IUserLoginInput } from '../interfaces/login-input';
 import { IUserSignUpInput } from '../interfaces/signup-input';
 import { IUser } from '../interfaces/user';
 import { apiUrl } from '../helpers/constants';
+import { LoadingService } from './loading.service';
 
 const getToken = (cookieString: string) => {
   if (!cookieString) return null;
@@ -33,7 +34,8 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loadingService: LoadingService
   ) {
     this.currentUserSubject = new BehaviorSubject(null);
     this.currentUser = this.currentUserSubject.asObservable();
@@ -65,62 +67,77 @@ export class AuthService {
   }
 
   async loginUser(data: IUserLoginInput) {
-    await firstValueFrom(
-      this.httpClient.post(`${this.url}/login`, data, {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'text',
-      })
-    );
-
-    this.saveUser();
-
-    const { queryParams } = this.router.parseUrl(
-      this.router.routerState.snapshot.url
-    );
-
-    this.router.navigate([queryParams['returnUrl'] || '/']);
-
-    this.toastr.success(`Welcoome, ${data.email}`);
-  }
-
-  async logout() {
-    await firstValueFrom(
-      this.httpClient.post(
-        `${this.url}/logout`,
-        {},
-        {
+    try {
+      this.loadingService.loadingOn();
+      await firstValueFrom(
+        this.httpClient.post(`${this.url}/login`, data, {
           withCredentials: true,
           observe: 'response',
           responseType: 'text',
-        }
-      )
-    );
+        })
+      );
 
-    this.currentUserSubject.next(null);
+      this.saveUser();
+
+      const { queryParams } = this.router.parseUrl(
+        this.router.routerState.snapshot.url
+      );
+
+      this.router.navigate([queryParams['returnUrl'] || '/']);
+
+      this.toastr.success(`Welcoome, ${data.email}`);
+    } finally {
+      this.loadingService.loadingOff();
+    }
+  }
+
+  async logout() {
+    try {
+      this.loadingService.loadingOn();
+      await firstValueFrom(
+        this.httpClient.post(
+          `${this.url}/logout`,
+          {},
+          {
+            withCredentials: true,
+            observe: 'response',
+            responseType: 'text',
+          }
+        )
+      );
+
+      this.currentUserSubject.next(null);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   async signUp(input: IUserSignUpInput) {
-    const userData = {
-      ...input,
-      isAdmin: false,
-    };
+    try {
+      this.loadingService.loadingOn();
+      const userData = {
+        ...input,
+        isAdmin: false,
+      };
 
-    await firstValueFrom(
-      this.httpClient.post(`${this.url}/signup`, userData, {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'text',
-      })
-    );
+      await firstValueFrom(
+        this.httpClient.post(`${this.url}/signup`, userData, {
+          withCredentials: true,
+          observe: 'response',
+          responseType: 'text',
+        })
+      );
 
-    this.saveUser();
+      this.saveUser();
 
-    const { queryParams } = this.router.parseUrl(
-      this.router.routerState.snapshot.url
-    );
+      const { queryParams } = this.router.parseUrl(
+        this.router.routerState.snapshot.url
+      );
 
-    this.router.navigate([queryParams['returnUrl'] || '/']);
-    this.toastr.success(`Welcoome, ${input.email}`);
+      this.router.navigate([queryParams['returnUrl'] || '/']);
+      this.toastr.success(`Welcoome, ${input.email}`);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 }
